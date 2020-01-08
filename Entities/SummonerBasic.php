@@ -1,0 +1,100 @@
+<?php
+
+require_once 'Constants.php';
+
+class SummonerBasic
+{
+    /**
+     * @var String
+     */
+    private $summonername;
+
+    /**
+     * @var string
+     */
+    private $id;
+
+    /**
+     * @var int
+     */
+    private $profileIcon;
+
+    /**
+     * SummonerBasic constructor.
+     * @param string $summonername
+     * @param bool $initialze
+     */
+    public function __construct($summonername = "", $initialze = true)
+    {
+        if($initialze) {
+            $summoner = $this->loadRealSummonerName($summonername);
+            if ($this->exists()) {
+                $this->initiateSummoner($summoner);
+            }
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function exists(){
+        return !empty($this->summonername);
+    }
+
+    /**
+     * @param $summonername
+     * @return mixed
+     */
+    private function loadRealSummonerName($summonername)
+    {
+        $summoner = json_decode(file_get_contents(Constants::$api_basePath . "summoner/v4/summoners/by-name/" . $summonername . "?api_key=" . Constants::$key));
+        if (!empty($summoner)) {
+            $this->summonername = $summoner->name;
+            return $summoner;
+        }
+        return "";
+    }
+
+    /**
+     * @param mixed $summoner
+     */
+    protected function initiateSummoner($summoner){
+        $this->id = $summoner->id;
+        $this->profileIcon = intval($summoner->profileIconId);
+    }
+
+    /**
+     * @param string $summonerName
+     * @param string $id
+     * @param int $profileIcon
+     */
+    public function setAllFields($summonerName, $id, $profileIcon){
+        $this->summonername = $summonerName;
+        $this->id = $id;
+        $this->profileIcon = $profileIcon;
+    }
+
+    /**
+     * @return String
+     */
+    public function getSummonername()
+    {
+        return $this->summonername;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProfileIcon()
+    {
+        return $this->profileIcon;
+    }
+}
