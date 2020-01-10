@@ -1,5 +1,6 @@
 <?php require_once 'Entities/Summoner.php';
-      require_once 'Utils.php'?>
+      require_once 'Utils.php';
+      require_once "Entities/Game.php";?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -23,7 +24,7 @@
         <h1 align="center">League of Legends</h1>
         <?php
             if(empty($_GET["name"])){
-                echo "<p>No Summonername spezified</p>";
+                echo "<p>No Summonername specified</p>";
             }else{
                 $summonerName = str_replace(" ", "", $_GET["name"]);
                 $summoner = new Summoner($summonerName);
@@ -56,7 +57,7 @@
 
                     echo "<table class='mastery-list'><tr><th>Champion</th><th>Mastery Level</th><th>Points</th><th>Progress to next level</th><th>Tokens for next Level</th><th>Chest Granted</th></tr>";
 
-                    $masteries = json_decode(file_get_contents(Constants::API_BASEPATH . "champion-mastery/v4/champion-masteries/by-summoner/" . $summoner->getId() . "?api_key=" . Constants::$key));
+                    $masteries = json_decode(file_get_contents(Constants::API_BASEPATH . "champion-mastery/v4/champion-masteries/by-summoner/" . $summoner->getId() . "?api_key=" . Config::getConfig("key")));
 
                     foreach ($masteries AS $champion) {
                         echo "<tr><td style='border-color: white;'>";

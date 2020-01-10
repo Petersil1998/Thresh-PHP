@@ -47,7 +47,7 @@ class SummonerBasic
      */
     private function loadRealSummonerName($summonername)
     {
-        $summoner = HTTPClient::getInstance()->requestSummonerEndpoint("/by-name/" . $summonername);
+        $summoner = HTTPClient::getInstance()->requestSummonerEndpoint("by-name/" . $summonername);
         $summoner = json_decode($summoner);
         if (!empty($summoner)) {
             $this->summonername = $summoner->name;

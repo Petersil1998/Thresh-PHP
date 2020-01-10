@@ -54,7 +54,7 @@
 
         "1070" => "Odyssey Extraction: Onslaught","1090" => "Teamfight Tactics games", "1100" => "Ranked Teamfight Tactics games");
 
-        const RUNES = array();
+        public static $runes = array();
 
-        const RUNESTATS = array();
+        public static $runestats = array();
     }

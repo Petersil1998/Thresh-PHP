@@ -28,7 +28,7 @@
 
         public static function getDDragonVersion(){
             if(empty(self::$ddragonversion)) {
-                self::$ddragonversion = json_decode(file_get_contents(Constants::$ddragon_basePath . "api/versions.json"))[0];
+                self::$ddragonversion = json_decode(file_get_contents(Constants::DDRAGON_BASEPATH . "api/versions.json"))[0];
                 $myfile = fopen("ddragonversion.txt", "r");
                 $version = fread($myfile,filesize("ddragonversion.txt"));
                 fclose($myfile);
@@ -50,7 +50,7 @@
 
         private static function updateRunesFile(){
             $fp = fopen('runes.json', 'w');
-            $runes =  file_get_contents(Constants::$ddragon_basePath."cdn/".self::getDDragonVersion()."/data/en_US/runesReforged.json");
+            $runes =  file_get_contents(Constants::DDRAGON_BASEPATH."cdn/".self::getDDragonVersion()."/data/en_US/runesReforged.json");
             fwrite($fp, $runes);
             fclose($fp);
         }
