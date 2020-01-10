@@ -46,6 +46,10 @@ input {
 
 a {
     color: white;
+}
+
+a:hover {
+    color: lightgrey;
     text-decoration: none;
 }
 
@@ -80,19 +84,19 @@ p{
 }
 
 .background-red-team{
-    background: red;
+    background: rgba(255,0,0,0.5);
 }
 
 .background-blue-team{
-    background: blue;
+    background: rgba(0,0,255,0.5);
 }
 
 .background-red-team-player{
-    background: darkred;
+    background: rgba(139,0,0,0.5);
 }
 
 .background-blue-team-player{
-    background: deepskyblue;
+    background: rgba(0,191,255,0.5);
 }
 
 .mastery-list{

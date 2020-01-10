@@ -29,7 +29,7 @@
                 $summoner = new Summoner($summonerName);
                 if(!$summoner->exists()){
                     echo "<p>Summoner not found</p>";
-                }else {
+                } else {
                     echo "<div><div><img alt='Profile Icon' src='" . Constants::DDRAGON_BASEPATH . "cdn/" . Utils::getDDragonVersion() . "/img/profileicon/" . $summoner->getProfileIcon() . ".png" . "' style='width: 200px; height: 200px;' class='center'></div>";
                     echo "<div><table style='border: 0; margin-top: 10px'>";
                     echo "<tr><td class='noborder'>Summonername:</td><td class='noborder'>" . $summoner->getSummonername() . "</td></tr>";

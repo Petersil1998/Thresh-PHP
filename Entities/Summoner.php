@@ -2,6 +2,7 @@
 
 require_once 'SummonerBasic.php';
 require_once 'Rank.php';
+require_once 'ChampionMastery.php';
 
 class Summoner extends SummonerBasic
 {
@@ -29,6 +30,11 @@ class Summoner extends SummonerBasic
      * @var int
      */
     private $revisionDate;
+
+    /**
+     * @var ChampionMastery[]
+     */
+    private $championMasteries;
 
     /**
      * @var Rank
@@ -66,10 +72,15 @@ class Summoner extends SummonerBasic
         $this->summonerLevel = intval($summoner->summonerLevel);
         $this->revisionDate = intval($summoner->revisionDate)/1000;
         $this->totalMasteryPoints = intval(json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint("by-summoner/".$this->getId())));
-        $this->initiateRanks();
+        $this->initChampionMasteries();
+        $this->initRanks();
     }
 
-    protected function initiateRanks(){
+    protected function initChampionMasteries(){
+        //$championMasteries =
+    }
+
+    protected function initRanks(){
         $ranks = json_decode(HTTPClient::getInstance()->requestLeagueEndpoint("entries/by-summoner/".$this->getId()));
         foreach ($ranks as $rank){
             if(isset($rank->queueType)) {
@@ -132,6 +143,14 @@ class Summoner extends SummonerBasic
     public function getRevisionDate()
     {
         return $this->revisionDate;
+    }
+
+    /**
+     * @return ChampionMastery[]
+     */
+    public function getChampionMasteries()
+    {
+        return $this->championMasteries;
     }
 
     /**

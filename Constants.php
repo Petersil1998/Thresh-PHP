@@ -18,7 +18,7 @@
 
         "11" => "Master Yi", "21" => "Miss Fortune", "82" => "Mordekaiser", "25" => "Morgana", "267" => "Nami", "75" => "Nasus", "111" => "Nautilus", "518" => "Neeko", "76" => "Nidalee", "56" => "Nocturne", "20" => "Nunu", "2" => "Olaf", "61" => "Orianna", "516" => "Ornn", "80" => "Pantheon",
 
-        "78" => "Poppy", "555" => "Pyke", "246" => "Qiyana", "133" => "Quinn", "497" => "Rakan", "33" => "Rammus", "421" => "Rek'Sai", "58" => "Renekton", "107" => "Rengar", "92" => "Riven", "68" => "Rumble", "13" => "Ryze", "113" => "Sejuani", "35" => "Shaco", "98" => "Shen", "102" => "Shyvana", "27" => "Singed", "14" => "Sion",
+        "78" => "Poppy", "555" => "Pyke", "246" => "Qiyana", "133" => "Quinn", "497" => "Rakan", "33" => "Rammus", "421" => "Rek'Sai", "58" => "Renekton", "107" => "Rengar", "92" => "Riven", "68" => "Rumble", "13" => "Ryze", "113" => "Sejuani", "235" => "Senna", "35" => "Shaco", "98" => "Shen", "102" => "Shyvana", "27" => "Singed", "14" => "Sion",
 
         "15" => "Sivir", "72" => "Skarner", "37" => "Sona", "16" => "Soraka", "50" => "Swain", "517" => "Sylas", "134" => "Syndra", "223" => "Tahm Kench", "163" => "Taliyah", "91" => "Talon", "44" => "Taric", "17" => "Teemo", "412" => "Thresh", "18" => "Tristana", "48" => "Trundle", "23" => "Tryndamere",
 
