@@ -9,7 +9,6 @@ body {
 table {
     border: 2px solid black;
     border-collapse: collapse;
-    opacity: 0.85%;
     margin-left:auto;
     margin-right:auto;
 }
@@ -17,7 +16,6 @@ table {
 td {
     border: 2px solid black;
     border-collapse: collapse;
-    opacity: 0.85%;
     width: 200px;
     font-family: "Liberation Serif";
     font-weight: 600;
