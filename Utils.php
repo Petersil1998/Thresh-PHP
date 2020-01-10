@@ -30,9 +30,9 @@
             if(empty(self::$ddragonversion)) {
                 self::$ddragonversion = json_decode(file_get_contents(Constants::DDRAGON_BASEPATH . "api/versions.json"))[0];
                 $myfile = fopen("ddragonversion.txt", "r");
-                $version = fread($myfile,filesize("ddragonversion.txt"));
+                $version = fread($myfile, filesize("ddragonversion.txt"));
                 fclose($myfile);
-                if(strcmp(self::$ddragonversion,$version) != 0){
+                if(strcmp(self::$ddragonversion, $version) != 0){
                     $fp = fopen('ddragonversion.txt', 'w');
                     fwrite($fp, self::getDDragonVersion());
                     fclose($fp);

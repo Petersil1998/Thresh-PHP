@@ -64,7 +64,7 @@ class HTTPClient
      * @return string
      */
     public function requestChampionMasteryEndpoint($url){
-        return $this->request("champion-mastery/v4/champion-masteries/".$url);
+        return $this->request("champion-mastery/v4/".$url);
     }
 
     /**

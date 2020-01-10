@@ -71,13 +71,18 @@ class Summoner extends SummonerBasic
         $this->puuid = $summoner->puuid;
         $this->summonerLevel = intval($summoner->summonerLevel);
         $this->revisionDate = intval($summoner->revisionDate)/1000;
-        $this->totalMasteryPoints = intval(json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint("by-summoner/".$this->getId())));
+        $this->totalMasteryPoints = intval(json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint("scores/by-summoner/".$this->getId())));
         $this->initChampionMasteries();
         $this->initRanks();
     }
 
     protected function initChampionMasteries(){
-        //$championMasteries =
+        $championMasteries = json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint("champion-masteries/by-summoner/".$this->getId()));
+        $this->championMasteries = array();
+        foreach ($championMasteries as $championMastery){
+            $championMasteryObj = new ChampionMastery($championMastery);
+            $this->championMasteries[] = $championMasteryObj;
+        }
     }
 
     protected function initRanks(){

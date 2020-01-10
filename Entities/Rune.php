@@ -72,10 +72,16 @@ class Rune
 
     /**
      * @param int $id
-     * @return float|int
+     * @return int
      */
     private function getRuneStyleById($id){
-        return floor($id/100)*100;
+        foreach (Constants::$runes as $runeStyle){
+            foreach ($runeStyle->slots[0]->runes as $rune){
+                if ($rune->id == $id) {
+                    return $runeStyle->id;
+                }
+            }
+        }
     }
 
     /**
