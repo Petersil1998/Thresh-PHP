@@ -63,7 +63,7 @@ class Game
      * @return mixed
      */
     protected function loadGame($summonerId){
-        return @json_decode(@file_get_contents(Constants::$api_basePath."spectator/v4/active-games/by-summoner/" . $summonerId . "?api_key=" . Constants::$key));
+        return json_decode(HTTPClient::getInstance()->requestSpectatorEndpoint("active-games/by-summoner/" . $summonerId));
     }
 
     /**

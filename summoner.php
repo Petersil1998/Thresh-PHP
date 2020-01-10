@@ -30,7 +30,7 @@
                 if(!$summoner->exists()){
                     echo "<p>Summoner not found</p>";
                 }else {
-                    echo "<div><div><img alt='Profile Icon' src='" . Constants::$ddragon_basePath . "cdn/" . Utils::getDDragonVersion() . "/img/profileicon/" . $summoner->getProfileIcon() . ".png" . "' style='width: 200px; height: 200px;' class='center'></div>";
+                    echo "<div><div><img alt='Profile Icon' src='" . Constants::DDRAGON_BASEPATH . "cdn/" . Utils::getDDragonVersion() . "/img/profileicon/" . $summoner->getProfileIcon() . ".png" . "' style='width: 200px; height: 200px;' class='center'></div>";
                     echo "<div><table style='border: 0; margin-top: 10px'>";
                     echo "<tr><td class='noborder'>Summonername:</td><td class='noborder'>" . $summoner->getSummonername() . "</td></tr>";
                     echo "<tr><td class='noborder'>Level:</td><td class='noborder'>" . $summoner->getSummonerLevel() . "</td></tr>";
@@ -38,9 +38,9 @@
                     echo "<tr><td class='noborder' style='vertical-align: top'>Revision Date:</td><td class='noborder'>" . date("d. F Y G:i:s", $summoner->getRevisionDate()) . "</td></tr>";
                     echo "</table></div></div>";
 
-                    $game = @json_decode(@file_get_contents(Constants::$api_basePath . "spectator/v4/active-games/by-summoner/" . $summoner->getId() . "?api_key=" . Constants::$key));
+                    $game = new Game($summonerName);
 
-                    if (isset($game)) {
+                    if ($game->exists()) {
                         echo "<a href='game.php?name=" . $summoner->getSummonername() . "'><button>View Live Game</button></a>";
                     }
 
@@ -56,12 +56,12 @@
 
                     echo "<table class='mastery-list'><tr><th>Champion</th><th>Mastery Level</th><th>Points</th><th>Progress to next level</th><th>Tokens for next Level</th><th>Chest Granted</th></tr>";
 
-                    $masteries = json_decode(file_get_contents(Constants::$api_basePath . "champion-mastery/v4/champion-masteries/by-summoner/" . $summoner->getId() . "?api_key=" . Constants::$key));
+                    $masteries = json_decode(file_get_contents(Constants::API_BASEPATH . "champion-mastery/v4/champion-masteries/by-summoner/" . $summoner->getId() . "?api_key=" . Constants::$key));
 
                     foreach ($masteries AS $champion) {
                         echo "<tr><td style='border-color: white;'>";
-                        echo "<img class='small-icon' src='" . Constants::$ddragon_basePath . "cdn/" . Utils::getDDragonVersion() . "/img/champion/" . Utils::getChampWithoutSpecials(Constants::$champs[$champion->championId]) . ".png'>";
-                        echo Constants::$champs[$champion->championId];
+                        echo "<img class='small-icon' src='" . Constants::DDRAGON_BASEPATH . "cdn/" . Utils::getDDragonVersion() . "/img/champion/" . Utils::getChampWithoutSpecials(Constants::CHAMPIONS[$champion->championId]) . ".png'>";
+                        echo Constants::CHAMPIONS[$champion->championId];
                         echo "</td><td style='border-color: white; text-align: center'>" . $champion->championLevel . "</td>";
                         echo "<td style='border-color: white; text-align: center'>" . $champion->championPoints . "</td>";
                         if ($champion->championLevel < 5) {

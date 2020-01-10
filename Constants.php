@@ -2,11 +2,11 @@
 
     class Constants{
 
-        public static $api_basePath = "https://euw1.api.riotgames.com/lol/";
+        const API_BASEPATH = "https://euw1.api.riotgames.com/lol/";
 
-        public static $ddragon_basePath = "https://ddragon.leagueoflegends.com/";
+        const DDRAGON_BASEPATH = "https://ddragon.leagueoflegends.com/";
 
-        public static $champs = array("266" => "Aatrox", "103" => "Ahri", "84" => "Akali", "12" => "Alistar", "32" => "Amumu", "34" => "Anivia", "1" => "Annie", "22" => "Ashe", "136" => "Aurelion Sol", "268" => "Azir", "432" => "Bard", "53" => "Blitzcrank", "63" => "Brand",
+        const CHAMPIONS = array("266" => "Aatrox", "103" => "Ahri", "84" => "Akali", "12" => "Alistar", "32" => "Amumu", "34" => "Anivia", "1" => "Annie", "22" => "Ashe", "136" => "Aurelion Sol", "268" => "Azir", "432" => "Bard", "53" => "Blitzcrank", "63" => "Brand",
 
         "201" => "Braum", "51" => "Caitlyn", "164" => "Camille", "69" => "Cassiopeia", "31" => "Cho'Gath", "42" => "Corki", "122" => "Darius", "131" => "Diana", "36" => "Dr. Mundo", "119" => "Draven", "245" => "Ekko", "60" => "Elise", "28" => "Evelynn", "81" => "Ezreal",
 
@@ -26,11 +26,11 @@
 
         "101" => "Xerath", "5" => "Xin Zhao", "157" => "Yasuo", "83" => "Yorick", "350" => "Yuumi", "154" => "Zac", "238" => "Zed", "115" => "Ziggs", "26" => "Zilean", "142" => "Zoe", "143" => "Zyra");
 
-        public static $maps = array("10" => "The Twisted Treeline", "11" => "Summoner's Rift", "12" => "Howling Abyss", "13" => "Butcher's Bridge", "16" => "Cosmic Ruins", "18" => "Valoran City Park",
+        const MAPS = array("10" => "The Twisted Treeline", "11" => "Summoner's Rift", "12" => "Howling Abyss", "13" => "Butcher's Bridge", "16" => "Cosmic Ruins", "18" => "Valoran City Park",
 
         "19" => "Substructure 43", "20" => "Crash Site", "21" => "Nexus Blitz");
 
-        public static $queues = array("0" => "Custom Game", "72" => "1v1 Snowdown Showdown", "73" => "2v2 Snowdown Showdown", "75" => "6v6 Hexakill",
+        const QUEUES = array("0" => "Custom Game", "72" => "1v1 Snowdown Showdown", "73" => "2v2 Snowdown Showdown", "75" => "6v6 Hexakill",
 
         "76" => "Ultra Rapid Fire", "78" => "One For All: Mirror Mode", "83" => "Co-op vs AI Ultra Rapid Fire", "98" => "6v6 Hexakill",
 
@@ -54,10 +54,7 @@
 
         "1070" => "Odyssey Extraction: Onslaught","1090" => "Teamfight Tactics games", "1100" => "Ranked Teamfight Tactics games");
 
-        public static $runes = array();
+        const RUNES = array();
 
-        public static $runestats = array();
-
-        public static $key = "RGAPI-95d3e37f-096e-40cf-ba2c-dfa0ccaa9b44";
-
+        const RUNESTATS = array();
     }

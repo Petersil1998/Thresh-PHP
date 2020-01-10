@@ -16,14 +16,14 @@
     <body><h1 align="center">League of Legends</h1>
         <?php
         if(isset($_GET["name"])) {
-            $summonername = str_replace(" ", "", $_GET["name"]);
+            $summonerName = str_replace(" ", "", $_GET["name"]);
             $i = 0;
-            $game = new Game($summonername);
+            $game = new Game($summonerName);
             if ($game->exists()) {
                 echo "<div id='gameid' hidden>" . $game->getGameId() . "</div>";
-                echo "<p class='game-player-row' style='color: white;'>Map: " . Constants::$maps[$game->getMapId()];
+                echo "<p class='game-player-row' style='color: white;'>Map: " . Constants::MAPS[$game->getMapId()];
                 echo "<br>Game Mode: " . $game->getGameMode();
-                echo "<br>Queue: " . Constants::$queues[$game->getGameQueueConfigId()] . "</p></div>";
+                echo "<br>Queue: " . Constants::QUEUES[$game->getGameQueueConfigId()] . "</p></div>";
                 $participants = $game->getParticipants();
                 foreach ($participants AS $player) {
                     $keyRune = new Rune($player->getPerks()[0]);
@@ -34,7 +34,7 @@
                     if ($i == $game->getTeamsize()) {
                         echo "</table><p class='game-player-row' style='text-align: center; font-size: 30px; font-weight: bold; color: white; margin-top: 0; margin-bottom: 0;'>VS</p><table class='background-red-team'>";
                     }
-                    if (strcasecmp(str_replace(" ", "", $player->getSummonername()), str_replace(" ", "", $summonername)) == 0) {
+                    if (strcasecmp(str_replace(" ", "", $player->getSummonername()), str_replace(" ", "", $summonerName)) == 0) {
                         $realName = $player->getSummonername();
                         if ($i < $game->getTeamsize()) {
                             echo "<tr class='game-player-row background-blue-team-player'>";
@@ -45,8 +45,8 @@
                         echo "<tr class='game-player-row'>";
                     }
                     echo "<td style='width=\"250px\"'><a href='summoner.php?name=" . $player->getSummonername() . "'>" . $player->getSummonername() . "</a></td>";
-                    echo "<td><img alt='".Constants::$champs[$player->getChampionId()]."' class='small-icon' src='" . Constants::$ddragon_basePath . "cdn/" . Utils::getDDragonVersion() . "/img/champion/" . Utils::getChampWithoutSpecials(Constants::$champs[$player->getChampionId()]) . ".png'> " . Constants::$champs[$player->getChampionId()] . "</td>";
-                    echo "<td><img alt='".$keyRune->getName()."' class='small-icon' src='" . Constants::$ddragon_basePath . "cdn/img/" . $keyRune->getIconPath()."'>" . $keyRune->getName()."</td>";
+                    echo "<td><img alt='".Constants::CHAMPIONS[$player->getChampionId()]."' class='small-icon' src='" . Constants::DDRAGON_BASEPATH . "cdn/" . Utils::getDDragonVersion() . "/img/champion/" . Utils::getChampWithoutSpecials(Constants::CHAMPIONS[$player->getChampionId()]) . ".png'> " . Constants::CHAMPIONS[$player->getChampionId()] . "</td>";
+                    echo "<td><img alt='".$keyRune->getName()."' class='small-icon' src='" . Constants::DDRAGON_BASEPATH . "cdn/img/" . $keyRune->getIconPath()."'>" . $keyRune->getName()."</td>";
                     echo "</tr>";
                     $i++;
                 }

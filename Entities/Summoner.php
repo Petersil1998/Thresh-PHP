@@ -65,12 +65,12 @@ class Summoner extends SummonerBasic
         $this->puuid = $summoner->puuid;
         $this->summonerLevel = intval($summoner->summonerLevel);
         $this->revisionDate = intval($summoner->revisionDate)/1000;
-        $this->totalMasteryPoints = intval(json_decode(file_get_contents(Constants::$api_basePath."champion-mastery/v4/champion-masteries/by-summoner/".$this->getId()."?api_key=".Constants::$key)));
+        $this->totalMasteryPoints = intval(json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint("by-summoner/".$this->getId())));
         $this->initiateRanks();
     }
 
     protected function initiateRanks(){
-        $ranks = json_decode(file_get_contents(Constants::$api_basePath."league/v4/entries/by-summoner/".$this->getId()."?api_key=".Constants::$key));
+        $ranks = json_decode(HTTPClient::getInstance()->requestLeagueEndpoint("entries/by-summoner/".$this->getId()));
         foreach ($ranks as $rank){
             if(isset($rank->queueType)) {
                 switch ($rank->queueType) {

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Constants.php';
+require_once 'HTTPClient.php';
 
 class SummonerBasic
 {
@@ -47,7 +47,8 @@ class SummonerBasic
      */
     private function loadRealSummonerName($summonername)
     {
-        $summoner = json_decode(file_get_contents(Constants::$api_basePath . "summoner/v4/summoners/by-name/" . $summonername . "?api_key=" . Constants::$key));
+        $summoner = HTTPClient::getInstance()->requestSummonerEndpoint("/by-name/" . $summonername);
+        $summoner = json_decode($summoner);
         if (!empty($summoner)) {
             $this->summonername = $summoner->name;
             return $summoner;
