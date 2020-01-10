@@ -33,7 +33,12 @@ class Game
     /**
      * @var SummonerGameParticipant[]
      */
-    private $participants;
+    private $blueSideTeam;
+
+    /**
+     * @var SummonerGameParticipant[]
+     */
+    private $redSideTeam;
 
     /**
      * @var int
@@ -83,10 +88,17 @@ class Game
      * @param array $participants
      */
     protected function loadParticipants($participants){
-        $this->participants = array();
+        $this->blueSideTeam = array();
+        $this->redSideTeam = array();
         foreach ($participants as $participant){
             $player = new SummonerGameParticipant($participant);
-            array_push($this->participants, $player);
+            if($player->getTeamId() == 100){
+                $this->blueSideTeam[] = $player;
+            } elseif ($player->getTeamId() == 200){
+                $this->redSideTeam[] = $player;
+            } else {
+              echo "Error!";
+            }
         }
     }
 
@@ -133,9 +145,17 @@ class Game
     /**
      * @return SummonerGameParticipant[]
      */
-    public function getParticipants()
+    public function getBlueSideTeam(): array
     {
-        return $this->participants;
+        return $this->blueSideTeam;
+    }
+
+    /**
+     * @return SummonerGameParticipant[]
+     */
+    public function getRedSideTeam(): array
+    {
+        return $this->redSideTeam;
     }
 
     /**
