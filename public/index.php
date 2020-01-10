@@ -8,13 +8,13 @@
 
     <title>League Test</title>
 
-    <link rel="icon" href="images/icon.png">
+    <link rel="icon" href="images/favicon.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
 
 </head>
 <body>
-    <form action="summoner.php" method="get">
+    <form action="../summoner.php" method="get">
         <input type="text" placeholder="Summonername" name="name" id="name">
         <input style="margin-top: 25px" type="submit" value="Search">
     </form>

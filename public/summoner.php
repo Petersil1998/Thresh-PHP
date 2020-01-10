@@ -12,12 +12,12 @@
 
         <title></title>
 
-        <link rel="icon" href="images/icon.png">
+        <link rel="icon" href="images/favicon.png">
         <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
         <link rel="stylesheet" type="text/css" href="bootstrap-4.3.1-dist/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="bootstrap-4.3.1-dist/css/bootstrap-grid.css">
         <link rel="stylesheet" type="text/css" href="bootstrap-4.3.1-dist/css/bootstrap-reboot.css">
-        <link rel="stylesheet" type="text/css" href="styles/styles.css">
+        <link rel="stylesheet" type="text/css" href="public/styles/styles.css">
     </head>
     <body>
 
@@ -57,23 +57,23 @@
 
                     echo "<table class='mastery-list'><tr><th>Champion</th><th>Mastery Level</th><th>Points</th><th>Progress to next level</th><th>Tokens for next Level</th><th>Chest Granted</th></tr>";
 
-                    $masteries = json_decode(file_get_contents(Constants::API_BASEPATH . "champion-mastery/v4/champion-masteries/by-summoner/" . $summoner->getId() . "?api_key=" . Config::getConfig("key")));
+                    //$masteries = json_decode(file_get_contents(Constants::API_BASEPATH . "champion-mastery/v4/champion-masteries/by-summoner/" . $summoner->getId() . "?api_key=" . Config::getConfig("key")));
 
-                    foreach ($masteries AS $champion) {
+                    foreach ($summoner->getChampionMasteries() AS $championMastery) {
                         echo "<tr><td style='border-color: white;'>";
-                        echo "<img class='small-icon' src='" . Constants::DDRAGON_BASEPATH . "cdn/" . Utils::getDDragonVersion() . "/img/champion/" . Utils::getChampWithoutSpecials(Constants::CHAMPIONS[$champion->championId]) . ".png'>";
-                        echo Constants::CHAMPIONS[$champion->championId];
-                        echo "</td><td style='border-color: white; text-align: center'>" . $champion->championLevel . "</td>";
-                        echo "<td style='border-color: white; text-align: center'>" . $champion->championPoints . "</td>";
-                        if ($champion->championLevel < 5) {
-                            echo "<td style='border-color: white; text-align: center'><progress value=\"" . $champion->championPointsSinceLastLevel . "\" max=\"" . intval($champion->championPointsUntilNextLevel + $champion->championPointsSinceLastLevel) . "\"></progress></td>";
+                        echo "<img class='small-icon' src='" . Constants::DDRAGON_BASEPATH . "cdn/" . Utils::getDDragonVersion() . "/img/champion/" . Utils::getChampWithoutSpecials(Constants::CHAMPIONS[$championMastery->getChampionId()]) . ".png'>";
+                        echo Constants::CHAMPIONS[$championMastery->getChampionId()];
+                        echo "</td><td style='border-color: white; text-align: center'>" . $championMastery->getChampionLevel() . "</td>";
+                        echo "<td style='border-color: white; text-align: center'>" . $championMastery->getChampionPoints() . "</td>";
+                        if ($championMastery->getChampionLevel() < 5) {
+                            echo "<td style='border-color: white; text-align: center'><progress value=\"" . $championMastery->getChampionPointsSinceLastLevel() . "\" max=\"" . intval($championMastery->getChampionPointsUntilNextLevel() + $championMastery->getChampionPointsSinceLastLevel()) . "\"></progress></td>";
                             echo "<td style='border-color: white; text-align: center'></td>";
                         } else {
                             echo "<td style='border-color: white; text-align: center'></td>";
-                            echo "<td style='border-color: white; text-align: center'>" . $champion->tokensEarned . "</td>";
+                            echo "<td style='border-color: white; text-align: center'>" . $championMastery->getTokensEarned() . "</td>";
                         }
                         echo "<td style='border-color: white; text-align: center'>";
-                        if ($champion->chestGranted == 1) {
+                        if ($championMastery->isChestGranted() == 1) {
                             echo "<img class='small-icon' alt='yes' src=\"images/yes.png\"></td></tr>";
                         } else
                             echo "<img class='small-icon' alt='yes' src=\"images/no.png\"></td></tr>";
