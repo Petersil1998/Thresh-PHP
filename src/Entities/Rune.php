@@ -1,6 +1,9 @@
 <?php
 
-require_once 'RuneStyle.php';
+namespace src\Entities;
+
+use src\Helper\Utils;
+use src\Helper\Constants;
 
 class Rune
 {

@@ -1,7 +1,10 @@
-<?php require_once 'Entities/Summoner.php';
-      require_once 'Utils.php';
-      require_once "Entities/Game.php";?>
+<?php
+    require_once '../Autoloader.php';
 
+    use src\Entities\Game;
+    use src\Entities\Summoner;
+    use src\Helper\Constants;
+    use src\Helper\Utils;?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html lang="en">
@@ -17,7 +20,7 @@
         <link rel="stylesheet" type="text/css" href="bootstrap-4.3.1-dist/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="bootstrap-4.3.1-dist/css/bootstrap-grid.css">
         <link rel="stylesheet" type="text/css" href="bootstrap-4.3.1-dist/css/bootstrap-reboot.css">
-        <link rel="stylesheet" type="text/css" href="public/styles/styles.css">
+        <link rel="stylesheet" type="text/css" href="styles/styles.css">
     </head>
     <body>
 
@@ -25,7 +28,7 @@
         <?php
             if(empty($_GET["name"])){
                 echo "<p>No Summonername specified</p>";
-            }else{
+            } else {
                 $summonerName = str_replace(" ", "", $_GET["name"]);
                 $summoner = new Summoner($summonerName);
                 if(!$summoner->exists()){

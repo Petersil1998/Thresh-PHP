@@ -1,8 +1,8 @@
 <?php
 
-require_once 'SummonerBasic.php';
-require_once 'Rank.php';
-require_once 'ChampionMastery.php';
+namespace src\Entities;
+
+use src\Helper\HTTPClient;
 
 class Summoner extends SummonerBasic
 {

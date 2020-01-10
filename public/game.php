@@ -1,8 +1,9 @@
-<?php require_once 'Utils.php';
-      require_once 'Entities/Summoner.php';
-      require_once 'Entities/Game.php';
-      require_once 'Entities/Rune.php';
-require_once 'Entities/Runestat.php' ?>
+<?php
+    use src\Entities\Game;
+    use src\Entities\Rune;
+    use src\Entities\Runestat;
+    use src\Helper\Constants;
+    use src\Helper\Utils;?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">

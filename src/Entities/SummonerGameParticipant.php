@@ -1,6 +1,6 @@
 <?php
 
-require_once 'SummonerBasic.php';
+namespace src\Entities;
 
 class SummonerGameParticipant extends SummonerBasic
 {

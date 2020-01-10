@@ -1,7 +1,8 @@
 <?php
 
-require_once 'SummonerBasic.php';
-require_once 'SummonerGameParticipant.php';
+namespace src\Entities;
+
+use src\Helper\HTTPClient;
 
 class Game
 {

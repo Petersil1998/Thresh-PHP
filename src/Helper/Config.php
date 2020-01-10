@@ -1,5 +1,6 @@
 <?php
 
+namespace src\Helper;
 
 class Config
 {
@@ -8,8 +9,8 @@ class Config
      */
     private static $configs;
 
-    private static function readConfig(){
-        self::$configs = json_decode(file_get_contents('config.json'),1);
+    private static function loadConfig(){
+        self::$configs = json_decode(file_get_contents(__DIR__.'\..\config.json'),1);
     }
 
     /**
@@ -18,7 +19,7 @@ class Config
      */
     public static function getConfig($key){
         if(!isset(self::$configs))
-            self::readConfig();
+            self::loadConfig();
         return self::$configs[$key];
     }
 }

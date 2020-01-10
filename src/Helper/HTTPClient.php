@@ -1,7 +1,6 @@
 <?php
 
-require_once 'Constants.php';
-require_once 'Config.php';
+namespace src\Helper;
 
 class HTTPClient
 {

@@ -1,5 +1,9 @@
 <?php
 
+namespace src\Entities;
+
+use src\Helper\Utils;
+use src\Helper\Constants;
 
 class Runestat
 {

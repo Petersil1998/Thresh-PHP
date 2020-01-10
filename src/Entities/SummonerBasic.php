@@ -1,6 +1,8 @@
 <?php
 
-require_once 'HTTPClient.php';
+namespace src\Entities;
+
+use src\Helper\HTTPClient;
 
 class SummonerBasic
 {

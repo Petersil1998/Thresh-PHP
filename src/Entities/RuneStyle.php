@@ -1,7 +1,9 @@
 <?php
 
-require_once 'Utils.php';
-require_once 'Constants.php';
+namespace src\Entities;
+
+use src\Helper\Utils;
+use src\Helper\Constants;
 
 class RuneStyle
 {
