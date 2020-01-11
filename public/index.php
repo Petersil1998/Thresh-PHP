@@ -1,3 +1,21 @@
+<?php
+
+    require_once 'vendor/autoload.php';
+
+    use Twig\Loader\FilesystemLoader;
+    use Twig\Environment;
+    use src\Helper\Config;
+
+    $loader = new FilesystemLoader('public/templates');
+    $twig = new Environment($loader);
+    $config = Config::getConfig("key");
+    echo $twig->render('hello.html', array(
+            'name' => 'Peter',
+            'age' => $config
+    ));
+
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html lang="en">
@@ -8,9 +26,9 @@
 
     <title>League Test</title>
 
-    <link rel="icon" href="images/favicon.png">
+    <link rel="icon" href="public/images/favicon.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <link rel="stylesheet" type="text/css" href="public/styles/styles.css">
 
 </head>
 <body>
