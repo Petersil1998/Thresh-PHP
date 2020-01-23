@@ -25,18 +25,20 @@ class FileHandler
         $this->fp = fopen($this->path, $this->mode);
     }
 
+    public function __destruct()
+    {
+        if($this->fp != null){
+            fclose($this->fp);
+            $this->fp = null;
+        }
+    }
+
     /**
      * @param $text
      */
     public function write($text){
         if($this->mode == 'w' && $this->fp != null){
             fwrite($this->fp, $text);
-        }
-    }
-
-    public function close(){
-        if($this->fp != null){
-            fclose($this->fp);
         }
     }
 
@@ -51,10 +53,10 @@ class FileHandler
         return false;
     }
 
-    public function __destruct()
-    {
+    public function close(){
         if($this->fp != null){
             fclose($this->fp);
+            $this->fp = null;
         }
     }
 }
