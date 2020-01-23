@@ -1,0 +1,13 @@
+
+# HTID:5322136: DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES BELOW
+php_value display_errors 1
+# DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES ABOVE HTID:5322136:
+
+RewriteEngine On
+
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^index.php
+RewriteRule ^([a-z-]*).php /index.php?id=$1 [QSA,L]
+
+# RewriteCond %{REQUEST_URI} !^/public/
+# RewriteRule ^(.*)$ /public/$1 [R=301,L]
