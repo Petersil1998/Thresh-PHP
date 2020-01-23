@@ -9,7 +9,7 @@ class Constants
 
     const DDRAGON_BASEPATH = "https://ddragon.leagueoflegends.com/";
 
-    const CHAMPIONS = array("266" => "Aatrox", "103" => "Ahri", "84" => "Akali", "12" => "Alistar", "32" => "Amumu", "34" => "Anivia", "1" => "Annie", "22" => "Ashe", "136" => "Aurelion Sol", "268" => "Azir", "432" => "Bard", "53" => "Blitzcrank", "63" => "Brand",
+    const CHAMPIONS = array("266" => "Aatrox", "103" => "Ahri", "84" => "Akali", "12" => "Alistar", "32" => "Amumu", "34" => "Anivia", "1" => "Annie", "523" => "Aphelios", "22" => "Ashe", "136" => "Aurelion Sol", "268" => "Azir", "432" => "Bard", "53" => "Blitzcrank", "63" => "Brand",
 
     "201" => "Braum", "51" => "Caitlyn", "164" => "Camille", "69" => "Cassiopeia", "31" => "Cho'Gath", "42" => "Corki", "122" => "Darius", "131" => "Diana", "36" => "Dr. Mundo", "119" => "Draven", "245" => "Ekko", "60" => "Elise", "28" => "Evelynn", "81" => "Ezreal",
 

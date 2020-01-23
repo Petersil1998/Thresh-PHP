@@ -19,6 +19,9 @@
             case 0:{
                 break;
             }
+            default: {
+                echo "ID: ".$id;
+            }
         }
     }
 ?>
