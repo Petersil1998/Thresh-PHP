@@ -40,12 +40,14 @@ class HTTPClient
 
         $response = curl_exec($this->_curl);
 
-        $httpcode = curl_getinfo($this->_curl, CURLINFO_HTTP_CODE);
+        $httpStatusCode = curl_getinfo($this->_curl, CURLINFO_HTTP_CODE);
         $header_size = curl_getinfo($this->_curl, CURLINFO_HEADER_SIZE);
         $body = substr($response, $header_size);
 
-        if($httpcode == 200){
+        if($httpStatusCode == 200){
             return $body;
+        } else {
+            syslog(LOG_ALERT, sprintf("API Request returned a statusCode other than 200! Status Code: %s%sBody: %s", $httpStatusCode, PHP_EOL, $body));
         }
         return "";
     }
