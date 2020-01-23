@@ -1,0 +1,12 @@
+{
+    "autoload": {
+        "psr-4": {
+            "src\\": "src"
+        }
+    },
+    "require": {
+        "ext-json": "*",
+        "ext-curl": "*",
+        "twig/twig": "^2.0"
+    }
+}

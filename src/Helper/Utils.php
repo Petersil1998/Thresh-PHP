@@ -29,13 +29,13 @@ class Utils
     public static function getDDragonVersion(){
         if(empty(self::$ddragonversion)) {
             self::$ddragonversion = json_decode(file_get_contents(Constants::DDRAGON_BASEPATH . "api/versions.json"))[0];
-            $myfile = fopen(__DIR__.'\\..\\ddragonversion.txt', "r");
-            $version = fread($myfile, filesize(__DIR__.'\\..\\ddragonversion.txt'));
-            fclose($myfile);
+            $fileHandler = new FileHandler(__DIR__.'/../ddragonversion.txt', 'r');
+            $version = $fileHandler->read();
+            $fileHandler->close();
             if(strcmp(self::$ddragonversion, $version) != 0){
-                $fp = fopen(__DIR__.'\\..\\ddragonversion.txt', 'w');
-                fwrite($fp, self::getDDragonVersion());
-                fclose($fp);
+                $fileHandler = new FileHandler(__DIR__.'/../ddragonversion.txt', 'w');
+                $fileHandler->write(self::getDDragonVersion());
+                $fileHandler->close();
                 self::updateRunesFile();
             }
         }
@@ -44,27 +44,32 @@ class Utils
 
     public static function loadRunes(){
         if(empty(Constants::$runes)){
-            Constants::$runes = json_decode(file_get_contents(__DIR__.'\\..\\runes.json'));
+            $fileHandler = new FileHandler(__DIR__.'/../runes.json', 'r');
+            Constants::$runes = json_decode($fileHandler->read());
+            $fileHandler->close();
         }
     }
 
     private static function updateRunesFile(){
-        $fp = fopen(__DIR__.'\\..\\runes.json', 'w');
+        $fileHandler = new FileHandler(__DIR__.'/../runes.json', 'w');
         $runes =  file_get_contents(Constants::DDRAGON_BASEPATH."cdn/".self::getDDragonVersion()."/data/en_US/runesReforged.json");
-        fwrite($fp, $runes);
-        fclose($fp);
+        $fileHandler->write($runes);
+        $fileHandler->close();
     }
 
     public static function loadRuneStats(){
         self::updateRunestatsFile();
         if(empty(Constants::$runestats)){
-            Constants::$runestats = json_decode(str_replace('\\', "",file_get_contents(__DIR__.'\\..\\runestats.json')));
+            $fileHandler = new FileHandler(__DIR__.'/../runestats.json', 'r');
+            Constants::$runestats = json_decode(str_replace('\\', "", $fileHandler->read()));
+            $fileHandler->close();
         }
     }
 
     private static function updateRunestatsFile(){
         if(empty(Constants::$runestats)){
-            if(filesize(__DIR__.'\..\runestats.json') <= 2){
+            $fileHandler = new FileHandler(__DIR__.'/../runestats.json', '');
+            if($fileHandler->getFileSize() <= 2){
                 $runestats = array();
                 $runes = json_decode(file_get_contents("https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json"));
                 foreach ($runes as $rune){
@@ -72,22 +77,23 @@ class Utils
                         array_push($runestats, json_encode($rune));
                     }
                 }
-                self::writeArraytoFile($runestats);
+                self::writeArrayToFile($runestats);
             }
+            $fileHandler->close();
         }
     }
 
-    private static function writeArraytoFile($runestats){
-        $fp = fopen(__DIR__.'\..\runestats.json', 'w');
-        fwrite($fp, "[");
+    private static function writeArrayToFile($runestats){
+        $fileHandler = new FileHandler(__DIR__.'/../runestats.json', 'w');
+        $fileHandler->write("[");
         for($i = 0; $i < count($runestats); $i++) {
             if($i < count($runestats)-1){
-                fwrite($fp, $runestats[$i] . ",");
+                $fileHandler->write($runestats[$i] . ",");
             }else{
-                fwrite($fp, $runestats[$i]);
+                $fileHandler->write($runestats[$i]);
             }
         }
-        fwrite($fp, "]");
-        fclose($fp);
+        $fileHandler->write("]");
+        $fileHandler->close();
     }
 }

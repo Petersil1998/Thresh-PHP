@@ -10,7 +10,9 @@ class Config
     private static $configs;
 
     private static function loadConfig(){
-        self::$configs = json_decode(file_get_contents(__DIR__.'\..\config.json'),1);
+        $fileHandler = new FileHandler(__DIR__.'/../config.json', 'r');
+        self::$configs = json_decode($fileHandler->read(),1);
+        $fileHandler->close();
     }
 
     /**

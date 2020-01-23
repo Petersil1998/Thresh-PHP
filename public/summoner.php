@@ -1,5 +1,5 @@
 <?php
-    require_once '../Autoloader.php';
+    require_once '../vendor/autoload.php';
 
     use src\Entities\Game;
     use src\Entities\Summoner;
@@ -59,8 +59,6 @@
                     echo "<p>Ranked TFT: " . $tft->getTier() . " " . $summoner->getRankTft()->getRank() . "<img class='rank-icon' alt='".$tft->getTier()."' src='images/Ranks/".strtolower($tft->getTier()).".png'></p>";
 
                     echo "<table class='mastery-list'><tr><th>Champion</th><th>Mastery Level</th><th>Points</th><th>Progress to next level</th><th>Tokens for next Level</th><th>Chest Granted</th></tr>";
-
-                    //$masteries = json_decode(file_get_contents(Constants::API_BASEPATH . "champion-mastery/v4/champion-masteries/by-summoner/" . $summoner->getId() . "?api_key=" . Config::getConfig("key")));
 
                     foreach ($summoner->getChampionMasteries() AS $championMastery) {
                         echo "<tr><td style='border-color: white;'>";

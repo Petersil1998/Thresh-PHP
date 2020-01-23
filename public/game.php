@@ -1,4 +1,6 @@
 <?php
+    require_once '../vendor/autoload.php';
+
     use src\Entities\Game;
     use src\Entities\Rune;
     use src\Entities\Runestat;
