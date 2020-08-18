@@ -32,10 +32,18 @@ class HTTPClient
 
     /**
      * @param $url string
+     * @param $isLeague bool
+     * @param $extraData array
      * @return string
      */
-    private function request($url){
-        curl_setopt($this->_curl, CURLOPT_URL, Constants::API_BASEPATH . $url . "?api_key=" . Config::getConfig("key"));
+    private function request($url, $isLeague = true, $extraData = array()){
+        if($isLeague){
+            curl_setopt($this->_curl, CURLOPT_URL, Constants::LEAGUE_API_BASE_PATH . $url .
+                "?api_key=" . Config::getConfig("api_key").'&'.$this->buildParameters($extraData));
+        } else {
+            curl_setopt($this->_curl, CURLOPT_URL, Constants::RIOT_API_BASE_PATH . $url .
+                "?api_key=" . Config::getConfig("api_key").'&'.$this->buildParameters($extraData));
+        }
         curl_setopt($this->_curl, CURLOPT_HEADER  , true);
 
         $response = curl_exec($this->_curl);
@@ -47,9 +55,30 @@ class HTTPClient
         if($httpStatusCode == 200){
             return $body;
         } else {
-            syslog(LOG_ALERT, sprintf("API Request returned a statusCode other than 200! Status Code: %s%sBody: %s", $httpStatusCode, PHP_EOL, $body));
+            syslog(LOG_ALERT,
+                sprintf("API Request returned a statusCode other than 200! Status Code: %s%sBody: %s",
+                    $httpStatusCode,
+                    PHP_EOL,
+                    $body));
         }
         return "";
+    }
+
+    private function buildParameters($array, $qs = false) {
+        $parts = array();
+        if ($qs) {
+            $parts[] = $qs;
+        }
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                foreach ($value as $value2) {
+                    $parts[] = http_build_query(array($key => $value2));
+                }
+            } else {
+                $parts[] = http_build_query(array($key => $value));
+            }
+        }
+        return join('&', $parts);
     }
 
     /**
@@ -57,7 +86,7 @@ class HTTPClient
      * @return string
      */
     public function requestSummonerEndpoint($url){
-        return $this->request("summoner/v4/summoners/".$url);
+        return $this->request("summoner/v4/".$url);
     }
 
     /**
@@ -82,5 +111,22 @@ class HTTPClient
      */
     public function requestSpectatorEndpoint($url){
         return $this->request("spectator/v4/".$url);
+    }
+
+    /**
+     * @param $url string
+     * @param $filter array
+     * @return string
+     */
+    public function requestMatchEndpoint($url, $filter = array()){
+        return $this->request("match/v4/".$url, true, $filter);
+    }
+
+    /**
+     * @param $url string
+     * @return string
+     */
+    public function requestAccountEndpoint($url){
+        return $this->request("account/v1/".$url, false);
     }
 }

@@ -1,10 +1,12 @@
 <?php
 
-namespace src\Entities;
+namespace src\Entities\Match;
 
+use src\Entities\Summoner\SummonerBasic;
+use src\Entities\Summoner\SummonerGameParticipant;
 use src\Helper\HTTPClient;
 
-class Game
+class ActiveGame
 {
     /**
      * @var float

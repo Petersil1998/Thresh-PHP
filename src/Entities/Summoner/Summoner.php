@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Entities;
+namespace src\Entities\Summoner;
 
 use src\Helper\HTTPClient;
 
@@ -49,12 +49,12 @@ class Summoner extends SummonerBasic
     /**
      * @var Rank
      */
-    private $rank_flex_3v3;
+    private $rank_tft;
 
     /**
-     * @var Rank
+     * @var Account
      */
-    private $rank_tft;
+    private $account;
 
     /**
      * Summoner constructor.
@@ -69,9 +69,10 @@ class Summoner extends SummonerBasic
         parent::initiateSummoner($summoner);
         $this->accountId = $summoner->accountId;
         $this->puuid = $summoner->puuid;
-        $this->summonerLevel = intval($summoner->summonerLevel);
-        $this->revisionDate = intval($summoner->revisionDate)/1000;
-        $this->totalMasteryPoints = intval(json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint("scores/by-summoner/".$this->getId())));
+        $this->summonerLevel = $summoner->summonerLevel;
+        $this->revisionDate = $summoner->revisionDate/1000;
+        $this->totalMasteryPoints = json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint("scores/by-summoner/".$this->getId()));
+        $this->account = new Account($this->puuid);
         $this->initChampionMasteries();
         $this->initRanks();
     }
@@ -80,8 +81,7 @@ class Summoner extends SummonerBasic
         $championMasteries = json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint("champion-masteries/by-summoner/".$this->getId()));
         $this->championMasteries = array();
         foreach ($championMasteries as $championMastery){
-            $championMasteryObj = new ChampionMastery($championMastery);
-            $this->championMasteries[] = $championMasteryObj;
+            $this->championMasteries[] = new ChampionMastery($championMastery);
         }
     }
 
@@ -100,11 +100,6 @@ class Summoner extends SummonerBasic
                         $this->rank_flex_5v5 = new Rank($rank);
                         break;
                     }
-                    case "RANKED_FLEX_TT":
-                    {
-                        $this->rank_flex_3v3 = new Rank($rank);
-                        break;
-                    }
                     case "RANKED_TFT":{
                         $this->rank_tft = new Rank($rank);
                         break;
@@ -120,8 +115,6 @@ class Summoner extends SummonerBasic
             $this->rank_solo_duo = new Rank('Unranked');
         if (empty($this->rank_flex_5v5))
             $this->rank_flex_5v5 = new Rank('Unranked');
-        if (empty($this->rank_flex_3v3))
-            $this->rank_flex_3v3 = new Rank('Unranked');
         if (empty($this->rank_tft))
             $this->rank_tft = new Rank('Unranked');
     }
@@ -193,16 +186,16 @@ class Summoner extends SummonerBasic
     /**
      * @return Rank
      */
-    public function getRankFlex3v3()
-    {
-        return $this->rank_flex_3v3;
-    }
-
-    /**
-     * @return Rank
-     */
     public function getRankTft()
     {
         return $this->rank_tft;
+    }
+
+    /**
+     * @return Account
+     */
+    public function getAccount()
+    {
+        return $this->account;
     }
 }

@@ -1,9 +1,9 @@
 <?php
     require_once '../vendor/autoload.php';
 
-    use src\Entities\Game;
-    use src\Entities\Rune;
-    use src\Entities\Runestat;
+    use src\Entities\Match\ActiveGame;
+    use src\Entities\Runes\Rune;
+    use src\Entities\Runes\Runestat;
     use src\Helper\Constants;
     use src\Helper\Utils;?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -21,12 +21,12 @@
         if(isset($_GET["name"])) {
             $summonerName = str_replace(" ", "", $_GET["name"]);
             $i = 0;
-            $game = new Game($summonerName);
+            $game = new ActiveGame($summonerName);
             if ($game->exists()) {
                 echo "<div id='gameid' hidden>" . $game->getGameId() . "</div>";
                 echo "<p class='game-player-row' style='color: white;'>Map: " . Constants::MAPS[$game->getMapId()];
                 echo "<br>Game Mode: " . $game->getGameMode();
-                echo "<br>Queue: " . Constants::QUEUES[$game->getGameQueueConfigId()] . "</p></div>";
+                echo "<br>Queue: " . Constants::QUEUES_TYPES[$game->getGameQueueConfigId()] . "</p></div>";
                 $blueSideTeam = $game->getBlueSideTeam();
                 foreach ($blueSideTeam AS $player) {
                     $keyRune = new Rune($player->getPerks()[0]);

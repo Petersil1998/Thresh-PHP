@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Entities;
+namespace src\Entities\Runes;
 
 use src\Helper\Utils;
 use src\Helper\Constants;

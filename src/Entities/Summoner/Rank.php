@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Entities;
+namespace src\Entities\Summoner;
 
 class Rank
 {
@@ -18,7 +18,7 @@ class Rank
     /**
      * @var string
      */
-    private $tier ="";
+    private $tier = "";
 
     /**
      * @var string

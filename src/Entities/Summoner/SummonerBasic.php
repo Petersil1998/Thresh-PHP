@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Entities;
+namespace src\Entities\Summoner;
 
 use src\Helper\HTTPClient;
 
@@ -49,7 +49,7 @@ class SummonerBasic
      */
     private function loadRealSummonerName($summonername)
     {
-        $summoner = HTTPClient::getInstance()->requestSummonerEndpoint("by-name/" . $summonername);
+        $summoner = HTTPClient::getInstance()->requestSummonerEndpoint("summoners/by-name/" . $summonername);
         $summoner = json_decode($summoner);
         if (!empty($summoner)) {
             $this->summonername = $summoner->name;
@@ -63,7 +63,7 @@ class SummonerBasic
      */
     protected function initiateSummoner($summoner){
         $this->id = $summoner->id;
-        $this->profileIcon = intval($summoner->profileIconId);
+        $this->profileIcon = $summoner->profileIconId;
     }
 
     /**

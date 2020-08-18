@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Entities;
+namespace src\Entities\Summoner;
 
 class ChampionMastery
 {
@@ -45,11 +45,6 @@ class ChampionMastery
     private $championPointsSinceLastLevel;
 
     /**
-     * @var string
-     */
-    private $summonerId;
-
-    /**
      * ChampionMastery constructor.
      * @param $championMastery mixed
      */
@@ -63,7 +58,6 @@ class ChampionMastery
         $this->lastPlayTime = $championMastery->lastPlayTime;
         $this->tokensEarned = $championMastery->tokensEarned;
         $this->championPointsSinceLastLevel = $championMastery->championPointsSinceLastLevel;
-        $this->summonerId = $championMastery->summonerId;
     }
 
     /**
@@ -128,13 +122,5 @@ class ChampionMastery
     public function getChampionPointsSinceLastLevel()
     {
         return $this->championPointsSinceLastLevel;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSummonerId()
-    {
-        return $this->summonerId;
     }
 }
