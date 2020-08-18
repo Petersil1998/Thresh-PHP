@@ -1,8 +1,8 @@
 <?php
     require_once '../vendor/autoload.php';
 
-    use src\Entities\Game;
-    use src\Entities\Summoner;
+    use src\Entities\Match\ActiveGame;
+    use src\Entities\Summoner\Summoner;
     use src\Helper\Constants;
     use src\Helper\Utils;?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -42,7 +42,7 @@
                     echo "<tr><td class='noborder' style='vertical-align: top'>Revision Date:</td><td class='noborder'>" . date("d. F Y G:i:s", $summoner->getRevisionDate()) . "</td></tr>";
                     echo "</table></div></div>";
 
-                    $game = new Game($summonerName);
+                    $game = new ActiveGame($summonerName);
 
                     if ($game->exists()) {
                         echo "<a href='game.php?name=" . $summoner->getSummonername() . "'><button>View Live Game</button></a>";
@@ -50,13 +50,11 @@
 
                     $solo_duo = $summoner->getRankSoloDuo();
                     $flex_5v5 = $summoner->getRankFlex5v5();
-                    $flex_3v3 = $summoner->getRankFlex3v3();
                     $tft = $summoner->getRankTft();
 
-                    echo "<p>Ranked Solo/Duo: " . $solo_duo->getTier() . " " . $summoner->getRankSoloDuo()->getRank() . "<img class='rank-icon' alt='".$solo_duo->getTier()."' src='images/Ranks/".strtolower($solo_duo->getTier()).".png'></p>";
-                    echo "<p>Ranked Flex 5v5: " . $flex_5v5->getTier() . " " . $summoner->getRankFlex5v5()->getRank() . "<img class='rank-icon' alt='".$flex_5v5->getTier()."' src='images/Ranks/".strtolower($flex_5v5->getTier()).".png'></p>";
-                    echo "<p>Ranked Flex 3v3: " . $flex_3v3->getTier() . " " . $summoner->getRankFlex3v3()->getRank() . "<img class='rank-icon' alt='".$flex_3v3->getTier()."' src='images/Ranks/".strtolower($flex_3v3->getTier()).".png'></p>";
-                    echo "<p>Ranked TFT: " . $tft->getTier() . " " . $summoner->getRankTft()->getRank() . "<img class='rank-icon' alt='".$tft->getTier()."' src='images/Ranks/".strtolower($tft->getTier()).".png'></p>";
+                    echo "<p>Ranked Solo/Duo: <img alt='' class='rank-icon' title='".$solo_duo->getTier() . " " . $solo_duo->getRank()."' src='images/Ranks/".strtolower($solo_duo->getTier()).".png'></p>";
+                    echo "<p>Ranked Flex 5v5: <img alt='' class='rank-icon' title='".$flex_5v5->getTier() . " " . $flex_5v5->getRank()."' src='images/Ranks/".strtolower($flex_5v5->getTier()).".png'></p>";
+                    echo "<p>Ranked TFT: " . $tft->getTier() . " " . $tft->getRank() . "<img class='rank-icon' alt='".$tft->getTier()."' src='images/Ranks/".strtolower($tft->getTier()).".png'></p>";
 
                     echo "<table class='mastery-list'><tr><th>Champion</th><th>Mastery Level</th><th>Points</th><th>Progress to next level</th><th>Tokens for next Level</th><th>Chest Granted</th></tr>";
 
@@ -67,7 +65,7 @@
                         echo "</td><td style='border-color: white; text-align: center'>" . $championMastery->getChampionLevel() . "</td>";
                         echo "<td style='border-color: white; text-align: center'>" . $championMastery->getChampionPoints() . "</td>";
                         if ($championMastery->getChampionLevel() < 5) {
-                            echo "<td style='border-color: white; text-align: center'><progress value=\"" . $championMastery->getChampionPointsSinceLastLevel() . "\" max=\"" . intval($championMastery->getChampionPointsUntilNextLevel() + $championMastery->getChampionPointsSinceLastLevel()) . "\"></progress></td>";
+                            echo "<td style='border-color: white; text-align: center'><progress value=\"" . $championMastery->getChampionPointsSinceLastLevel() . "\" max=\"" . ($championMastery->getChampionPointsUntilNextLevel() + $championMastery->getChampionPointsSinceLastLevel()) . "\"></progress></td>";
                             echo "<td style='border-color: white; text-align: center'></td>";
                         } else {
                             echo "<td style='border-color: white; text-align: center'></td>";
