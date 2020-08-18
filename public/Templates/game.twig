@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <link rel="icon" href="images/favicon.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+</head>
+<body>
+    <h1 align="center">League of Legends</h1>
+    <div id='gameid' hidden>{{ game.GameId() }}</div>
+    <p class='game-player-row' style='color: white;'>Map: {{ maps[game.MapId()]}}
+        <br>Game Mode: {{ game.GameMode() }}
+        <br>Queue: {{ queues[game.GameQueueConfigId()] }}
+    </p>
+    <div>
+        <table class='background-blue-team'>
+        {% for player in game.BlueSideTeam() %}
+            {% set keyRune = createRune(player.Perks()[0]) %}
+            {% set runestat = createRuneStat(player.Perks()[8]) %}
+                {% if player.Summonername()|replace({" ": ""})|lower is same as (summonerName|replace({" ": ""})|lower) %}
+                    {% set realName = player.Summonername() %}
+                    <tr class='game-player-row background-blue-team-player'>
+                {% else %}
+                    <tr class='game-player-row'>
+                {% endif %}
+                        <td style='width:250px'>
+                            <a href='{{ "index.php?name=#{player.Summonername()}&id=0" }}'>{{ player.Summonername() }}</a>
+                        </td>
+                        <td>
+                            <img alt='{{ champions[player.ChampionId()] }}' class='small-icon' src='{{ getChampionIconPath(player.ChampionId()) }}'> {{ champions[player.ChampionId()] }}
+                        </td>
+                        <td>
+                            <img alt='{{ keyRune.Name() }}' class='small-icon' src='{{ "#{ddragon_basepath}cdn/img/#{keyRune.IconPath()}" }}'>{{ keyRune.Name() }}
+                        </td>
+                    </tr>
+        {% endfor %}
+        </table>
+    </div>
+    <p class='game-player-row' style='text-align: center; font-size: 30px; font-weight: bold; color: white; margin-top: 0; margin-bottom: 0;'>VS</p>
+    <div>
+        <table class='background-red-team'>
+            {% for player in game.RedSideTeam() %}
+                {% set keyRune = createRune(player.Perks()[0]) %}
+                {% set runestat = createRuneStat(player.Perks()[8]) %}
+                {% if player.Summonername()|replace({" ": ""}) is same as (summonerName|replace({" ": ""})) %}
+                    {% set realName = player.Summonername() %}
+                    <tr class='game-player-row background-red-team-player'>
+                {% else %}
+                    <tr class='game-player-row'>
+                {% endif %}
+                <td style='width:250px'>
+                    <a href='{{ "index.php?name=#{player.Summonername()}&id=0" }}'>{{ player.Summonername() }}</a>
+                </td>
+                <td>
+                    <img alt='{{ champions[player.ChampionId()] }}' class='small-icon' src='{{ getChampionIconPath(player.ChampionId()) }}'> {{ champions[player.ChampionId()] }}
+                </td>
+                <td>
+                    <img alt='{{ keyRune.Name() }}' class='small-icon' src='{{ "#{ddragon_basepath}cdn/img/#{keyRune.IconPath()}" }}'>{{ keyRune.Name() }}
+                </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <button onclick='location.href={{ "summoner.php?name=\"#{summonerName}\"" }};'>Zurück</button>
+    <script type="text/javascript">
+        document.getElementsByTagName("title")[0].textContent = {{ "#{realName} - LoL Test" }};
+    </script>
+</body>
+</html>
