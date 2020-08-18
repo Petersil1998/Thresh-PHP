@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7cf1eeec770efcfde084cf4b3a572ec2",
+    "content-hash": "2846e1b9b112aa5274772020014da152",
     "packages": [
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.13.1",
+            "version": "v1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "f8f0b461be3385e56d6de3dbb5a0df24c0c275e3"
+                "reference": "e94c8b1bbe2bc77507a1056cdb06451c75b427f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/f8f0b461be3385e56d6de3dbb5a0df24c0c275e3",
-                "reference": "f8f0b461be3385e56d6de3dbb5a0df24c0c275e3",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/e94c8b1bbe2bc77507a1056cdb06451c75b427f9",
+                "reference": "e94c8b1bbe2bc77507a1056cdb06451c75b427f9",
                 "shasum": ""
             },
             "require": {
@@ -29,7 +29,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13-dev"
+                    "dev-master": "1.17-dev"
                 }
             },
             "autoload": {
@@ -62,20 +62,20 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2019-11-27T13:56:44+00:00"
+            "time": "2020-05-12T16:14:59+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.13.1",
+            "version": "v1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "7b4aab9743c30be783b73de055d24a39cf4b954f"
+                "reference": "fa79b11539418b02fc5e1897267673ba2c19419c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7b4aab9743c30be783b73de055d24a39cf4b954f",
-                "reference": "7b4aab9743c30be783b73de055d24a39cf4b954f",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fa79b11539418b02fc5e1897267673ba2c19419c",
+                "reference": "fa79b11539418b02fc5e1897267673ba2c19419c",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13-dev"
+                    "dev-master": "1.17-dev"
                 }
             },
             "autoload": {
@@ -121,20 +121,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-11-27T14:18:11+00:00"
+            "time": "2020-05-12T16:47:27+00:00"
         },
         {
             "name": "twig/twig",
-            "version": "v2.12.3",
+            "version": "v2.12.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "97b6311585cae66a26833b14b33785f5797f7d39"
+                "reference": "18772e0190734944277ee97a02a9a6c6555fcd94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/97b6311585cae66a26833b14b33785f5797f7d39",
-                "reference": "97b6311585cae66a26833b14b33785f5797f7d39",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/18772e0190734944277ee97a02a9a6c6555fcd94",
+                "reference": "18772e0190734944277ee97a02a9a6c6555fcd94",
                 "shasum": ""
             },
             "require": {
@@ -186,7 +186,48 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-12-28T07:12:03+00:00"
+            "time": "2020-02-11T15:31:23+00:00"
+        },
+        {
+            "name": "umpirsky/twig-php-function",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/umpirsky/twig-php-function.git",
+                "reference": "c06c5c8d09a84a4f51910e9326ebd3438de6b63d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/umpirsky/twig-php-function/zipball/c06c5c8d09a84a4f51910e9326ebd3438de6b63d",
+                "reference": "c06c5c8d09a84a4f51910e9326ebd3438de6b63d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0",
+                "twig/twig": "~1.28|~2.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.0",
+                "phpunit/phpunit": "~4.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Umpirsky\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Saša Stamenković",
+                    "email": "umpirsky@gmail.com"
+                }
+            ],
+            "description": "Call (almost) any PHP function from your Twig templates.",
+            "time": "2017-03-13T13:46:16+00:00"
         }
     ],
     "packages-dev": [],
