@@ -111,8 +111,8 @@ class MatchDetails
     }
 
     public function initTimeLines(){
-        if(empty($this->timelines)){
-            $this->timelines = Timeline::getTimelinesForMatch($gameId);
+        if(empty($this->timelines) && !empty($this->gameId)){
+            $this->timelines = Timeline::getTimelinesForMatch($this->gameId);
         }
     }
 
