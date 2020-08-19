@@ -31,8 +31,8 @@
                 echo "<br>Queue: " . Constants::QUEUES_TYPES[$game->getGameQueueConfigId()] . "</p></div>";
                 $blueSideTeam = $game->getBlueSideTeam();
                 foreach ($blueSideTeam AS $player) {
-                    $keyRune = Runes::getRune($player->getPerks()[0]);
-                    $runestat = RuneStats::getRuneStat($player->getPerks()[8]);
+                    $keyRune = $player->getRunes()[0];
+                    $runestat = $player->getRunes()[8];
                     echo "<div><table class='background-blue-team'>";
                     if (strcasecmp(str_replace(" ", "", $player->getSummonername()), str_replace(" ", "", $summonerName)) == 0) {
                         $realName = $player->getSummonername();
@@ -48,8 +48,8 @@
                 echo "</table><p class='game-player-row' style='text-align: center; font-size: 30px; font-weight: bold; color: white; margin-top: 0; margin-bottom: 0;'>VS</p><table class='background-red-team'>";
                 $redSideTeam = $game->getRedSideTeam();
                 foreach ($redSideTeam AS $player) {
-                    $keyRune = Runes::getRune($player->getPerks()[0]);
-                    $runestat = RuneStats::getRuneStat($player->getPerks()[8]);
+                    $keyRune = $player->getRunes()[0];
+                    $runestat = $player->getRunes()[8];
                     echo "<div><table class='background-red-team'>";
                     if (strcasecmp(str_replace(" ", "", $player->getSummonername()), str_replace(" ", "", $summonerName)) == 0) {
                         $realName = $player->getSummonername();

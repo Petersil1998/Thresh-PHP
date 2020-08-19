@@ -23,14 +23,6 @@
 
     $loader = new FilesystemLoader('templates');
     $twig = new Environment($loader);
-    $function = new TwigFunction('getRune', function ($runeId) {
-        return Runes::getRune($runeId);
-    });
-    $twig->addFunction($function);
-    $function = new TwigFunction('getRuneStat', function ($runeStatId) {
-        return RuneStats::getRuneStat($runeStatId);
-    });
-    $twig->addFunction($function);
     $function = new TwigFunction('getMap', function ($mapId) {
         return Maps::getMap($mapId);
     });

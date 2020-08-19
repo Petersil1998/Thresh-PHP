@@ -2,6 +2,11 @@
 
 namespace src\Entities\Summoner;
 
+use src\Collections\Runes;
+use src\Collections\RuneStyles;
+use src\Entities\Runes\Rune;
+use src\Entities\Runes\RuneStyle;
+
 class SummonerGameParticipant extends SummonerBasic
 {
     /**
@@ -30,9 +35,19 @@ class SummonerGameParticipant extends SummonerBasic
     private $spell2Id;
 
     /**
-     * @var int[]
+     * @var Rune[]
      */
-    private $perkIds;
+    private $runes;
+
+    /**
+     * @var RuneStyle
+     */
+    private $runeStyle;
+
+    /**
+     * @var RuneStyle
+     */
+    private $runeSubStyle;
 
     /**
      * SummonerGameParticipant constructor.
@@ -53,7 +68,13 @@ class SummonerGameParticipant extends SummonerBasic
         $this->teamId = $player->teamId;
         $this->spell1Id = $player->spell1Id;
         $this->spell2Id = $player->spell2Id;
-        $this->perkIds = $player->perks->perkIds;
+        $this->runeStyle = RuneStyles::getRuneStyle($player->perks->perkStyle);
+        $this->runeSubStyle = RuneStyles::getRuneStyle($player->perks->perkSubStyle);
+        $runes = array();
+        foreach ($player->perks->perkIds as $perkId) {
+            $runes[] = Runes::getRune($perkId);
+        }
+        $this->runes = $runes;
     }
 
     /**
@@ -97,10 +118,26 @@ class SummonerGameParticipant extends SummonerBasic
     }
 
     /**
-     * @return int[]
+     * @return Rune[]
      */
-    public function getPerks()
+    public function getRunes()
     {
-        return $this->perkIds;
+        return $this->runes;
+    }
+
+    /**
+     * @return RuneStyle
+     */
+    public function getRuneStyle()
+    {
+        return $this->runeStyle;
+    }
+
+    /**
+     * @return RuneStyle
+     */
+    public function getRuneSubStyle()
+    {
+        return $this->runeSubStyle;
     }
 }

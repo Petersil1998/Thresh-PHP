@@ -24,8 +24,8 @@
     <div>
         <table class='background-blue-team'>
         {% for player in game.BlueSideTeam() %}
-            {% set keyRune = getRune(player.Perks()[0]) %}
-            {% set runestat = getRuneStat(player.Perks()[8]) %}
+            {% set keyRune = player.Runes()[0] %}
+            {% set runestat = player.Runes()[8] %}
                 {% if player.Summonername()|replace({" ": ""})|lower is same as (summonerName|replace({" ": ""})|lower) %}
                     {% set realName = player.Summonername() %}
                     <tr class='game-player-row background-blue-team-player'>
@@ -49,8 +49,8 @@
     <div>
         <table class='background-red-team'>
             {% for player in game.RedSideTeam() %}
-                {% set keyRune = getRune(player.Perks()[0]) %}
-                {% set runestat = getRuneStat(player.Perks()[8]) %}
+                {% set keyRune = player.Runes()[0] %}
+                {% set runestat = player.Runes()[8] %}
                 {% if player.Summonername()|replace({" ": ""}) is same as (summonerName|replace({" ": ""})) %}
                     {% set realName = player.Summonername() %}
                     <tr class='game-player-row background-red-team-player'>
