@@ -30,7 +30,7 @@ class SummonerGameParticipant extends SummonerBasic
     private $spell2Id;
 
     /**
-     * @var mixed
+     * @var int[]
      */
     private $perkIds;
 
@@ -97,7 +97,7 @@ class SummonerGameParticipant extends SummonerBasic
     }
 
     /**
-     * @return mixed
+     * @return int[]
      */
     public function getPerks()
     {
