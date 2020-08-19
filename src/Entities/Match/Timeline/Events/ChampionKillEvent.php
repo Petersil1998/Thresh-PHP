@@ -4,6 +4,8 @@
 namespace src\Entities\Match\Timeline\Events;
 
 
+use src\Entities\Match\Timeline\TimelineParticipant;
+
 class ChampionKillEvent extends AbstractTimelineEvent
 {
     /**
@@ -17,37 +19,37 @@ class ChampionKillEvent extends AbstractTimelineEvent
     private $positionY;
 
     /**
-     * @var int
+     * @var TimelineParticipant
      */
-    private $killerId;
+    private $killer;
 
     /**
-     * @var int
+     * @var TimelineParticipant
      */
-    private $victimId;
+    private $victim;
 
     /**
-     * @var int[]
+     * @var TimelineParticipant[]
      */
-    private $assistingIds;
+    private $assists;
 
     /**
      * ChampionKillEvent constructor.
      * @param $timestamp int
      * @param $positionX int
      * @param $positionY int
-     * @param $killerId int
-     * @param $victimId int
-     * @param $assistingIds int[]
+     * @param $killer TimelineParticipant
+     * @param $victim TimelineParticipant
+     * @param $assists TimelineParticipant[]
      */
-    public function __construct($timestamp, $positionX, $positionY, $killerId, $victimId, $assistingIds)
+    public function __construct($timestamp, $positionX, $positionY, $killer, $victim, $assists)
     {
         parent::__construct($timestamp, TimelineEvent::CHAMPION_KILL);
         $this->positionX = $positionX;
         $this->positionY = $positionY;
-        $this->killerId = $killerId;
-        $this->victimId = $victimId;
-        $this->assistingIds = $assistingIds;
+        $this->killer = $killer;
+        $this->victim = $victim;
+        $this->assists = $assists;
     }
 
     /**
@@ -67,26 +69,26 @@ class ChampionKillEvent extends AbstractTimelineEvent
     }
 
     /**
-     * @return int
+     * @return TimelineParticipant
      */
-    public function getKillerId(): int
+    public function getKiller(): TimelineParticipant
     {
-        return $this->killerId;
+        return $this->killer;
     }
 
     /**
-     * @return int
+     * @return TimelineParticipant
      */
-    public function getVictimId(): int
+    public function getVictim(): TimelineParticipant
     {
-        return $this->victimId;
+        return $this->victim;
     }
 
     /**
-     * @return int[]
+     * @return TimelineParticipant[]
      */
-    public function getAssistingIds(): array
+    public function getAssists(): array
     {
-        return $this->assistingIds;
+        return $this->assists;
     }
 }

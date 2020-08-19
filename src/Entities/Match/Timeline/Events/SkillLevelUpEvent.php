@@ -4,13 +4,15 @@
 namespace src\Entities\Match\Timeline\Events;
 
 
+use src\Entities\Match\Timeline\TimelineParticipant;
+
 class SkillLevelUpEvent extends AbstractTimelineEvent
 {
 
     /**
-     * @var int
+     * @var TimelineParticipant
      */
-    private $participantId;
+    private $participant;
 
     /**
      * @var int
@@ -22,20 +24,27 @@ class SkillLevelUpEvent extends AbstractTimelineEvent
      */
     private $levelUpType;
 
-    public function __construct($timestamp, $participantId, $skillSlot, $levelUpType)
+    /**
+     * SkillLevelUpEvent constructor.
+     * @param $timestamp int
+     * @param $participant TimelineParticipant
+     * @param $skillSlot int
+     * @param $levelUpType string
+     */
+    public function __construct($timestamp, $participant, $skillSlot, $levelUpType)
     {
         parent::__construct($timestamp, TimelineEvent::SKILL_LEVEL_UP);
-        $this->participantId = $participantId;
+        $this->participant = $participant;
         $this->skillSlot = $skillSlot;
         $this->levelUpType = $levelUpType;
     }
 
     /**
-     * @return int
+     * @return TimelineParticipant
      */
-    public function getParticipantId(): int
+    public function getParticipant(): TimelineParticipant
     {
-        return $this->participantId;
+        return $this->participant;
     }
 
     /**

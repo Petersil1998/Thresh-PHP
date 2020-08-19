@@ -4,12 +4,14 @@
 namespace src\Entities\Match\Timeline\Events;
 
 
+use src\Entities\Match\Timeline\TimelineParticipant;
+
 class ItemUndoEvent extends AbstractTimelineEvent
 {
     /**
-     * @var int
+     * @var TimelineParticipant
      */
-    private $participantId;
+    private $participant;
 
     /**
      * @var int
@@ -21,20 +23,27 @@ class ItemUndoEvent extends AbstractTimelineEvent
      */
     private $beforeId;
 
-    public function __construct($timestamp, $participantId, $afterId, $beforeId)
+    /**
+     * ItemUndoEvent constructor.
+     * @param $timestamp int
+     * @param $participant TimelineParticipant
+     * @param $afterId int
+     * @param $beforeId int
+     */
+    public function __construct($timestamp, $participant, $afterId, $beforeId)
     {
         parent::__construct($timestamp, TimelineEvent::ITEM_UNDO);
-        $this->participantId = $participantId;
+        $this->participant = $participant;
         $this->afterId = $afterId;
         $this->beforeId = $beforeId;
     }
 
     /**
-     * @return int
+     * @return TimelineParticipant
      */
-    public function getParticipantId(): int
+    public function getParticipant(): TimelineParticipant
     {
-        return $this->participantId;
+        return $this->participant;
     }
 
     /**

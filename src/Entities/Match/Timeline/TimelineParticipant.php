@@ -3,6 +3,7 @@
 
 namespace src\Entities\Match\Timeline;
 
+use stdClass;
 
 class TimelineParticipant
 {
@@ -67,18 +68,71 @@ class TimelineParticipant
      */
     public function __construct($data)
     {
-        $this->participantId = $data->participantId;
-        $this->positionX = $data->position->x;
-        $this->positionY = $data->position->y;
-        $this->currentGold = $data->currentGold;
-        $this->totalGold = $data->totalGold;
-        $this->level = $data->level;
-        $this->xp = $data->xp;
-        $this->minionsKilled = $data->minionsKilled;
-        $this->jungleMinionsKilled = $data->jungleMinionsKilled;
-        $this->dominionScore = $data->dominionScore;
-        $this->teamScore = $data->teamScore;
+        $this->setProperty($data, 'participantId');
+        $this->setProperty($data, 'currentGold');
+        $this->setProperty($data, 'totalGold');
+        $this->setProperty($data, 'level');
+        $this->setProperty($data, 'xp');
+        $this->setProperty($data, 'minionsKilled');
+        $this->setProperty($data, 'jungleMinionsKilled');
+        $this->setProperty($data, 'dominionScore');
+        $this->setProperty($data, 'teamScore');
+        if(property_exists($data,'position')) {
+            $this->setProperty($data->position, 'x', 'positionX');
+            $this->setProperty($data->position, 'y', 'positionY');
+        }
     }
+
+    /**
+     * @param $object stdClass The object that holds the property to be set
+     * @param $property string The properties name (has to be the same in $this and in the object)
+     * @param $alternativeName string The alternative Property name if it differs from the objects property name
+     * @param $convertPropertyToArray bool whether or not the property should be converted to an associative array
+     * (only works if the property is instance of stdClass)
+     */
+    protected function setProperty($object, $property, $alternativeName = '', $convertPropertyToArray = false){
+        $thisFieldName = $property;
+        if(!empty($alternativeName)){
+            $thisFieldName = $alternativeName;
+        }
+        if(property_exists($object, $property)){
+            if($convertPropertyToArray && $object->$property instanceof stdClass){
+                $this->$thisFieldName = json_decode(json_encode($object->$property), true);
+            } else {
+                $this->$thisFieldName = $object->$property;
+            }
+        }
+    }
+
+    /**
+     * @param $participants TimelineParticipant[]
+     * @param $id int
+     * @return false|TimelineParticipant
+     */
+    public static function getParticipantById($participants, $id){
+        foreach ($participants as $participant){
+            if($participant->getParticipantId() === $id){
+                return $participant;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param $participants TimelineParticipant[]
+     * @param $ids array
+     * @return TimelineParticipant[]
+     */
+    public static function getParticipantByIds($participants, $ids){
+        $realParticipants = array();
+        foreach ($participants as $participant){
+            if(in_array($participant->getParticipantId(), $ids)){
+                $realParticipants[] = $participant;
+            }
+        }
+        return $realParticipants;
+    }
+
 
     /**
      * @return int

@@ -4,6 +4,8 @@
 namespace src\Entities\Match\Timeline\Events;
 
 
+use src\Entities\Match\Timeline\TimelineParticipant;
+
 class BuildingKillEvent extends AbstractTimelineEvent
 {
 
@@ -18,14 +20,14 @@ class BuildingKillEvent extends AbstractTimelineEvent
     private $positionY;
 
     /**
-     * @var int
+     * @var TimelineParticipant
      */
-    private $killerId;
+    private $killer;
 
     /**
-     * @var int[]
+     * @var TimelineParticipant[]
      */
-    private $assistingIds;
+    private $assists;
 
     /**
      * @var int
@@ -47,13 +49,25 @@ class BuildingKillEvent extends AbstractTimelineEvent
      */
     private $towerType;
 
-    public function __construct($timestamp, $positionX, $positionY, $killerId, $assistingIds, $teamId, $buildingType, $laneType, $towerType)
+    /**
+     * BuildingKillEvent constructor.
+     * @param $timestamp int
+     * @param $positionX int
+     * @param $positionY int
+     * @param $killer TimelineParticipant
+     * @param $assists TimelineParticipant[]
+     * @param $teamId int
+     * @param $buildingType string
+     * @param $laneType string
+     * @param $towerType string
+     */
+    public function __construct($timestamp, $positionX, $positionY, $killer, $assists, $teamId, $buildingType, $laneType, $towerType)
     {
         parent::__construct($timestamp, TimelineEvent::BUILDING_KILL);
         $this->positionX = $positionX;
         $this->positionY = $positionY;
-        $this->killerId = $killerId;
-        $this->assistingIds = $assistingIds;
+        $this->killer = $killer;
+        $this->assists = $assists;
         $this->teamId = $teamId;
         $this->buildingType = $buildingType;
         $this->laneType = $laneType;
@@ -77,19 +91,19 @@ class BuildingKillEvent extends AbstractTimelineEvent
     }
 
     /**
-     * @return int
+     * @return TimelineParticipant
      */
-    public function getKillerId(): int
+    public function getKiller(): TimelineParticipant
     {
-        return $this->killerId;
+        return $this->killer;
     }
 
     /**
-     * @return int[]
+     * @return TimelineParticipant[]
      */
     public function getAssistingIds(): array
     {
-        return $this->assistingIds;
+        return $this->assists;
     }
 
     /**

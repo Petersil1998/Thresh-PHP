@@ -4,6 +4,8 @@
 namespace src\Entities\Match\Timeline\Events;
 
 
+use src\Entities\Match\Timeline\TimelineParticipant;
+
 class WardPlacedEvent extends AbstractTimelineEvent
 {
 
@@ -13,15 +15,21 @@ class WardPlacedEvent extends AbstractTimelineEvent
     private $wardType;
 
     /**
-     * @var int
+     * @var TimelineParticipant
      */
-    private $creatorId;
+    private $creator;
 
-    public function __construct($timestamp, $wardType, $creatorId)
+    /**
+     * WardPlacedEvent constructor.
+     * @param $timestamp int
+     * @param $wardType string
+     * @param $creator TimelineParticipant
+     */
+    public function __construct($timestamp, $wardType, $creator)
     {
         parent::__construct($timestamp, TimelineEvent::WARD_PLACED);
         $this->wardType = $wardType;
-        $this->creatorId = $creatorId;
+        $this->creator = $creator;
     }
 
     /**
@@ -33,10 +41,10 @@ class WardPlacedEvent extends AbstractTimelineEvent
     }
 
     /**
-     * @return int
+     * @return TimelineParticipant
      */
-    public function getCreatorId(): int
+    public function getCreator(): TimelineParticipant
     {
-        return $this->creatorId;
+        return $this->creator;
     }
 }

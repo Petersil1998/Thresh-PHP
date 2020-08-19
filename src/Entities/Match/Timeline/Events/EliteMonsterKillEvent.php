@@ -4,6 +4,8 @@
 namespace src\Entities\Match\Timeline\Events;
 
 
+use src\Entities\Match\Timeline\TimelineParticipant;
+
 class EliteMonsterKillEvent extends AbstractTimelineEvent
 {
 
@@ -18,9 +20,9 @@ class EliteMonsterKillEvent extends AbstractTimelineEvent
     private $positionY;
 
     /**
-     * @var int
+     * @var TimelineParticipant
      */
-    private $killerId;
+    private $killer;
 
     /**
      * @var string
@@ -32,12 +34,21 @@ class EliteMonsterKillEvent extends AbstractTimelineEvent
      */
     private $monsterSubType;
 
-    public function __construct($timestamp, $positionX, $positionY, $killerId, $monsterType, $monsterSubType = null)
+    /**
+     * EliteMonsterKillEvent constructor.
+     * @param $timestamp int
+     * @param $positionX int
+     * @param $positionY int
+     * @param $killer TimelineParticipant
+     * @param $monsterType string
+     * @param $monsterSubType string|null
+     */
+    public function __construct($timestamp, $positionX, $positionY, $killer, $monsterType, $monsterSubType = null)
     {
         parent::__construct($timestamp, TimelineEvent::ELITE_MONSTER_KILL);
         $this->positionX = $positionX;
         $this->positionY = $positionY;
-        $this->killerId = $killerId;
+        $this->killer = $killer;
         $this->monsterType = $monsterType;
         $this->monsterSubType = $monsterSubType;
     }
@@ -59,11 +70,11 @@ class EliteMonsterKillEvent extends AbstractTimelineEvent
     }
 
     /**
-     * @return int
+     * @return TimelineParticipant
      */
-    public function getKillerId(): int
+    public function getKiller(): TimelineParticipant
     {
-        return $this->killerId;
+        return $this->killer;
     }
 
     /**

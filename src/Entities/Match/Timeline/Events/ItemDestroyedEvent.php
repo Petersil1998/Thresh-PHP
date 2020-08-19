@@ -4,31 +4,39 @@
 namespace src\Entities\Match\Timeline\Events;
 
 
+use src\Entities\Match\Timeline\TimelineParticipant;
+
 class ItemDestroyedEvent extends AbstractTimelineEvent
 {
     /**
-     * @var int
+     * @var TimelineParticipant
      */
-    private $participantId;
+    private $participant;
 
     /**
      * @var int
      */
     private $itemId;
 
-    public function __construct($timestamp, $participantId, $itemId)
+    /**
+     * ItemDestroyedEvent constructor.
+     * @param $timestamp int
+     * @param $participant TimelineParticipant
+     * @param $itemId int
+     */
+    public function __construct($timestamp, $participant, $itemId)
     {
         parent::__construct($timestamp, TimelineEvent::ITEM_DESTROYED);
-        $this->participantId = $participantId;
+        $this->participant = $participant;
         $this->itemId = $itemId;
     }
 
     /**
-     * @return int
+     * @return TimelineParticipant
      */
-    public function getParticipantId(): int
+    public function getParticipant(): TimelineParticipant
     {
-        return $this->participantId;
+        return $this->participant;
     }
 
     /**

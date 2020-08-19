@@ -4,6 +4,8 @@
 namespace src\Entities\Match\Timeline\Events;
 
 
+use src\Entities\Match\Timeline\TimelineParticipant;
+
 class WardKillEvent extends AbstractTimelineEvent
 {
     /**
@@ -12,15 +14,21 @@ class WardKillEvent extends AbstractTimelineEvent
     private $wardType;
 
     /**
-     * @var int
+     * @var TimelineParticipant
      */
-    private $killerId;
+    private $killer;
 
-    public function __construct($timestamp, $wardType, $killerId)
+    /**
+     * WardKillEvent constructor.
+     * @param $timestamp int
+     * @param $wardType string
+     * @param $killer TimelineParticipant
+     */
+    public function __construct($timestamp, $wardType, $killer)
     {
         parent::__construct($timestamp, TimelineEvent::WARD_KILL);
         $this->wardType = $wardType;
-        $this->killerId = $killerId;
+        $this->killer = $killer;
     }
 
     /**
@@ -32,10 +40,10 @@ class WardKillEvent extends AbstractTimelineEvent
     }
 
     /**
-     * @return int
+     * @return TimelineParticipant
      */
-    public function getKillerId(): int
+    public function getKiller(): TimelineParticipant
     {
-        return $this->killerId;
+        return $this->killer;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace src\Entities\Match;
 
+use stdClass;
+
 class MatchParticipant
 {
     /**
@@ -590,138 +592,145 @@ class MatchParticipant
      */
     public function __construct($participant)
     {
-        $this->participantId = $participant->participantId;
-        $this->teamId = $participant->teamId;
-        $this->championId = $participant->championId;
-        $this->spell1Id = $participant->spell1Id;
-        $this->spell2Id = $participant->spell2Id;
+        $this->setProperty($participant, 'participantId');
+        $this->setProperty($participant, 'teamId');
+        $this->setProperty($participant, 'championId');
+        $this->setProperty($participant, 'spell1Id');
+        $this->setProperty($participant, 'spell2Id');
         $stats = $participant->stats;
-        $this->item0 = $stats->item0;
-        $this->item1 = $stats->item1;
-        $this->item2 = $stats->item2;
-        $this->item3 = $stats->item3;
-        $this->item4 = $stats->item4;
-        $this->item5 = $stats->item5;
-        $this->item6 = $stats->item6;
-        $this->kills = $stats->kills;
-        $this->deaths = $stats->deaths;
-        $this->assists = $stats->assists;
-        $this->largestKillingSpree = $stats->largestKillingSpree;
-        $this->largestMultiKill = $stats->largestMultiKill;
-        $this->killingSprees = $stats->killingSprees;
-        $this->longestTimeSpentLiving = $stats->longestTimeSpentLiving;
-        $this->doubleKills = $stats->doubleKills;
-        $this->tripleKills = $stats->tripleKills;
-        $this->quadraKills = $stats->quadraKills;
-        $this->pentaKills = $stats->pentaKills;
-        $this->unrealKills = $stats->unrealKills;
-        $this->totalDamageDealt = $stats->totalDamageDealt;
-        $this->magicDamageDealt = $stats->magicDamageDealt;
-        $this->physicalDamageDealt = $stats->physicalDamageDealt;
-        $this->trueDamageDealt = $stats->trueDamageDealt;
-        $this->largestCriticalStrike = $stats->largestCriticalStrike;
-        $this->totalDamageDealtToChampions = $stats->totalDamageDealtToChampions;
-        $this->magicDamageDealtToChampions = $stats->magicDamageDealtToChampions;
-        $this->physicalDamageDealtToChampions = $stats->physicalDamageDealtToChampions;
-        $this->trueDamageDealtToChampions = $stats->trueDamageDealtToChampions;
-        $this->totalHeal = $stats->totalHeal;
-        $this->totalUnitsHealed = $stats->totalUnitsHealed;
-        $this->damageSelfMitigated = $stats->damageSelfMitigated;
-        $this->damageDealtToObjectives = $stats->damageDealtToObjectives;
-        $this->damageDealtToTurrets = $stats->damageDealtToTurrets;
-        $this->visionScore = $stats->visionScore;
-        $this->timeCCingOthers = $stats->timeCCingOthers;
-        $this->totalDamageTaken = $stats->totalDamageTaken;
-        $this->magicalDamageTaken = $stats->magicalDamageTaken;
-        $this->physicalDamageTaken = $stats->physicalDamageTaken;
-        $this->trueDamageTaken = $stats->trueDamageTaken;
-        $this->goldEarned = $stats->goldEarned;
-        $this->goldSpent = $stats->goldSpent;
-        $this->turretKills = $stats->turretKills;
-        $this->inhibitorKills = $stats->inhibitorKills;
-        $this->totalMinionsKilled = $stats->totalMinionsKilled;
-        $this->neutralMinionsKilled = $stats->neutralMinionsKilled;
-        $this->neutralMinionsKilledTeamJungle = $stats->neutralMinionsKilledTeamJungle;
-        $this->neutralMinionsKilledEnemyJungle = $stats->neutralMinionsKilledEnemyJungle;
-        $this->totalTimeCrowdControlDealt = $stats->totalTimeCrowdControlDealt;
-        $this->champLevel = $stats->champLevel;
-        $this->visionWardsBoughtInGame = $stats->visionWardsBoughtInGame;
-        $this->sightWardsBoughtInGame = $stats->sightWardsBoughtInGame;
-        $this->wardsPlaced = $stats->wardsPlaced;
-        $this->wardsKilled = $stats->wardsKilled;
-        $this->firstBloodKill = $stats->firstBloodKill;
-        $this->firstBloodAssist = $stats->firstBloodAssist;
-        $this->firstTowerKill = $stats->firstTowerKill;
-        $this->firstTowerAssist = $stats->firstTowerAssist;
-        $this->firstInhibitorKill = $stats->firstInhibitorKill;
-        $this->firstInhibitorAssist = $stats->firstInhibitorAssist;
-        $this->combatPlayerScore = $stats->combatPlayerScore;
-        $this->objectivePlayerScore = $stats->objectivePlayerScore;
-        $this->totalPlayerScore = $stats->totalPlayerScore;
-        $this->totalScoreRank = $stats->totalScoreRank;
-        $this->playerScore0 = $stats->playerScore0;
-        $this->playerScore1 = $stats->playerScore1;
-        $this->playerScore2 = $stats->playerScore2;
-        $this->playerScore3 = $stats->playerScore3;
-        $this->playerScore4 = $stats->playerScore4;
-        $this->playerScore5 = $stats->playerScore5;
-        $this->playerScore6 = $stats->playerScore6;
-        $this->playerScore7 = $stats->playerScore7;
-        $this->playerScore8 = $stats->playerScore8;
-        $this->playerScore9 = $stats->playerScore9;
-        $this->perk0 = $stats->perk0;
-        $this->perk0Var1 = $stats->perk0Var1;
-        $this->perk0Var2 = $stats->perk0Var2;
-        $this->perk0Var3 = $stats->perk0Var3;
-        $this->perk1 = $stats->perk1;
-        $this->perk1Var1 = $stats->perk1Var1;
-        $this->perk1Var2 = $stats->perk1Var2;
-        $this->perk1Var3 = $stats->perk1Var3;
-        $this->perk2 = $stats->perk2;
-        $this->perk2Var1 = $stats->perk2Var1;
-        $this->perk2Var2 = $stats->perk2Var2;
-        $this->perk2Var3 = $stats->perk2Var3;
-        $this->perk3 = $stats->perk3;
-        $this->perk3Var1 = $stats->perk3Var1;
-        $this->perk3Var2 = $stats->perk3Var2;
-        $this->perk3Var3 = $stats->perk3Var3;
-        $this->perk4 = $stats->perk4;
-        $this->perk4Var1 = $stats->perk4Var1;
-        $this->perk4Var2 = $stats->perk4Var2;
-        $this->perk4Var3 = $stats->perk4Var3;
-        $this->perk5 = $stats->perk5;
-        $this->perk5Var1 = $stats->perk5Var1;
-        $this->perk5Var2 = $stats->perk5Var2;
-        $this->perk5Var3 = $stats->perk5Var3;
-        $this->perkPrimaryStyle = $stats->perkPrimaryStyle;
-        $this->perkSubStyle = $stats->perkSubStyle;
-        $this->statPerk0 = $stats->statPerk0;
-        $this->statPerk1 = $stats->statPerk1;
-        $this->statPerk2 = $stats->statPerk2;
+        $this->setProperty($stats, 'item0');
+        $this->setProperty($stats, 'item1');
+        $this->setProperty($stats, 'item2');
+        $this->setProperty($stats, 'item3');
+        $this->setProperty($stats, 'item4');
+        $this->setProperty($stats, 'item5');
+        $this->setProperty($stats, 'item6');
+        $this->setProperty($stats, 'kills');
+        $this->setProperty($stats, 'deaths');
+        $this->setProperty($stats, 'assists');
+        $this->setProperty($stats, 'largestKillingSpree');
+        $this->setProperty($stats, 'largestMultiKill');
+        $this->setProperty($stats, 'killingSprees');
+        $this->setProperty($stats, 'longestTimeSpentLiving');
+        $this->setProperty($stats, 'doubleKills');
+        $this->setProperty($stats, 'tripleKills');
+        $this->setProperty($stats, 'quadraKills');
+        $this->setProperty($stats, 'pentaKills');
+        $this->setProperty($stats, 'unrealKills');
+        $this->setProperty($stats, 'totalDamageDealt');
+        $this->setProperty($stats, 'magicDamageDealt');
+        $this->setProperty($stats, 'physicalDamageDealt');
+        $this->setProperty($stats, 'trueDamageDealt');
+        $this->setProperty($stats, 'largestCriticalStrike');
+        $this->setProperty($stats, 'totalDamageDealtToChampions');
+        $this->setProperty($stats, 'magicDamageDealtToChampions');
+        $this->setProperty($stats, 'physicalDamageDealtToChampions');
+        $this->setProperty($stats, 'trueDamageDealtToChampions');
+        $this->setProperty($stats, 'totalHeal');
+        $this->setProperty($stats, 'totalUnitsHealed');
+        $this->setProperty($stats, 'damageSelfMitigated');
+        $this->setProperty($stats, 'damageDealtToObjectives');
+        $this->setProperty($stats, 'damageDealtToTurrets');
+        $this->setProperty($stats, 'visionScore');
+        $this->setProperty($stats, 'timeCCingOthers');
+        $this->setProperty($stats, 'totalDamageTaken');
+        $this->setProperty($stats, 'magicalDamageTaken');
+        $this->setProperty($stats, 'physicalDamageTaken');
+        $this->setProperty($stats, 'trueDamageTaken');
+        $this->setProperty($stats, 'goldEarned');
+        $this->setProperty($stats, 'goldSpent');
+        $this->setProperty($stats, 'turretKills');
+        $this->setProperty($stats, 'inhibitorKills');
+        $this->setProperty($stats, 'totalMinionsKilled');
+        $this->setProperty($stats, 'neutralMinionsKilled');
+        $this->setProperty($stats, 'neutralMinionsKilledTeamJungle');
+        $this->setProperty($stats, 'neutralMinionsKilledEnemyJungle');
+        $this->setProperty($stats, 'totalTimeCrowdControlDealt');
+        $this->setProperty($stats, 'champLevel');
+        $this->setProperty($stats, 'visionWardsBoughtInGame');
+        $this->setProperty($stats, 'sightWardsBoughtInGame');
+        $this->setProperty($stats, 'wardsPlaced');
+        $this->setProperty($stats, 'wardsKilled');
+        $this->setProperty($stats, 'firstBloodKill');
+        $this->setProperty($stats, 'firstBloodAssist');
+        $this->setProperty($stats, 'firstTowerKill');
+        $this->setProperty($stats, 'firstTowerAssist');
+        $this->setProperty($stats, 'firstInhibitorKill');
+        $this->setProperty($stats, 'firstInhibitorAssist');
+        $this->setProperty($stats, 'combatPlayerScore');
+        $this->setProperty($stats, 'objectivePlayerScore');
+        $this->setProperty($stats, 'totalPlayerScore');
+        $this->setProperty($stats, 'totalScoreRank');
+        $this->setProperty($stats, 'playerScore0');
+        $this->setProperty($stats, 'playerScore1');
+        $this->setProperty($stats, 'playerScore2');
+        $this->setProperty($stats, 'playerScore3');
+        $this->setProperty($stats, 'playerScore4');
+        $this->setProperty($stats, 'playerScore5');
+        $this->setProperty($stats, 'playerScore6');
+        $this->setProperty($stats, 'playerScore7');
+        $this->setProperty($stats, 'playerScore8');
+        $this->setProperty($stats, 'playerScore9');
+        $this->setProperty($stats, 'perk0');
+        $this->setProperty($stats, 'perk0Var1');
+        $this->setProperty($stats, 'perk0Var2');
+        $this->setProperty($stats, 'perk0Var3');
+        $this->setProperty($stats, 'perk1');
+        $this->setProperty($stats, 'perk1Var1');
+        $this->setProperty($stats, 'perk1Var2');
+        $this->setProperty($stats, 'perk1Var3');
+        $this->setProperty($stats, 'perk2');
+        $this->setProperty($stats, 'perk2Var1');
+        $this->setProperty($stats, 'perk2Var2');
+        $this->setProperty($stats, 'perk2Var3');
+        $this->setProperty($stats, 'perk3');
+        $this->setProperty($stats, 'perk3Var1');
+        $this->setProperty($stats, 'perk3Var2');
+        $this->setProperty($stats, 'perk3Var3');
+        $this->setProperty($stats, 'perk4');
+        $this->setProperty($stats, 'perk4Var1');
+        $this->setProperty($stats, 'perk4Var2');
+        $this->setProperty($stats, 'perk4Var3');
+        $this->setProperty($stats, 'perk5');
+        $this->setProperty($stats, 'perk5Var1');
+        $this->setProperty($stats, 'perk5Var2');
+        $this->setProperty($stats, 'perk5Var3');
+        $this->setProperty($stats, 'perkPrimaryStyle');
+        $this->setProperty($stats, 'perkSubStyle');
+        $this->setProperty($stats, 'statPerk0');
+        $this->setProperty($stats, 'statPerk1');
+        $this->setProperty($stats, 'statPerk2');;
         $timeline = $participant->timeline;
-        if(property_exists($timeline, 'creepsPerMinDeltas')) {
-            $this->creepsPerMinDeltas = json_decode(json_encode($timeline->creepsPerMinDeltas), true);
+        $this->setProperty($timeline, 'creepsPerMinDeltas', '',true);
+        $this->setProperty($timeline, 'xpPerMinDeltas', '',true);
+        $this->setProperty($timeline, 'goldPerMinDeltas', '',true);
+        $this->setProperty($timeline, 'csDiffPerMinDeltas', '',true);
+        $this->setProperty($timeline, 'xpDiffPerMinDeltas', '',true);
+        $this->setProperty($timeline, 'damageTakenPerMinDeltas', '',true);
+        $this->setProperty($timeline, 'damageTakenDiffPerMinDeltas', '',true);
+        $this->setProperty($timeline, 'role');
+        $this->setProperty($timeline, 'lane');
+    }
+
+    /**
+     * @param $object stdClass The object that holds the property to be set
+     * @param $property string The properties name (has to be the same in $this and in the object)
+     * @param $alternativeName string The alternative Property name if it differs from the objects property name
+     * @param $convertPropertyToArray bool whether or not the property should be converted to an associative array
+     * (only works if the property is instance of stdClass)
+     */
+    protected function setProperty($object, $property, $alternativeName = '', $convertPropertyToArray = false){
+        $thisFieldName = $property;
+        if(!empty($alternativeName)){
+            $thisFieldName = $alternativeName;
         }
-        if(property_exists($timeline, 'xpPerMinDeltas')) {
-            $this->xpPerMinDeltas = json_decode(json_encode($timeline->xpPerMinDeltas), true);
+        if(property_exists($object, $property)){
+            if($convertPropertyToArray && $object->$property instanceof stdClass){
+                $this->$thisFieldName = json_decode(json_encode($object->$property), true);
+            } else {
+                $this->$thisFieldName = $object->$property;
+            }
         }
-        if(property_exists($timeline, 'goldPerMinDeltas')) {
-            $this->goldPerMinDeltas = json_decode(json_encode($timeline->goldPerMinDeltas), true);
-        }
-        if(property_exists($timeline, 'csDiffPerMinDeltas')) {
-            $this->csDiffPerMinDeltas = json_decode(json_encode($timeline->csDiffPerMinDeltas), true);
-        }
-        if(property_exists($timeline, 'xpDiffPerMinDeltas')) {
-            $this->xpDiffPerMinDeltas = json_decode(json_encode($timeline->xpDiffPerMinDeltas), true);
-        }
-        if(property_exists($timeline, 'damageTakenPerMinDeltas')) {
-            $this->damageTakenPerMinDeltas = json_decode(json_encode($timeline->damageTakenPerMinDeltas), true);
-        }
-        if(property_exists($timeline, 'damageTakenDiffPerMinDeltas')) {
-            $this->damageTakenDiffPerMinDeltas = json_decode(json_encode($timeline->damageTakenDiffPerMinDeltas), true);
-        }
-        $this->role = $timeline->role;
-        $this->lane = $timeline->lane;
     }
 
     /**
