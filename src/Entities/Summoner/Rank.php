@@ -2,6 +2,8 @@
 
 namespace src\Entities\Summoner;
 
+use stdClass;
+
 class Rank
 {
 
@@ -62,7 +64,7 @@ class Rank
 
     /**
      * Rank constructor.
-     * @param mixed $rankObj
+     * @param stdClass|string $rankObj
      */
     public function __construct($rankObj)
     {
