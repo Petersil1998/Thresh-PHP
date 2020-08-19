@@ -71,18 +71,7 @@ class Summoner extends SummonerBasic
         $this->puuid = $summoner->puuid;
         $this->summonerLevel = $summoner->summonerLevel;
         $this->revisionDate = $summoner->revisionDate/1000;
-        $this->totalMasteryPoints = json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint("scores/by-summoner/".$this->getId()));
-        $this->account = new Account($this->puuid);
-        $this->initChampionMasteries();
         $this->initRanks();
-    }
-
-    protected function initChampionMasteries(){
-        $championMasteries = json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint("champion-masteries/by-summoner/".$this->getId()));
-        $this->championMasteries = array();
-        foreach ($championMasteries as $championMastery){
-            $this->championMasteries[] = new ChampionMastery($championMastery);
-        }
     }
 
     protected function initRanks(){
@@ -124,6 +113,9 @@ class Summoner extends SummonerBasic
      */
     public function getTotalMasteryPoints()
     {
+        if(empty($this->totalMasteryPoints)){
+            $this->totalMasteryPoints = json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint("scores/by-summoner/".$this->getId()));
+        }
         return $this->totalMasteryPoints;
     }
 
@@ -148,6 +140,13 @@ class Summoner extends SummonerBasic
      */
     public function getChampionMasteries()
     {
+        if(empty($this->championMasteries)){
+            $championMasteries = json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint("champion-masteries/by-summoner/".$this->getId()));
+            $this->championMasteries = array();
+            foreach ($championMasteries as $championMastery){
+                $this->championMasteries[] = new ChampionMastery($championMastery);
+            }
+        }
         return $this->championMasteries;
     }
 
@@ -196,6 +195,9 @@ class Summoner extends SummonerBasic
      */
     public function getAccount()
     {
+        if(empty($this->account)){
+            $this->account = new Account($this->puuid);
+        }
         return $this->account;
     }
 }

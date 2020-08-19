@@ -80,9 +80,8 @@ class MatchDetails
     /**
      * MatchDetails constructor.
      * @param float $gameId
-     * @param bool $initTimelines
      */
-    public function __construct($gameId, $initTimelines)
+    public function __construct($gameId)
     {
         $match = json_decode(HTTPClient::getInstance()->requestMatchEndpoint("matches/".$gameId));
         $this->gameId = $gameId;
@@ -104,15 +103,6 @@ class MatchDetails
         }
         foreach ($match->participants as $participant){
             $this->participants[] = new MatchParticipant($participant);
-        }
-        if($initTimelines) {
-            $this->timelines = Timeline::getTimelinesForMatch($gameId);
-        }
-    }
-
-    public function initTimeLines(){
-        if(empty($this->timelines) && !empty($this->gameId)){
-            $this->timelines = Timeline::getTimelinesForMatch($this->gameId);
         }
     }
 
@@ -225,6 +215,9 @@ class MatchDetails
      */
     public function getTimelines(): array
     {
+        if(empty($this->timelines)){
+            $this->timelines = Timeline::getTimelinesForMatch($this->gameId);
+        }
         return $this->timelines;
     }
 }
