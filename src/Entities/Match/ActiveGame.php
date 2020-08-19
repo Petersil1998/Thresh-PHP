@@ -56,22 +56,15 @@ class ActiveGame
     {
         $summoner = new SummonerBasic($summonername);
         if($summoner->exists()) {
-            $game = $this->loadGame($summoner->getId());
-            if(!empty($game))
+            $game = json_decode(HTTPClient::getInstance()->requestSpectatorEndpoint("active-games/by-summoner/" . $summoner->getId()));
+            if(!empty($game)) {
                 $this->initiateGame($game);
+            }
         }
     }
 
     public function exists(){
         return !empty($this->getGameId());
-    }
-
-    /**
-     * @param $summonerId
-     * @return mixed
-     */
-    protected function loadGame($summonerId){
-        return json_decode(HTTPClient::getInstance()->requestSpectatorEndpoint("active-games/by-summoner/" . $summonerId));
     }
 
     /**
@@ -100,7 +93,7 @@ class ActiveGame
             } elseif ($player->getTeamId() == 200){
                 $this->redSideTeam[] = $player;
             } else {
-              echo "Error!";
+                throw new \RuntimeException('Unknown TeamID: '.$player->getTeamId());
             }
         }
     }
