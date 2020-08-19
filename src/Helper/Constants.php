@@ -4,6 +4,7 @@ namespace src\Helper;
 
 class Constants
 {
+    private static $ddragonVersion;
 
     const LEAGUE_API_BASE_PATH = "https://euw1.api.riotgames.com/lol/";
     const RIOT_API_BASE_PATH = "https://europe.api.riotgames.com/riot/";
@@ -38,11 +39,6 @@ class Constants
         "115" => "Ziggs", "26" => "Zilean", "142" => "Zoe", "143" => "Zyra"
     );
 
-    const MAPS = array("10" => "The Twisted Treeline", "11" => "Summoner's Rift", "12" => "Howling Abyss",
-        "13" => "Butcher's Bridge", "16" => "Cosmic Ruins", "18" => "Valoran City Park",
-        "19" => "Substructure 43", "20" => "Crash Site", "21" => "Nexus Blitz"
-    );
-
     const QUEUES_TYPES = array("0" => "Custom Game", "72" => "1v1 Snowdown Showdown", "73" => "2v2 Snowdown Showdown",
         "75" => "6v6 Hexakill", "76" => "Ultra Rapid Fire", "78" => "One For All: Mirror Mode",
         "83" => "Co-op vs AI Ultra Rapid Fire", "98" => "6v6 Hexakill", "100" => "5v5 ARAM", "310" => "Nemesis",
@@ -61,10 +57,6 @@ class Constants
         "1100" => "Ranked Teamfight Tactics games"
     );
 
-    public static $runes = array();
-
-    public static $runestats = array();
-
     const RANKED_QUEUES = array('RANKED_SOLO_5x5', 'RANKED_FLEX_SR');
 
     const RANKED_DIVISIONS = array(1, 2, 3, 4);
@@ -72,4 +64,12 @@ class Constants
     const RANKED_TIERS = array('IRON', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'DIAMOND', 'MASTER',
         'GRANDMASTER', 'CHALLENGER'
     );
+
+    public static function getDDragonVersion(){
+        return self::$ddragonVersion;
+    }
+
+    public static function setDDragonVersion($ddragonVersion){
+        self::$ddragonVersion = $ddragonVersion;
+    }
 }

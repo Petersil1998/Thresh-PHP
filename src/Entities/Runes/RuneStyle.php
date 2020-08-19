@@ -30,25 +30,16 @@ class RuneStyle
     /**
      * RuneStyle constructor.
      * @param int $id
+     * @param string $key
+     * @param string $iconPath
+     * @param string $name
      */
-    public function __construct($id)
+    public function __construct(int $id, string $key, string $iconPath, string $name)
     {
-        Utils::loadRunes();
-        $this->initializeRune($id);
-    }
-
-    /**
-     * @param int $id
-     */
-    private function initializeRune($id){
-        foreach (Constants::$runes as $perk){
-            if($perk->id == $id){
-                $this->id = $id;
-                $this->iconPath = $perk->icon;
-                $this->key = $perk->key;
-                $this->name = $perk->name;
-            }
-        }
+        $this->id = $id;
+        $this->key = $key;
+        $this->iconPath = $iconPath;
+        $this->name = $name;
     }
 
     /**

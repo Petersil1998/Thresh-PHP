@@ -5,7 +5,7 @@ namespace src\Entities\Runes;
 use src\Helper\Utils;
 use src\Helper\Constants;
 
-class Runestat
+class RuneStat
 {
     /**
      * @var int
@@ -32,23 +32,23 @@ class Runestat
      */
     private $iconPath;
 
-    public function __construct($id)
+    /**
+     * RuneStat constructor.
+     * @param int $id
+     * @param string $name
+     * @param string $shortDesc
+     * @param string $longDesc
+     * @param string $iconPath
+     */
+    public function __construct(int $id, string $name, string $shortDesc, string $longDesc, string $iconPath)
     {
-        Utils::loadRuneStats();
-        $this->initializeRunestats($id);
+        $this->id = $id;
+        $this->name = $name;
+        $this->shortDesc = $shortDesc;
+        $this->longDesc = $longDesc;
+        $this->iconPath = $iconPath;
     }
 
-    private function initializeRunestats($id){
-        foreach (Constants::$runestats as $runestat){
-            if($runestat->id == $id){
-                $this->id = $id;
-                $this->name = $runestat->name;
-                $this->iconPath = $runestat->iconPath;
-                $this->shortDesc = $runestat->shortDesc;
-                $this->longDesc = $runestat->longDesc;
-            }
-        }
-    }
 
     /**
      * @return int

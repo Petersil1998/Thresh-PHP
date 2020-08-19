@@ -43,48 +43,24 @@ class Rune
     private $runeStyle;
 
     /**
-     * SubRune constructor.
+     * Rune constructor.
      * @param int $id
+     * @param string $key
+     * @param string $iconPath
+     * @param string $name
+     * @param string $shortDesc
+     * @param string $longDesc
+     * @param RuneStyle $runeStyle
      */
-    public function __construct($id)
+    public function __construct(int $id, string $key, string $iconPath, string $name, string $shortDesc, string $longDesc, RuneStyle $runeStyle)
     {
-        Utils::loadRunes();
-        $this->runeStyle = new RuneStyle($this->getRuneStyleById($id));
-        $this->initializeRune($id);
-    }
-
-    /**
-     * @param int $id
-     */
-    private function initializeRune($id){
-        foreach (Constants::$runes as $perk){
-            if($perk->id == $this->runeStyle->getId()){
-                foreach ($perk->slots[0]->runes as $rune) {
-                    if ($rune->id == $id) {
-                        $this->id = $id;
-                        $this->iconPath = $rune->icon;
-                        $this->key = $rune->key;
-                        $this->name = $rune->name;
-                        $this->shortDesc = $rune->shortDesc;
-                        $this->longDesc = $rune->longDesc;
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * @param int $id
-     * @return int
-     */
-    private function getRuneStyleById($id){
-        foreach (Constants::$runes as $runeStyle){
-            foreach ($runeStyle->slots[0]->runes as $rune){
-                if ($rune->id == $id) {
-                    return $runeStyle->id;
-                }
-            }
-        }
+        $this->id = $id;
+        $this->key = $key;
+        $this->iconPath = $iconPath;
+        $this->name = $name;
+        $this->shortDesc = $shortDesc;
+        $this->longDesc = $longDesc;
+        $this->runeStyle = $runeStyle;
     }
 
     /**

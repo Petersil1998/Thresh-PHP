@@ -2,10 +2,13 @@
 
 namespace src\Helper;
 
+use src\Entities\Runes\Rune;
+use src\Entities\Runes\RuneStat;
+use src\Entities\Runes\RuneStyle;
+use src\Entities\Summoner\Summoner;
+
 class Utils
 {
-    private static $ddragonversion;
-
     public static function getChampWithoutSpecials($champ)
     {
         if ($champ == "Wukong")
@@ -26,74 +29,27 @@ class Utils
         return $ret;
     }
 
-    public static function getDDragonVersion(){
-        if(empty(self::$ddragonversion)) {
-            self::$ddragonversion = json_decode(file_get_contents(Constants::DDRAGON_BASEPATH . "api/versions.json"))[0];
-            $fileHandler = new FileHandler(__DIR__.'/../ddragonversion.txt', 'r');
-            $version = $fileHandler->read();
-            $fileHandler->close();
-            if(strcmp(self::$ddragonversion, $version) != 0){
-                $fileHandler = new FileHandler(__DIR__.'/../ddragonversion.txt', 'w');
-                $fileHandler->write(self::getDDragonVersion());
-                $fileHandler->close();
-                self::updateRunesFile();
-            }
-        }
-        return self::$ddragonversion;
+    /**
+     * @param $summoner Summoner
+     * @return string
+     */
+    public static function getProfileIconURL($summoner){
+        return Constants::DDRAGON_BASEPATH.'cdn/'.Constants::getDDragonVersion().'/img/profileicon/'.$summoner->getProfileIcon().'.png';
     }
 
-    public static function loadRunes(){
-        if(empty(Constants::$runes)){
-            $fileHandler = new FileHandler(__DIR__.'/../runes.json', 'r');
-            Constants::$runes = json_decode($fileHandler->read());
-            $fileHandler->close();
-        }
+    /**
+     * @param $championId int
+     * @return string
+     */
+    public static function getChampionIconURL($championId){
+        return Constants::DDRAGON_BASEPATH . "cdn/" . Constants::getDDragonVersion() . "/img/champion/" . Utils::getChampWithoutSpecials(Constants::CHAMPIONS[$championId]) . ".png";
     }
 
-    private static function updateRunesFile(){
-        $fileHandler = new FileHandler(__DIR__.'/../runes.json', 'w');
-        $runes =  file_get_contents(Constants::DDRAGON_BASEPATH."cdn/".self::getDDragonVersion()."/data/en_US/runesReforged.json");
-        $fileHandler->write($runes);
-        $fileHandler->close();
-    }
-
-    public static function loadRuneStats(){
-        self::updateRunestatsFile();
-        if(empty(Constants::$runestats)){
-            $fileHandler = new FileHandler(__DIR__.'/../runestats.json', 'r');
-            Constants::$runestats = json_decode(str_replace('\\', "", $fileHandler->read()));
-            $fileHandler->close();
-        }
-    }
-
-    private static function updateRunestatsFile(){
-        if(empty(Constants::$runestats)){
-            $fileHandler = new FileHandler(__DIR__.'/../runestats.json', '');
-            if($fileHandler->getFileSize() <= 2){
-                $runestats = array();
-                $runes = json_decode(file_get_contents("https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json"));
-                foreach ($runes as $rune){
-                    if(substr($rune->id,0,1) == "5"){
-                        array_push($runestats, json_encode($rune));
-                    }
-                }
-                self::writeArrayToFile($runestats);
-            }
-            $fileHandler->close();
-        }
-    }
-
-    private static function writeArrayToFile($runestats){
-        $fileHandler = new FileHandler(__DIR__.'/../runestats.json', 'w');
-        $fileHandler->write("[");
-        for($i = 0; $i < count($runestats); $i++) {
-            if($i < count($runestats)-1){
-                $fileHandler->write($runestats[$i] . ",");
-            }else{
-                $fileHandler->write($runestats[$i]);
-            }
-        }
-        $fileHandler->write("]");
-        $fileHandler->close();
+    /**
+     * @param $rune Rune|RuneStat|RuneStyle
+     * @return string
+     */
+    public static function getRuneIconURL($rune){
+        return Constants::DDRAGON_BASEPATH.'cdn/img/'.$rune->getIconPath();
     }
 }
