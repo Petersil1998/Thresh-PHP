@@ -107,4 +107,132 @@ class Team
         }
         $this->bans = $bans;
     }
+
+    /**
+     * @return int
+     */
+    public function getTeamId(): int
+    {
+        return $this->teamId;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isWin(): bool
+    {
+        return $this->win;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFirstBlood(): bool
+    {
+        return $this->firstBlood;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFirstTower(): bool
+    {
+        return $this->firstTower;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFirstInhibitor(): bool
+    {
+        return $this->firstInhibitor;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFirstBaron(): bool
+    {
+        return $this->firstBaron;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFirstDragon(): bool
+    {
+        return $this->firstDragon;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFirstRiftHerald(): bool
+    {
+        return $this->firstRiftHerald;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTowerKills(): int
+    {
+        return $this->towerKills;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInhibitorKills(): int
+    {
+        return $this->inhibitorKills;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBaronKills(): int
+    {
+        return $this->baronKills;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDragonKills(): int
+    {
+        return $this->dragonKills;
+    }
+
+    /**
+     * @return int
+     */
+    public function getVilemawKills(): int
+    {
+        return $this->vilemawKills;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRiftHeraldKills(): int
+    {
+        return $this->riftHeraldKills;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDominionVictoryScore(): int
+    {
+        return $this->dominionVictoryScore;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBans(): array
+    {
+        return $this->bans;
+    }
 }
