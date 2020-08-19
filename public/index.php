@@ -1,31 +1,50 @@
 <?php
     require_once '../vendor/autoload.php';
 
+    define('BASE_PATH', dirname(dirname(__FILE__)));
+
+    use src\Collections\Maps;
+    use src\Collections\Runes;
+    use src\Collections\RuneStats;
     use src\Entities\Match\ActiveGame;
     use src\Entities\Match\Match;
     use src\Entities\Match\MatchDetails;
-    use src\Entities\Match\Timeline\Timeline;
     use src\Entities\Runes\Rune;
-    use src\Entities\Runes\Runestat;
+    use src\Entities\Runes\RuneStat;
     use src\Entities\Summoner\Summoner;
     use src\Helper\Constants;
+    use src\Helper\Loader;
     use src\Helper\Utils;
     use Twig\Loader\FilesystemLoader;
     use Twig\Environment;
     use Twig\TwigFunction;
 
+    Loader::init();
+
     $loader = new FilesystemLoader('templates');
     $twig = new Environment($loader);
-    $function = new TwigFunction('createRune', function ($runeId) {
-        return new Rune($runeId);
+    $function = new TwigFunction('getRune', function ($runeId) {
+        return Runes::getRune($runeId);
     });
     $twig->addFunction($function);
-    $function = new TwigFunction('createRuneStat', function ($runestatId) {
-        return new Runestat($runestatId);
+    $function = new TwigFunction('getRuneStat', function ($runeStatId) {
+        return RuneStats::getRuneStat($runeStatId);
+    });
+    $twig->addFunction($function);
+    $function = new TwigFunction('getMap', function ($mapId) {
+        return Maps::getMap($mapId);
     });
     $twig->addFunction($function);
     $function = new TwigFunction('getChampionIconPath', function ($championId) {
-        return Constants::DDRAGON_BASEPATH . "cdn/" . Utils::getDDragonVersion() . "/img/champion/" . Utils::getChampWithoutSpecials(Constants::CHAMPIONS[$championId]) . ".png";
+        return Utils::getChampionIconURL($championId);
+    });
+    $twig->addFunction($function);
+    $function = new TwigFunction('getProfileIconURL', function ($summoner) {
+        return Utils::getProfileIconURL($summoner);
+    });
+    $twig->addFunction($function);
+    $function = new TwigFunction('getRuneIconURL', function ($rune) {
+        return Utils::getRuneIconURL($rune);
     });
     $twig->addFunction($function);
 
@@ -43,8 +62,6 @@
                 }else{
                     $summonerName = str_replace(" ", "", $_GET["name"]);
                     $summoner = new Summoner($summonerName);
-                    $match = new MatchDetails(Match::getMatchListFromAccount($summoner->getAccountId())[0]->getGameId(), true);
-                    var_dump($match->getTimelines());
                     if(!$summoner->exists()){
                         echo $twig->render('error.twig', array(
                             'errorMessage' => 'Summoner doesn\'t exist',
@@ -53,8 +70,6 @@
                         $game = new ActiveGame($summonerName);
                         echo $twig->render('summoner.twig', array(
                             'summoner'          => $summoner,
-                            'ddragon_basepath'  => Constants::DDRAGON_BASEPATH,
-                            'ddragon_version'   => Utils::getDDragonVersion(),
                             'game'              => $game,
                             'champions'         => Constants::CHAMPIONS,
                         ));
@@ -73,16 +88,14 @@
                     $game = new ActiveGame($summonerName);
                     if (!$game->exists()) {
                         echo $twig->render('error.twig', array(
-                            'errorMessage' => 'Player isn\'n currently in a game',
+                            'errorMessage' => 'Player isn\'t currently in a game',
                         ));
                     } else {
                         echo $twig->render('game.twig', array(
                             'summonerName'      => $summonerName,
                             'game'              => $game,
-                            'maps'              => Constants::MAPS,
                             'queues'            => Constants::QUEUES_TYPES,
                             'champions'         => Constants::CHAMPIONS,
-                            'ddragon_basepath'  => Constants::DDRAGON_BASEPATH,
                         ));
                     }
                 }

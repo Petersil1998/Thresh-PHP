@@ -34,7 +34,7 @@
                 if(!$summoner->exists()){
                     echo "<p>Summoner not found</p>";
                 } else {
-                    echo "<div><div><img alt='Profile Icon' src='" . Constants::DDRAGON_BASEPATH . "cdn/" . Utils::getDDragonVersion() . "/img/profileicon/" . $summoner->getProfileIcon() . ".png" . "' style='width: 200px; height: 200px;' class='center'></div>";
+                    echo "<div><div><img alt='Profile Icon' src='" .Utils::getProfileIconURL($summoner)."' style='width: 200px; height: 200px;' class='center'></div>";
                     echo "<div><table style='border: 0; margin-top: 10px'>";
                     echo "<tr><td class='noborder'>Summonername:</td><td class='noborder'>" . $summoner->getSummonername() . "</td></tr>";
                     echo "<tr><td class='noborder'>Level:</td><td class='noborder'>" . $summoner->getSummonerLevel() . "</td></tr>";
@@ -60,7 +60,7 @@
 
                     foreach ($summoner->getChampionMasteries() AS $championMastery) {
                         echo "<tr><td style='border-color: white;'>";
-                        echo "<img class='small-icon' src='" . Constants::DDRAGON_BASEPATH . "cdn/" . Utils::getDDragonVersion() . "/img/champion/" . Utils::getChampWithoutSpecials(Constants::CHAMPIONS[$championMastery->getChampionId()]) . ".png'>";
+                        echo "<img class='small-icon' src='" . Utils::getChampionIconURL($championMastery->getChampionId()) . "'>";
                         echo Constants::CHAMPIONS[$championMastery->getChampionId()];
                         echo "</td><td style='border-color: white; text-align: center'>" . $championMastery->getChampionLevel() . "</td>";
                         echo "<td style='border-color: white; text-align: center'>" . $championMastery->getChampionPoints() . "</td>";

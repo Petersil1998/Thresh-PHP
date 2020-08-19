@@ -1,9 +1,11 @@
 <?php
     require_once '../vendor/autoload.php';
 
+    use src\Collections\Runes;
+    use src\Collections\RuneStats;
     use src\Entities\Match\ActiveGame;
     use src\Entities\Runes\Rune;
-    use src\Entities\Runes\Runestat;
+    use src\Entities\Runes\RuneStat;
     use src\Helper\Constants;
     use src\Helper\Utils;?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -29,8 +31,8 @@
                 echo "<br>Queue: " . Constants::QUEUES_TYPES[$game->getGameQueueConfigId()] . "</p></div>";
                 $blueSideTeam = $game->getBlueSideTeam();
                 foreach ($blueSideTeam AS $player) {
-                    $keyRune = new Rune($player->getPerks()[0]);
-                    $runestat = new Runestat($player->getPerks()[8]);
+                    $keyRune = Runes::getRune($player->getPerks()[0]);
+                    $runestat = RuneStats::getRuneStat($player->getPerks()[8]);
                     echo "<div><table class='background-blue-team'>";
                     if (strcasecmp(str_replace(" ", "", $player->getSummonername()), str_replace(" ", "", $summonerName)) == 0) {
                         $realName = $player->getSummonername();
@@ -39,15 +41,15 @@
                         echo "<tr class='game-player-row'>";
                     }
                     echo "<td style='width=\"250px\"'><a href='summoner.php?name=" . $player->getSummonername() . "'>" . $player->getSummonername() . "</a></td>";
-                    echo "<td><img alt='".Constants::CHAMPIONS[$player->getChampionId()]."' class='small-icon' src='" . Constants::DDRAGON_BASEPATH . "cdn/" . Utils::getDDragonVersion() . "/img/champion/" . Utils::getChampWithoutSpecials(Constants::CHAMPIONS[$player->getChampionId()]) . ".png'> " . Constants::CHAMPIONS[$player->getChampionId()] . "</td>";
-                    echo "<td><img alt='".$keyRune->getName()."' class='small-icon' src='" . Constants::DDRAGON_BASEPATH . "cdn/img/" . $keyRune->getIconPath()."'>" . $keyRune->getName()."</td>";
+                    echo "<td><img alt='".Constants::CHAMPIONS[$player->getChampionId()]."' class='small-icon' src='" . Utils::getChampionIconURL($player->getChampionId()) . ".png'> " . Constants::CHAMPIONS[$player->getChampionId()] . "</td>";
+                    echo "<td><img alt='".$keyRune->getName()."' class='small-icon' src='" . Utils::getRuneIconURL($keyRune) . "</td>";
                     echo "</tr>";
                 }
                 echo "</table><p class='game-player-row' style='text-align: center; font-size: 30px; font-weight: bold; color: white; margin-top: 0; margin-bottom: 0;'>VS</p><table class='background-red-team'>";
                 $redSideTeam = $game->getRedSideTeam();
                 foreach ($redSideTeam AS $player) {
-                    $keyRune = new Rune($player->getPerks()[0]);
-                    $runestat = new Runestat($player->getPerks()[8]);
+                    $keyRune = Runes::getRune($player->getPerks()[0]);
+                    $runestat = RuneStats::getRuneStat($player->getPerks()[8]);
                     echo "<div><table class='background-red-team'>";
                     if (strcasecmp(str_replace(" ", "", $player->getSummonername()), str_replace(" ", "", $summonerName)) == 0) {
                         $realName = $player->getSummonername();
@@ -56,8 +58,8 @@
                         echo "<tr class='game-player-row'>";
                     }
                     echo "<td style='width=\"250px\"'><a href='summoner.php?name=" . $player->getSummonername() . "'>" . $player->getSummonername() . "</a></td>";
-                    echo "<td><img alt='".Constants::CHAMPIONS[$player->getChampionId()]."' class='small-icon' src='" . Constants::DDRAGON_BASEPATH . "cdn/" . Utils::getDDragonVersion() . "/img/champion/" . Utils::getChampWithoutSpecials(Constants::CHAMPIONS[$player->getChampionId()]) . ".png'> " . Constants::CHAMPIONS[$player->getChampionId()] . "</td>";
-                    echo "<td><img alt='".$keyRune->getName()."' class='small-icon' src='" . Constants::DDRAGON_BASEPATH . "cdn/img/" . $keyRune->getIconPath()."'>" . $keyRune->getName()."</td>";
+                    echo "<td><img alt='".Constants::CHAMPIONS[$player->getChampionId()]."' class='small-icon' src='" . Utils::getChampionIconURL($player->getChampionId()) . ".png'> " . Constants::CHAMPIONS[$player->getChampionId()] . "</td>";
+                    echo "<td><img alt='".$keyRune->getName()."' class='small-icon' src='" . Utils::getRuneIconURL($keyRune) . "'>" . $keyRune->getName()."</td>";
                     echo "</tr>";
                 }
                 echo "</table><button onclick='location.href=\"summoner.php?name=".$_GET["name"]."\";'>Zurück</button>";
