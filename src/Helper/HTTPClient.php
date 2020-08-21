@@ -38,11 +38,17 @@ class HTTPClient
      */
     private function request($url, $isLeague = true, $extraData = array()){
         if($isLeague){
-            curl_setopt($this->_curl, CURLOPT_URL, Constants::LEAGUE_API_BASE_PATH . $url .
-                "?api_key=" . Config::getConfig("api_key").'&'.$this->buildParameters($extraData));
+            $basePath = Constants::LEAGUE_API_BASE_PATH;
         } else {
-            curl_setopt($this->_curl, CURLOPT_URL, Constants::RIOT_API_BASE_PATH . $url .
-                "?api_key=" . Config::getConfig("api_key").'&'.$this->buildParameters($extraData));
+            $basePath = Constants::RIOT_API_BASE_PATH;
+        }
+        $api_key = EncryptionUtils::decrypt(Config::getConfig("api_key"));
+        if($isLeague){
+            curl_setopt($this->_curl, CURLOPT_URL, $basePath . $url .
+                "?api_key=" . $api_key.'&'.$this->buildParameters($extraData));
+        } else {
+            curl_setopt($this->_curl, CURLOPT_URL, $basePath . $url .
+                "?api_key=" . $api_key.'&'.$this->buildParameters($extraData));
         }
         curl_setopt($this->_curl, CURLOPT_HEADER  , true);
 

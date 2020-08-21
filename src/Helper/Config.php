@@ -9,19 +9,15 @@ class Config
      */
     private static $configs;
 
-    private static function loadConfig(){
-        $fileHandler = new FileHandler(BASE_PATH.'/src/config.json', 'r');
-        self::$configs = json_decode($fileHandler->read(),1);
-        $fileHandler->close();
+    public static function getConfig($key){
+        if(isset(self::$configs[$key])){
+            return self::$configs[$key];
+        } else {
+            throw new \RuntimeException('Config Key '.$key.' not found!');
+        }
     }
 
-    /**
-     * @param $key string
-     * @return string
-     */
-    public static function getConfig($key){
-        if(!isset(self::$configs))
-            self::loadConfig();
-        return self::$configs[$key];
+    public static function setConfig($key, $value){
+        self::$configs[$key] = $value;
     }
 }
