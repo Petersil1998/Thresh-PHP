@@ -2,6 +2,7 @@
 
 namespace src\Helper;
 
+use src\Collections\Champions;
 use src\Entities\Runes\Rune;
 use src\Entities\Runes\RuneStat;
 use src\Entities\Runes\RuneStyle;
@@ -9,21 +10,28 @@ use src\Entities\Summoner\Summoner;
 
 class Utils
 {
-    public static function getChampWithoutSpecials($champ)
+    /**
+     * @param $championName string
+     * @return string
+     */
+    public static function getChampWithoutSpecials($championName)
     {
-        if ($champ == "Wukong")
+        if ($championName == "Wukong") {
             return "MonkeyKing";
-        if ($champ == "Cho'Gath")
+        } elseif ($championName == "Cho'Gath") {
             return "Chogath";
-        if ($champ == "LeBlanc")
+        } elseif ($championName == "LeBlanc") {
             return "Leblanc";
-        if ($champ == "Vel'Koz")
+        } elseif ($championName == "Vel'Koz") {
             return "Velkoz";
-        if ($champ == "Kai'Sa")
+        } elseif ($championName == "Kai'Sa") {
             return "Kaisa";
-        if ($champ == "Kha'Zix")
+        } elseif ($championName == "Kha'Zix") {
             return "Khazix";
-        $ret = str_replace("'", "", $champ);
+        } elseif ($championName == "Nunu & Willump") {
+            return "Nunu";
+        }
+        $ret = str_replace("'", "", $championName);
         $ret = str_replace(" ", "", $ret);
         $ret = str_replace(".", "", $ret);
         return $ret;
@@ -34,7 +42,7 @@ class Utils
      * @return string
      */
     public static function getProfileIconURL($summoner){
-        return Constants::DDRAGON_BASEPATH.'cdn/'.Constants::getDDragonVersion().'/img/profileicon/'.$summoner->getProfileIcon().'.png';
+        return Constants::DDRAGON_BASE_PATH.'cdn/'.Constants::getDDragonVersion().'/img/profileicon/'.$summoner->getProfileIcon().'.png';
     }
 
     /**
@@ -42,7 +50,7 @@ class Utils
      * @return string
      */
     public static function getChampionIconURL($championId){
-        return Constants::DDRAGON_BASEPATH . "cdn/" . Constants::getDDragonVersion() . "/img/champion/" . Utils::getChampWithoutSpecials(Constants::CHAMPIONS[$championId]) . ".png";
+        return Constants::DDRAGON_BASE_PATH . "cdn/" . Constants::getDDragonVersion() . "/img/champion/" . Utils::getChampWithoutSpecials(Champions::getChampion($championId)->getName()) . ".png";
     }
 
     /**
@@ -50,6 +58,6 @@ class Utils
      * @return string
      */
     public static function getRuneIconURL($rune){
-        return Constants::DDRAGON_BASEPATH.'cdn/img/'.$rune->getIconPath();
+        return Constants::DDRAGON_BASE_PATH.'cdn/img/'.$rune->getIconPath();
     }
 }
