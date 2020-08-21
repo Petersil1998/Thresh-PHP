@@ -3,28 +3,31 @@
 
     define('BASE_PATH', dirname(dirname(__FILE__)));
 
+    use src\Collections\Champions;
     use src\Collections\Maps;
-    use src\Collections\Runes;
-    use src\Collections\RuneStats;
+    use src\Collections\QueueTypes;
     use src\Entities\Match\ActiveGame;
-    use src\Entities\Match\Match;
-    use src\Entities\Match\MatchDetails;
-    use src\Entities\Runes\Rune;
-    use src\Entities\Runes\RuneStat;
     use src\Entities\Summoner\Summoner;
-    use src\Helper\Constants;
     use src\Helper\Loader;
     use src\Helper\Utils;
     use Twig\Loader\FilesystemLoader;
     use Twig\Environment;
     use Twig\TwigFunction;
-
-    Loader::init();
+    $encrypted_api_key = \src\Helper\EncryptionUtils::encrypt('RGAPI-19162ee5-df3c-4a6e-8b94-28d667501426');
+    Loader::init($encrypted_api_key);
 
     $loader = new FilesystemLoader('templates');
     $twig = new Environment($loader);
     $function = new TwigFunction('getMap', function ($mapId) {
         return Maps::getMap($mapId);
+    });
+    $twig->addFunction($function);
+    $function = new TwigFunction('getChampion', function ($championId) {
+        return Champions::getChampion($championId);
+    });
+    $twig->addFunction($function);
+    $function = new TwigFunction('getQueueType', function ($queueTypeId) {
+        return QueueTypes::getQueueType($queueTypeId);
     });
     $twig->addFunction($function);
     $function = new TwigFunction('getChampionIconPath', function ($championId) {
@@ -63,7 +66,6 @@
                         echo $twig->render('summoner.twig', array(
                             'summoner'          => $summoner,
                             'game'              => $game,
-                            'champions'         => Constants::CHAMPIONS,
                         ));
                     }
                 }
@@ -83,11 +85,10 @@
                             'errorMessage' => 'Player isn\'t currently in a game',
                         ));
                     } else {
+                        var_dump($game->getGameQueueConfigId());
                         echo $twig->render('game.twig', array(
                             'summonerName'      => $summonerName,
                             'game'              => $game,
-                            'queues'            => Constants::QUEUES_TYPES,
-                            'champions'         => Constants::CHAMPIONS,
                         ));
                     }
                 }

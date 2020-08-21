@@ -52,7 +52,7 @@
                 <tr>
                     <td style='border-color: white;'>
                         <img alt='' class='small-icon' src='{{ getChampionIconPath(championMastery.ChampionId()) }}'>
-                        {{ champions[championMastery.ChampionId()] }}
+                        {{ getChampion(championMastery.ChampionId()).Name() }}
                     </td>
                     <td style='border-color: white; text-align: center'>{{ championMastery.ChampionLevel() }}</td>
                     <td style='border-color: white; text-align: center'>{{ championMastery.ChampionPoints() }}</td>

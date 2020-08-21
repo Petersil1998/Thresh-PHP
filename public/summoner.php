@@ -1,9 +1,9 @@
 <?php
     require_once '../vendor/autoload.php';
 
+    use src\Collections\Champions;
     use src\Entities\Match\ActiveGame;
     use src\Entities\Summoner\Summoner;
-    use src\Helper\Constants;
     use src\Helper\Utils;?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -61,7 +61,7 @@
                     foreach ($summoner->getChampionMasteries() AS $championMastery) {
                         echo "<tr><td style='border-color: white;'>";
                         echo "<img class='small-icon' src='" . Utils::getChampionIconURL($championMastery->getChampionId()) . "'>";
-                        echo Constants::CHAMPIONS[$championMastery->getChampionId()];
+                        echo Champions::getChampion($championMastery->getChampionId());
                         echo "</td><td style='border-color: white; text-align: center'>" . $championMastery->getChampionLevel() . "</td>";
                         echo "<td style='border-color: white; text-align: center'>" . $championMastery->getChampionPoints() . "</td>";
                         if ($championMastery->getChampionLevel() < 5) {
