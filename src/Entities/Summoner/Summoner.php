@@ -1,8 +1,8 @@
 <?php
 
-namespace src\Entities\Summoner;
+namespace Thresh\Entities\Summoner;
 
-use src\Helper\HTTPClient;
+use Thresh\Helper\HTTPClient;
 
 class Summoner extends SummonerBasic
 {

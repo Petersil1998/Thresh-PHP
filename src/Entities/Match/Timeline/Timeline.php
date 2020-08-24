@@ -1,22 +1,20 @@
 <?php
 
+namespace Thresh\Entities\Match\Timeline;
 
-namespace src\Entities\Match\Timeline;
-
-
-use src\Entities\Match\Timeline\Events\AbstractTimelineEvent;
-use src\Entities\Match\Timeline\Events\BuildingKillEvent;
-use src\Entities\Match\Timeline\Events\ChampionKillEvent;
-use src\Entities\Match\Timeline\Events\EliteMonsterKillEvent;
-use src\Entities\Match\Timeline\Events\ItemDestroyedEvent;
-use src\Entities\Match\Timeline\Events\ItemPurchasedEvent;
-use src\Entities\Match\Timeline\Events\ItemSoldEvent;
-use src\Entities\Match\Timeline\Events\ItemUndoEvent;
-use src\Entities\Match\Timeline\Events\SkillLevelUpEvent;
-use src\Entities\Match\Timeline\Events\TimelineEvents;
-use src\Entities\Match\Timeline\Events\WardKillEvent;
-use src\Entities\Match\Timeline\Events\WardPlacedEvent;
-use src\Helper\HTTPClient;
+use Thresh\Entities\Match\Timeline\Events\AbstractTimelineEvent;
+use Thresh\Entities\Match\Timeline\Events\BuildingKillEvent;
+use Thresh\Entities\Match\Timeline\Events\ChampionKillEvent;
+use Thresh\Entities\Match\Timeline\Events\EliteMonsterKillEvent;
+use Thresh\Entities\Match\Timeline\Events\ItemDestroyedEvent;
+use Thresh\Entities\Match\Timeline\Events\ItemPurchasedEvent;
+use Thresh\Entities\Match\Timeline\Events\ItemSoldEvent;
+use Thresh\Entities\Match\Timeline\Events\ItemUndoEvent;
+use Thresh\Entities\Match\Timeline\Events\SkillLevelUpEvent;
+use Thresh\Entities\Match\Timeline\Events\TimelineEvents;
+use Thresh\Entities\Match\Timeline\Events\WardKillEvent;
+use Thresh\Entities\Match\Timeline\Events\WardPlacedEvent;
+use Thresh\Helper\HTTPClient;
 
 class Timeline
 {

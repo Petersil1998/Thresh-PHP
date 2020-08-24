@@ -1,10 +1,8 @@
 <?php
 
+namespace Thresh\Collections;
 
-namespace src\Collections;
-
-
-use src\Entities\Champions\Champion;
+use Thresh\Entities\Champions\Champion;
 
 class Champions
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Entities\Summoner;
+namespace Thresh\Entities\Summoner;
 
 class UnrankedRank extends Rank
 {

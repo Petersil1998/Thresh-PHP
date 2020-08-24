@@ -1,9 +1,6 @@
 <?php
 
-namespace src\Helper;
-
-use src\Constants\Platforms;
-use src\Constants\Regions;
+namespace Thresh\Helper;
 
 class Config
 {
@@ -33,7 +30,7 @@ class Config
     }
 
     /**
-     * @return
+     * @return string
      */
     public static function getRegion(){
         return self::getConfig('region');
@@ -47,7 +44,7 @@ class Config
     }
 
     /**
-     * @return
+     * @return string
      */
     public static function getPlatform(){
         return self::getConfig('platform');

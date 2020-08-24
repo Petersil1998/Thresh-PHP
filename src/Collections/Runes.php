@@ -1,10 +1,8 @@
 <?php
 
+namespace Thresh\Collections;
 
-namespace src\Collections;
-
-
-use src\Entities\Runes\Rune;
+use Thresh\Entities\Runes\Rune;
 
 class Runes
 {

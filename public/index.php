@@ -3,17 +3,17 @@
 
     define('BASE_PATH', dirname(dirname(__FILE__)));
 
-    use src\Collections\Champions;
-    use src\Collections\Maps;
-    use src\Collections\QueueTypes;
-    use src\Constants\Platforms;
-    use src\Constants\Regions;
-    use src\Entities\Match\ActiveGame;
-    use src\Entities\Summoner\Summoner;
-    use src\Helper\Config;
-    use src\Helper\EncryptionUtils;
-    use src\Helper\Loader;
-    use src\Helper\Utils;
+    use Thresh\Collections\Champions;
+    use Thresh\Collections\Maps;
+    use Thresh\Collections\QueueTypes;
+    use Thresh\Constants\Platforms;
+    use Thresh\Constants\Regions;
+    use Thresh\Entities\Match\ActiveGame;
+    use Thresh\Entities\Summoner\Summoner;
+    use Thresh\Helper\Config;
+    use Thresh\Helper\EncryptionUtils;
+    use Thresh\Helper\Loader;
+    use Thresh\Helper\Utils;
     use Twig\Loader\FilesystemLoader;
     use Twig\Environment;
     use Twig\TwigFunction;

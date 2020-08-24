@@ -1,8 +1,8 @@
 <?php
 
-namespace src\Collections;
+namespace Thresh\Collections;
 
-use src\Entities\Runes\RuneStyle;
+use Thresh\Entities\Runes\RuneStyle;
 
 class RuneStyles
 {

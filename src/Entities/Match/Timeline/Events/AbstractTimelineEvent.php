@@ -1,7 +1,6 @@
 <?php
 
-
-namespace src\Entities\Match\Timeline\Events;
+namespace Thresh\Entities\Match\Timeline\Events;
 
 abstract class AbstractTimelineEvent
 {

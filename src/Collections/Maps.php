@@ -1,8 +1,8 @@
 <?php
 
-namespace src\Collections;
+namespace Thresh\Collections;
 
-use src\Entities\Map;
+use Thresh\Entities\Map;
 
 class Maps
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace src\Entities\Match;
+namespace Thresh\Entities\Match;
 
-use src\Helper\Constants;
-use src\Helper\HTTPClient;
+use Thresh\Helper\Constants;
+use Thresh\Helper\HTTPClient;
 
 class Match
 {

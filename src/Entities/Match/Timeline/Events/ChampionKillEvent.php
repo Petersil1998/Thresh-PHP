@@ -1,10 +1,8 @@
 <?php
 
+namespace Thresh\Entities\Match\Timeline\Events;
 
-namespace src\Entities\Match\Timeline\Events;
-
-
-use src\Entities\Match\Timeline\TimelineParticipant;
+use Thresh\Entities\Match\Timeline\TimelineParticipant;
 
 class ChampionKillEvent extends AbstractTimelineEvent
 {

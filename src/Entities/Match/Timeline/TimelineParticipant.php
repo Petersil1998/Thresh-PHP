@@ -1,7 +1,6 @@
 <?php
 
-
-namespace src\Entities\Match\Timeline;
+namespace Thresh\Entities\Match\Timeline;
 
 use stdClass;
 

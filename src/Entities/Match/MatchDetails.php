@@ -1,9 +1,9 @@
 <?php
 
-namespace src\Entities\Match;
+namespace Thresh\Entities\Match;
 
-use src\Entities\Match\Timeline\Timeline;
-use src\Helper\HTTPClient;
+use Thresh\Entities\Match\Timeline\Timeline;
+use Thresh\Helper\HTTPClient;
 
 class MatchDetails
 {

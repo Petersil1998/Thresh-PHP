@@ -1,10 +1,10 @@
 <?php
     require_once '../vendor/autoload.php';
 
-    use src\Collections\Champions;
-    use src\Entities\Match\ActiveGame;
-    use src\Entities\Summoner\Summoner;
-    use src\Helper\Utils;?>
+    use Thresh\Collections\Champions;
+    use Thresh\Entities\Match\ActiveGame;
+    use Thresh\Entities\Summoner\Summoner;
+    use Thresh\Helper\Utils;?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html lang="en">

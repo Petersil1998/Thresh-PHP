@@ -1,10 +1,8 @@
 <?php
 
+namespace Thresh\Collections;
 
-namespace src\Collections;
-
-
-use src\Entities\QueueType;
+use Thresh\Entities\QueueType;
 
 class QueueTypes
 {

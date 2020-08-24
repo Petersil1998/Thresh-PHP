@@ -1,11 +1,11 @@
 <?php
 
-namespace src\Entities\Summoner;
+namespace Thresh\Entities\Summoner;
 
-use src\Collections\Runes;
-use src\Collections\RuneStyles;
-use src\Entities\Runes\Rune;
-use src\Entities\Runes\RuneStyle;
+use Thresh\Collections\Runes;
+use Thresh\Collections\RuneStyles;
+use Thresh\Entities\Runes\Rune;
+use Thresh\Entities\Runes\RuneStyle;
 
 class SummonerGameParticipant extends SummonerBasic
 {

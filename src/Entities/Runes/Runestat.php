@@ -1,9 +1,6 @@
 <?php
 
-namespace src\Entities\Runes;
-
-use src\Helper\Utils;
-use src\Helper\Constants;
+namespace Thresh\Entities\Runes;
 
 class RuneStat
 {

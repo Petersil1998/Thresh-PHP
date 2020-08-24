@@ -1,8 +1,8 @@
 <?php
 
-namespace src\Collections;
+namespace Thresh\Collections;
 
-use src\Entities\Runes\RuneStat;
+use Thresh\Entities\Runes\RuneStat;
 
 class RuneStats
 {

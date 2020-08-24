@@ -1,13 +1,13 @@
 <?php
 
-namespace src\Helper;
+namespace Thresh\Helper;
 
-use src\Collections\Champions;
-use src\Constants\Constants;
-use src\Entities\Runes\Rune;
-use src\Entities\Runes\RuneStat;
-use src\Entities\Runes\RuneStyle;
-use src\Entities\Summoner\Summoner;
+use Thresh\Collections\Champions;
+use Thresh\Constants\Constants;
+use Thresh\Entities\Runes\Rune;
+use Thresh\Entities\Runes\RuneStat;
+use Thresh\Entities\Runes\RuneStyle;
+use Thresh\Entities\Summoner\Summoner;
 
 class Utils
 {

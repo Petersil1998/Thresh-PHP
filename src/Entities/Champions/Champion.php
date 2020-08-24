@@ -1,10 +1,8 @@
 <?php
 
+namespace Thresh\Entities\Champions;
 
-namespace src\Entities\Champions;
-
-
-use src\Entities\Sprite;
+use Thresh\Entities\Sprite;
 
 class Champion
 {

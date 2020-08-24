@@ -1,8 +1,8 @@
 <?php
 
-namespace src\Helper;
+namespace Thresh\Helper;
 
-use src\Constants\Constants;
+use Thresh\Constants\Constants;
 
 class HTTPClient
 {

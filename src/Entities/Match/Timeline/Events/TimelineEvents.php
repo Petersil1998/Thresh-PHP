@@ -1,8 +1,6 @@
 <?php
 
-
-namespace src\Entities\Match\Timeline\Events;
-
+namespace Thresh\Entities\Match\Timeline\Events;
 
 class TimelineEvents
 {

@@ -1,10 +1,8 @@
 <?php
 
+namespace Thresh\Entities\Summoner;
 
-namespace src\Entities\Summoner;
-
-
-use src\Helper\HTTPClient;
+use Thresh\Helper\HTTPClient;
 
 class Account
 {

@@ -1,8 +1,6 @@
 <?php
 
-
-namespace src\Entities\Champions;
-
+namespace Thresh\Entities\Champions;
 
 class Skin
 {

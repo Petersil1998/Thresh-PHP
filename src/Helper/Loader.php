@@ -1,26 +1,24 @@
 <?php
 
-
-namespace src\Helper;
-
+namespace Thresh\Helper;
 
 use RuntimeException;
-use src\Collections\Champions;
-use src\Collections\Maps;
-use src\Collections\QueueTypes;
-use src\Collections\Runes;
-use src\Collections\RuneStats;
-use src\Collections\RuneStyles;
-use src\Constants\Constants;
-use src\Entities\Champions\Champion;
-use src\Entities\Champions\Skin;
-use src\Entities\Champions\Stats;
-use src\Entities\Map;
-use src\Entities\QueueType;
-use src\Entities\Runes\Rune;
-use src\Entities\Runes\RuneStat;
-use src\Entities\Runes\RuneStyle;
-use src\Entities\Sprite;
+use Thresh\Collections\Champions;
+use Thresh\Collections\Maps;
+use Thresh\Collections\QueueTypes;
+use Thresh\Collections\Runes;
+use Thresh\Collections\RuneStats;
+use Thresh\Collections\RuneStyles;
+use Thresh\Constants\Constants;
+use Thresh\Entities\Champions\Champion;
+use Thresh\Entities\Champions\Skin;
+use Thresh\Entities\Champions\Stats;
+use Thresh\Entities\Map;
+use Thresh\Entities\QueueType;
+use Thresh\Entities\Runes\Rune;
+use Thresh\Entities\Runes\RuneStat;
+use Thresh\Entities\Runes\RuneStyle;
+use Thresh\Entities\Sprite;
 
 class Loader
 {

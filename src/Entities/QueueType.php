@@ -1,8 +1,6 @@
 <?php
 
-
-namespace src\Entities;
-
+namespace Thresh\Entities;
 
 class QueueType
 {

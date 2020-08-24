@@ -1,10 +1,10 @@
 <?php
 
-namespace src\Entities\Match;
+namespace Thresh\Entities\Match;
 
-use src\Entities\Summoner\SummonerBasic;
-use src\Entities\Summoner\SummonerGameParticipant;
-use src\Helper\HTTPClient;
+use Thresh\Entities\Summoner\SummonerBasic;
+use Thresh\Entities\Summoner\SummonerGameParticipant;
+use Thresh\Helper\HTTPClient;
 
 class ActiveGame
 {

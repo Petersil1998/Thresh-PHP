@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Entities;
+namespace Thresh\Entities;
 
 class Map
 {

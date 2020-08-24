@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Constants;
+namespace Thresh\Constants;
 
 class Constants
 {

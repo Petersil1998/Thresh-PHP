@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Entities\Match;
+namespace Thresh\Entities\Match;
 
 use stdClass;
 
