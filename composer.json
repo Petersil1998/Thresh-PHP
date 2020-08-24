@@ -1,7 +1,6 @@
 {
     "name": "petersil98/thresh",
     "description": "This is a library, that takes over the communication with the riot games API and provides the filled Objects",
-    "version": "1.0.0",
     "type": "library",
     "authors": [
         {
