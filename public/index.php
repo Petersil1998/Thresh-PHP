@@ -65,7 +65,6 @@
                 }else{
                     $summonerName = str_replace(" ", "", $_GET["name"]);
                     $summoner = new Summoner($summonerName);
-                    echo $summoner->getPuuid();
                     if(!$summoner->exists()){
                         echo $twig->render('error.twig', array(
                             'errorMessage' => 'Summoner doesn\'t exist',
