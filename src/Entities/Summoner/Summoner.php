@@ -75,7 +75,9 @@ class Summoner extends SummonerBasic
     }
 
     protected function initRanks(){
-        $ranks = json_decode(HTTPClient::getInstance()->requestLeagueEndpoint("entries/by-summoner/".$this->getId()));
+        $tft = json_decode(HTTPClient::getInstance()->requestTftLeagueEndpoint("entries/by-summoner/".$this->getId()));
+        $flexNSoloQ = json_decode(HTTPClient::getInstance()->requestLeagueEndpoint("entries/by-summoner/".$this->getId()));
+        $ranks = array_merge($flexNSoloQ, $tft);
         foreach ($ranks as $rank){
             if(isset($rank->queueType)) {
                 switch ($rank->queueType) {
@@ -101,11 +103,11 @@ class Summoner extends SummonerBasic
 
     protected function setDefaultRanks(){
         if (empty($this->rank_solo_duo))
-            $this->rank_solo_duo = new Rank('Unranked');
+            $this->rank_solo_duo = new UnrankedRank();
         if (empty($this->rank_flex_5v5))
-            $this->rank_flex_5v5 = new Rank('Unranked');
+            $this->rank_flex_5v5 = new UnrankedRank();
         if (empty($this->rank_tft))
-            $this->rank_tft = new Rank('Unranked');
+            $this->rank_tft = new UnrankedRank();
     }
 
     /**

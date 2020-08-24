@@ -1,13 +1,14 @@
 <?php
 
-namespace src\Helper;
+namespace src\Constants;
 
 class Constants
 {
     private static $ddragonVersion;
 
-    const LEAGUE_API_BASE_PATH = "https://euw1.api.riotgames.com/lol/";
-    const RIOT_API_BASE_PATH = "https://europe.api.riotgames.com/riot/";
+    const LEAGUE_API_BASE_PATH = "https://{platform}.api.riotgames.com/lol/";
+    const TFT_API_BASE_PATH = "https://{platform}.api.riotgames.com/tft/";
+    const RIOT_API_BASE_PATH = "https://{region}.api.riotgames.com/riot/";
     const DDRAGON_BASE_PATH = "https://ddragon.leagueoflegends.com/";
     const STATIC_DATA_BASE_PATH = "http://static.developer.riotgames.com/docs/lol/";
 

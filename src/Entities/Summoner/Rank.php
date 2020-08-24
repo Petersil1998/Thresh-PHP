@@ -10,65 +10,65 @@ class Rank
     /**
      * @var string
      */
-    private $leagueId = "";
+    protected $leagueId = "";
 
     /**
      * @var string
      */
-    private $queueType = "";
+    protected $queueType = "";
 
     /**
      * @var string
      */
-    private $tier = "";
+    protected $tier = "";
 
     /**
      * @var string
      */
-    private $rank = "";
+    protected $rank = "";
 
     /**
      * @var int
      */
-    private $leaguePoints = 0;
+    protected $leaguePoints = 0;
 
     /**
      * @var int
      */
-    private $wins = 0;
+    protected $wins = 0;
 
     /**
      * @var int
      */
-    private $losses = 0;
+    protected $losses = 0;
 
     /**
      * @var bool
      */
-    private $veteran = false;
+    protected $veteran = false;
 
     /**
      * @var bool
      */
-    private $inactive = false;
+    protected $inactive = false;
 
     /**
      * @var bool
      */
-    private $freshBlood = false;
+    protected $freshBlood = false;
 
     /**
      * @var bool
      */
-    private $hotStreak = false;
+    protected $hotStreak = false;
 
     /**
      * Rank constructor.
-     * @param stdClass|string $rankObj
+     * @param stdClass|bool $rankObj
      */
     public function __construct($rankObj)
     {
-        if($rankObj != 'Unranked') {
+        if($rankObj) {
             $this->leagueId = $rankObj->leagueId;
             $this->queueType = $rankObj->queueType;
             $this->tier = $rankObj->tier;
@@ -80,8 +80,6 @@ class Rank
             $this->inactive = $rankObj->inactive;
             $this->freshBlood = $rankObj->freshBlood;
             $this->hotStreak = $rankObj->hotStreak;
-        } else {
-            $this->tier = $rankObj;
         }
     }
 

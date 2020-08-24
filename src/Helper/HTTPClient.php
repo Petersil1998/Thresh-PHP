@@ -2,6 +2,8 @@
 
 namespace src\Helper;
 
+use src\Constants\Constants;
+
 class HTTPClient
 {
     private static $httpClient;
@@ -32,24 +34,26 @@ class HTTPClient
 
     /**
      * @param $url string
-     * @param $isLeague bool
+     * @param $game string
      * @param $extraData array
      * @return string
      */
-    private function request($url, $isLeague = true, $extraData = array()){
-        if($isLeague){
-            $basePath = Constants::LEAGUE_API_BASE_PATH;
-        } else {
-            $basePath = Constants::RIOT_API_BASE_PATH;
+    private function request($url, $game, $extraData = array()){
+        $basePath = '';
+        switch ($game){
+            case 'lol':
+                $basePath = preg_replace('~{platform}~',Config::getPlatform(),Constants::LEAGUE_API_BASE_PATH);
+                break;
+            case 'tft':
+                $basePath = preg_replace('~{platform}~',Config::getPlatform(),Constants::TFT_API_BASE_PATH);
+                break;
+            case 'riot':
+                $basePath = preg_replace('~{region}~',Config::getRegion(),Constants::RIOT_API_BASE_PATH);
+                break;
         }
-        $api_key = EncryptionUtils::decrypt(Config::getConfig("api_key"));
-        if($isLeague){
-            curl_setopt($this->_curl, CURLOPT_URL, $basePath . $url .
-                "?api_key=" . $api_key.'&'.$this->buildParameters($extraData));
-        } else {
-            curl_setopt($this->_curl, CURLOPT_URL, $basePath . $url .
-                "?api_key=" . $api_key.'&'.$this->buildParameters($extraData));
-        }
+        $api_key = EncryptionUtils::decrypt(Config::getApiKey());
+        curl_setopt($this->_curl, CURLOPT_URL, $basePath . $url .
+            "?api_key=" . $api_key.'&'.$this->buildParameters($extraData));
         curl_setopt($this->_curl, CURLOPT_HEADER  , true);
 
         $response = curl_exec($this->_curl);
@@ -92,7 +96,7 @@ class HTTPClient
      * @return string
      */
     public function requestSummonerEndpoint($url){
-        return $this->request("summoner/v4/".$url);
+        return $this->request("summoner/v4/".$url, 'lol');
     }
 
     /**
@@ -100,7 +104,7 @@ class HTTPClient
      * @return string
      */
     public function requestChampionMasteryEndpoint($url){
-        return $this->request("champion-mastery/v4/".$url);
+        return $this->request("champion-mastery/v4/".$url, 'lol');
     }
 
     /**
@@ -108,7 +112,15 @@ class HTTPClient
      * @return string
      */
     public function requestLeagueEndpoint($url){
-        return $this->request("league/v4/".$url);
+        return $this->request("league/v4/".$url, 'lol');
+    }
+
+    /**
+     * @param $url string
+     * @return string
+     */
+    public function requestTftLeagueEndpoint($url){
+        return $this->request("league/v1/".$url, 'tft');
     }
 
     /**
@@ -116,7 +128,7 @@ class HTTPClient
      * @return string
      */
     public function requestSpectatorEndpoint($url){
-        return $this->request("spectator/v4/".$url);
+        return $this->request("spectator/v4/".$url, 'lol');
     }
 
     /**
@@ -125,7 +137,7 @@ class HTTPClient
      * @return string
      */
     public function requestMatchEndpoint($url, $filter = array()){
-        return $this->request("match/v4/".$url, true, $filter);
+        return $this->request("match/v4/".$url, 'lol', $filter);
     }
 
     /**
@@ -133,6 +145,6 @@ class HTTPClient
      * @return string
      */
     public function requestAccountEndpoint($url){
-        return $this->request("account/v1/".$url, false);
+        return $this->request("account/v1/".$url, 'riot');
     }
 }
