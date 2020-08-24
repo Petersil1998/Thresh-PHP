@@ -20,6 +20,8 @@ use Thresh\Entities\Runes\RuneStat;
 use Thresh\Entities\Runes\RuneStyle;
 use Thresh\Entities\Sprite;
 
+define('BASE_PATH', dirname(dirname(dirname(__FILE__))));
+
 class Loader
 {
     private const RUNE_STATS_FILE_PATH = BASE_PATH.'/src/runeStats.json';
