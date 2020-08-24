@@ -26,7 +26,7 @@ class ItemDestroyedEvent extends AbstractTimelineEvent
      */
     public function __construct($timestamp, $participant, $itemId)
     {
-        parent::__construct($timestamp, TimelineEvent::ITEM_DESTROYED);
+        parent::__construct($timestamp, TimelineEvents::ITEM_DESTROYED);
         $this->participant = $participant;
         $this->itemId = $itemId;
     }

@@ -13,7 +13,7 @@ use src\Entities\Match\Timeline\Events\ItemPurchasedEvent;
 use src\Entities\Match\Timeline\Events\ItemSoldEvent;
 use src\Entities\Match\Timeline\Events\ItemUndoEvent;
 use src\Entities\Match\Timeline\Events\SkillLevelUpEvent;
-use src\Entities\Match\Timeline\Events\TimelineEvent;
+use src\Entities\Match\Timeline\Events\TimelineEvents;
 use src\Entities\Match\Timeline\Events\WardKillEvent;
 use src\Entities\Match\Timeline\Events\WardPlacedEvent;
 use src\Helper\HTTPClient;
@@ -68,50 +68,50 @@ class Timeline
             $events = array();
             foreach ($frame->events as $event){
                 switch ($event->type){
-                    case TimelineEvent::CHAMPION_KILL:
+                    case TimelineEvents::CHAMPION_KILL:
                         $killer = TimelineParticipant::getParticipantById($participants, $event->killerId);
                         $victim = TimelineParticipant::getParticipantById($participants, $event->victimId);
                         $assists = TimelineParticipant::getParticipantByIds($participants, $event->assistingParticipantIds);
                         $events[] = new ChampionKillEvent($event->timestamp, $event->position->x, $event->position->y,
                             $killer, $victim, $assists);
                         break;
-                    case TimelineEvent::WARD_PLACED:
+                    case TimelineEvents::WARD_PLACED:
                         $creator = TimelineParticipant::getParticipantById($participants, $event->creatorId);
                         $events[] = new WardPlacedEvent($event->timestamp, $event->wardType, $creator);
                         break;
-                    case TimelineEvent::WARD_KILL:
+                    case TimelineEvents::WARD_KILL:
                         $killer = TimelineParticipant::getParticipantById($participants, $event->killerId);
                         $events[] = new WardKillEvent($event->timestamp, $event->wardType, $killer);
                         break;
-                    case TimelineEvent::BUILDING_KILL:
+                    case TimelineEvents::BUILDING_KILL:
                         $killer = TimelineParticipant::getParticipantById($participants, $event->killerId);
                         $assists = TimelineParticipant::getParticipantByIds($participants, $event->assistingParticipantIds);
                         $events[] = new BuildingKillEvent($event->timestamp, $event->position->x, $event->position->y,
                             $killer, $assists, $event->teamId, $event->buildingType, $event->laneType, $event->towerType);
                         break;
-                    case TimelineEvent::ELITE_MONSTER_KILL:
+                    case TimelineEvents::ELITE_MONSTER_KILL:
                         $killer = TimelineParticipant::getParticipantById($participants, $event->killerId);
                         $events[] = new EliteMonsterKillEvent($event->timestamp, $event->position->x, $event->position->y,
                             $killer, $event->monsterType,
                             property_exists($event, 'monsterSubType') ? $event->monsterSubType : null);
                         break;
-                    case TimelineEvent::ITEM_PURCHASED:
+                    case TimelineEvents::ITEM_PURCHASED:
                         $participant = TimelineParticipant::getParticipantById($participants, $event->participantId);
                         $events[] = new ItemPurchasedEvent($event->timestamp, $participant, $event->itemId);
                         break;
-                    case TimelineEvent::ITEM_SOLD:
+                    case TimelineEvents::ITEM_SOLD:
                         $participant = TimelineParticipant::getParticipantById($participants, $event->participantId);
                         $events[] = new ItemSoldEvent($event->timestamp, $participant, $event->itemId);
                         break;
-                    case TimelineEvent::ITEM_DESTROYED:
+                    case TimelineEvents::ITEM_DESTROYED:
                         $participant = TimelineParticipant::getParticipantById($participants, $event->participantId);
                         $events[] = new ItemDestroyedEvent($event->timestamp, $participant, $event->itemId);
                         break;
-                    case TimelineEvent::ITEM_UNDO:
+                    case TimelineEvents::ITEM_UNDO:
                         $participant = TimelineParticipant::getParticipantById($participants, $event->participantId);
                         $events[] = new ItemUndoEvent($event->timestamp, $participant, $event->afterId, $event->beforeId);
                         break;
-                    case TimelineEvent::SKILL_LEVEL_UP:
+                    case TimelineEvents::SKILL_LEVEL_UP:
                         $participant = TimelineParticipant::getParticipantById($participants, $event->participantId);
                         $events[] = new SkillLevelUpEvent($event->timestamp, $participant, $event->skillSlot,
                             $event->levelUpType);

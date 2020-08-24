@@ -44,7 +44,7 @@ class ChampionKillEvent extends AbstractTimelineEvent
      */
     public function __construct($timestamp, $positionX, $positionY, $killer, $victim, $assists)
     {
-        parent::__construct($timestamp, TimelineEvent::CHAMPION_KILL);
+        parent::__construct($timestamp, TimelineEvents::CHAMPION_KILL);
         $this->positionX = $positionX;
         $this->positionY = $positionY;
         $this->killer = $killer;

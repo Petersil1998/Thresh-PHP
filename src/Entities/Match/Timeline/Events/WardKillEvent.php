@@ -26,7 +26,7 @@ class WardKillEvent extends AbstractTimelineEvent
      */
     public function __construct($timestamp, $wardType, $killer)
     {
-        parent::__construct($timestamp, TimelineEvent::WARD_KILL);
+        parent::__construct($timestamp, TimelineEvents::WARD_KILL);
         $this->wardType = $wardType;
         $this->killer = $killer;
     }

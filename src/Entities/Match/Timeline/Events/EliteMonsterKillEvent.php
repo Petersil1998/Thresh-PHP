@@ -45,7 +45,7 @@ class EliteMonsterKillEvent extends AbstractTimelineEvent
      */
     public function __construct($timestamp, $positionX, $positionY, $killer, $monsterType, $monsterSubType = null)
     {
-        parent::__construct($timestamp, TimelineEvent::ELITE_MONSTER_KILL);
+        parent::__construct($timestamp, TimelineEvents::ELITE_MONSTER_KILL);
         $this->positionX = $positionX;
         $this->positionY = $positionY;
         $this->killer = $killer;

@@ -26,7 +26,7 @@ class ItemPurchasedEvent extends AbstractTimelineEvent
      */
     public function __construct($timestamp, $participant, $itemId)
     {
-        parent::__construct($timestamp, TimelineEvent::ITEM_PURCHASED);
+        parent::__construct($timestamp, TimelineEvents::ITEM_PURCHASED);
         $this->participant = $participant;
         $this->itemId = $itemId;
     }

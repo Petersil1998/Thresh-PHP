@@ -11,7 +11,7 @@ abstract class AbstractTimelineEvent
     protected $timestamp;
 
     /**
-     * @var TimelineEvent
+     * @var TimelineEvents
      */
     protected $type;
 
@@ -29,9 +29,9 @@ abstract class AbstractTimelineEvent
         return $this->timestamp;
     }
     /**
-     * @return TimelineEvent
+     * @return TimelineEvents
      */
-    public function getType(): TimelineEvent
+    public function getType(): TimelineEvents
     {
         return $this->type;
     }

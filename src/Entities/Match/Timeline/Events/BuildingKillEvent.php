@@ -63,7 +63,7 @@ class BuildingKillEvent extends AbstractTimelineEvent
      */
     public function __construct($timestamp, $positionX, $positionY, $killer, $assists, $teamId, $buildingType, $laneType, $towerType)
     {
-        parent::__construct($timestamp, TimelineEvent::BUILDING_KILL);
+        parent::__construct($timestamp, TimelineEvents::BUILDING_KILL);
         $this->positionX = $positionX;
         $this->positionY = $positionY;
         $this->killer = $killer;

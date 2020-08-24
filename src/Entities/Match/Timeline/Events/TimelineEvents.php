@@ -4,7 +4,7 @@
 namespace src\Entities\Match\Timeline\Events;
 
 
-class TimelineEvent
+class TimelineEvents
 {
     const CHAMPION_KILL = "CHAMPION_KILL";
     const WARD_PLACED = "WARD_PLACED";

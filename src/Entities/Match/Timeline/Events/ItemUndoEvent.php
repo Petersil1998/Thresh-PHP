@@ -32,7 +32,7 @@ class ItemUndoEvent extends AbstractTimelineEvent
      */
     public function __construct($timestamp, $participant, $afterId, $beforeId)
     {
-        parent::__construct($timestamp, TimelineEvent::ITEM_UNDO);
+        parent::__construct($timestamp, TimelineEvents::ITEM_UNDO);
         $this->participant = $participant;
         $this->afterId = $afterId;
         $this->beforeId = $beforeId;
