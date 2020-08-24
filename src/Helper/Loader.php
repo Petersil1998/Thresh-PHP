@@ -11,6 +11,7 @@ use src\Collections\QueueTypes;
 use src\Collections\Runes;
 use src\Collections\RuneStats;
 use src\Collections\RuneStyles;
+use src\Constants\Constants;
 use src\Entities\Champions\Champion;
 use src\Entities\Champions\Skin;
 use src\Entities\Champions\Stats;
@@ -30,8 +31,7 @@ class Loader
     private const CHAMPIONS_FILE_PATH = BASE_PATH.'/src/champions.json';
     private const QUEUE_TYPES_FILE_PATH = BASE_PATH.'/src/queues.json';
 
-    public static function init($api_key){
-        Config::setConfig('api_key', $api_key);
+    public static function init(){
         if(self::initAndUpdateDDragonVersion()) {
             self::updateRunesAndRuneStylesFile();
             self::updateRuneStatsFile();

@@ -6,15 +6,23 @@
     use src\Collections\Champions;
     use src\Collections\Maps;
     use src\Collections\QueueTypes;
+    use src\Constants\Platforms;
+    use src\Constants\Regions;
     use src\Entities\Match\ActiveGame;
     use src\Entities\Summoner\Summoner;
+    use src\Helper\Config;
+    use src\Helper\EncryptionUtils;
     use src\Helper\Loader;
     use src\Helper\Utils;
     use Twig\Loader\FilesystemLoader;
     use Twig\Environment;
     use Twig\TwigFunction;
-    $encrypted_api_key = \src\Helper\EncryptionUtils::encrypt('RGAPI-19162ee5-df3c-4a6e-8b94-28d667501426');
-    Loader::init($encrypted_api_key);
+
+    $encrypted_api_key = EncryptionUtils::encrypt('');
+    Config::setApiKey($encrypted_api_key);
+    Config::setRegion(Regions::EUROPE);
+    Config::setPlatform(Platforms::EUW);
+    Loader::init();
 
     $loader = new FilesystemLoader('templates');
     $twig = new Environment($loader);
@@ -57,6 +65,7 @@
                 }else{
                     $summonerName = str_replace(" ", "", $_GET["name"]);
                     $summoner = new Summoner($summonerName);
+                    echo $summoner->getPuuid();
                     if(!$summoner->exists()){
                         echo $twig->render('error.twig', array(
                             'errorMessage' => 'Summoner doesn\'t exist',
@@ -85,7 +94,6 @@
                             'errorMessage' => 'Player isn\'t currently in a game',
                         ));
                     } else {
-                        var_dump($game->getGameQueueConfigId());
                         echo $twig->render('game.twig', array(
                             'summonerName'      => $summonerName,
                             'game'              => $game,

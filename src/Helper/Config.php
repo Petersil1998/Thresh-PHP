@@ -2,6 +2,9 @@
 
 namespace src\Helper;
 
+use src\Constants\Platforms;
+use src\Constants\Regions;
+
 class Config
 {
     /**
@@ -9,7 +12,7 @@ class Config
      */
     private static $configs;
 
-    public static function getConfig($key){
+    private static function getConfig($key){
         if(isset(self::$configs[$key])){
             return self::$configs[$key];
         } else {
@@ -17,7 +20,43 @@ class Config
         }
     }
 
-    public static function setConfig($key, $value){
+    private static function setConfig($key, $value){
         self::$configs[$key] = $value;
+    }
+
+    public static function getApiKey(){
+        return self::getConfig('api_key');
+    }
+
+    public static function setApiKey($encryptedApiKey){
+        self::setConfig('api_key', $encryptedApiKey);
+    }
+
+    /**
+     * @return
+     */
+    public static function getRegion(){
+        return self::getConfig('region');
+    }
+
+    /**
+     * @param $region
+     */
+    public static function setRegion($region){
+        self::setConfig('region', $region);
+    }
+
+    /**
+     * @return
+     */
+    public static function getPlatform(){
+        return self::getConfig('platform');
+    }
+
+    /**
+     * @param $platform
+     */
+    public static function setPlatform($platform){
+        self::setConfig('platform', $platform);
     }
 }
