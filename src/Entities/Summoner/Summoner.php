@@ -2,14 +2,30 @@
 
 namespace Thresh\Entities\Summoner;
 
+use stdClass;
 use Thresh\Helper\HTTPClient;
 
 /**
  * This is the Main Class representing a Summoner
  * @package Thresh\Entities\Summoner
  */
-class Summoner extends SummonerBasic
+class Summoner
 {
+    /**
+     * @var String
+     */
+    private $summonername;
+
+    /**
+     * @var string
+     */
+    private $id;
+
+    /**
+     * @var int
+     */
+    private $profileIcon;
+
     /**
      * @var string
      */
@@ -62,23 +78,46 @@ class Summoner extends SummonerBasic
 
     /**
      * Summoner constructor.
-     * @param string $summonername
+     * @param stdClass $data
      */
-    public function __construct($summonername)
+    private function __construct($data)
     {
-        parent::__construct($summonername);
+            $data = json_decode($data);
+            $this->summonername = $data->name;
+            $this->id = $data->id;
+            $this->profileIcon = $data->profileIconId;
+            $this->accountId = $data->accountId;
+            $this->puuid = $data->puuid;
+            $this->summonerLevel = $data->summonerLevel;
+            $this->revisionDate = $data->revisionDate/1000;
+            $this->initRanks();
     }
 
-    protected function initiateSummoner($summoner){
-        parent::initiateSummoner($summoner);
-        $this->accountId = $summoner->accountId;
-        $this->puuid = $summoner->puuid;
-        $this->summonerLevel = $summoner->summonerLevel;
-        $this->revisionDate = $summoner->revisionDate/1000;
-        $this->initRanks();
+    public static function getSummonerByName($summonerName){
+        $data = HTTPClient::getInstance()->requestSummonerEndpoint("summoners/by-name/" . $summonerName);
+        if (!empty($data)) {
+            return new Summoner(json_decode($data));
+        }
+        return false;
     }
 
-    protected function initRanks(){
+    public static function getSummonerByAccountID($accountID){
+        $data = HTTPClient::getInstance()->requestSummonerEndpoint("summoners/by-account/" . $accountID);
+        if (!empty($data)) {
+            return new Summoner(json_decode($data));
+        }
+        return false;
+    }
+
+    public static function getSummonerByPUUID($puuid){
+        $data = HTTPClient::getInstance()->requestSummonerEndpoint("summoners/by-puuid/" . $puuid);
+        if (!empty($data)) {
+            return new Summoner(json_decode($data));
+        }
+        return false;
+    }
+
+    private function initRanks(){
         $tft = json_decode(HTTPClient::getInstance()->requestTftLeagueEndpoint("entries/by-summoner/".$this->getId()));
         $flexNSoloQ = json_decode(HTTPClient::getInstance()->requestLeagueEndpoint("entries/by-summoner/".$this->getId()));
         $ranks = array_merge($flexNSoloQ, $tft);
@@ -112,6 +151,30 @@ class Summoner extends SummonerBasic
             $this->rank_flex_5v5 = new UnrankedRank();
         if (empty($this->rank_tft))
             $this->rank_tft = new UnrankedRank();
+    }
+
+    /**
+     * @return String
+     */
+    public function getSummonername(): string
+    {
+        return $this->summonername;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProfileIcon(): int
+    {
+        return $this->profileIcon;
     }
 
     /**
