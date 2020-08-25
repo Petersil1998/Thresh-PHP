@@ -3,7 +3,7 @@
 namespace Thresh\Entities\Match;
 
 use RuntimeException;
-use Thresh\Entities\Summoner\SummonerBasic;
+use Thresh\Entities\Summoner\Summoner;
 use Thresh\Entities\Summoner\ActiveGameParticipant;
 use Thresh\Helper\HTTPClient;
 
@@ -55,15 +55,19 @@ class ActiveGame
 
     /**
      * Game constructor.
-     * @param SummonerBasic $summoner
+     * @param Summoner $summoner
      */
     public function __construct($summoner)
     {
-        if($summoner->exists()) {
-            $game = json_decode(HTTPClient::getInstance()->requestSpectatorEndpoint("active-games/by-summoner/" . $summoner->getId()));
-            if(!empty($game)) {
-                $this->initiateGame($game);
-            }
+        $game = json_decode(HTTPClient::getInstance()->requestSpectatorEndpoint("active-games/by-summoner/" . $summoner->getId()));
+        if(!empty($game)) {
+            $this->gameId = $game->gameId;
+            $this->mapId = $game->mapId;
+            $this->gameMode = $game->gameMode;
+            $this->gameType = $game->gameType;
+            $this->gameQueueConfigId = $game->gameQueueConfigId;
+            $this->teamsize = (count($game->participants)) / 2;
+            $this->loadParticipants($game->participants);
         }
     }
 
@@ -72,22 +76,9 @@ class ActiveGame
     }
 
     /**
-     * @param mixed $game
-     */
-    protected function initiateGame($game){
-        $this->gameId = $game->gameId;
-        $this->mapId = $game->mapId;
-        $this->gameMode = $game->gameMode;
-        $this->gameType = $game->gameType;
-        $this->gameQueueConfigId = $game->gameQueueConfigId;
-        $this->teamsize = (count($game->participants)) / 2;
-        $this->loadParticipants($game->participants);
-    }
-
-    /**
      * @param array $participants
      */
-    protected function loadParticipants($participants){
+    private function loadParticipants($participants){
         $this->blueSideTeam = array();
         $this->redSideTeam = array();
         foreach ($participants as $participant){

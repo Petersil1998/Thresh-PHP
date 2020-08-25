@@ -82,17 +82,22 @@ class Summoner
      */
     private function __construct($data)
     {
-            $data = json_decode($data);
-            $this->summonername = $data->name;
-            $this->id = $data->id;
-            $this->profileIcon = $data->profileIconId;
-            $this->accountId = $data->accountId;
-            $this->puuid = $data->puuid;
-            $this->summonerLevel = $data->summonerLevel;
-            $this->revisionDate = $data->revisionDate/1000;
-            $this->initRanks();
+        $data = json_decode($data);
+        $this->summonername = $data->name;
+        $this->id = $data->id;
+        $this->profileIcon = $data->profileIconId;
+        $this->accountId = $data->accountId;
+        $this->puuid = $data->puuid;
+        $this->summonerLevel = $data->summonerLevel;
+        $this->revisionDate = $data->revisionDate/1000;
+        $this->initRanks();
     }
 
+    /**
+     * Gets a Summoner by the name. If no Summoner is found returns false
+     * @param string $summonerName
+     * @return false|Summoner
+     */
     public static function getSummonerByName($summonerName){
         $data = HTTPClient::getInstance()->requestSummonerEndpoint("summoners/by-name/" . $summonerName);
         if (!empty($data)) {
@@ -101,6 +106,11 @@ class Summoner
         return false;
     }
 
+    /**
+     * Gets a Summoner by the Account ID. If no Summoner is found returns false
+     * @param string $accountID
+     * @return false|Summoner
+     */
     public static function getSummonerByAccountID($accountID){
         $data = HTTPClient::getInstance()->requestSummonerEndpoint("summoners/by-account/" . $accountID);
         if (!empty($data)) {
@@ -109,6 +119,11 @@ class Summoner
         return false;
     }
 
+    /**
+     * Gets a Summoner by the PUUID. If no Summoner is found returns false
+     * @param string $puuid
+     * @return false|Summoner
+     */
     public static function getSummonerByPUUID($puuid){
         $data = HTTPClient::getInstance()->requestSummonerEndpoint("summoners/by-puuid/" . $puuid);
         if (!empty($data)) {
@@ -144,7 +159,7 @@ class Summoner
         $this->setDefaultRanks();
     }
 
-    protected function setDefaultRanks(){
+    private function setDefaultRanks(){
         if (empty($this->rank_solo_duo))
             $this->rank_solo_duo = new UnrankedRank();
         if (empty($this->rank_flex_5v5))
