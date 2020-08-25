@@ -2,6 +2,11 @@
 
 namespace Thresh\Entities\Match\Timeline\Events;
 
+/**
+ * This Class represents a list of all Timeline Events.<br>
+ * *ASCENDED_EVENT, CAPTURE_POINT and PORO_KING_SUMMON are currently NOT SUPPORTED*
+ * @package Thresh\Entities\Match\Timeline\Events
+ */
 class TimelineEvents
 {
     const CHAMPION_KILL = "CHAMPION_KILL";

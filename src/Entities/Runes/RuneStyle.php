@@ -2,6 +2,10 @@
 
 namespace Thresh\Entities\Runes;
 
+/**
+ * This Class represents a RuneStyle (possible RuneStyles: Domination, Sorcery, Precision, Inspiration, Resolve)
+ * @package Thresh\Entities\Runes
+ */
 class RuneStyle
 {
     /**

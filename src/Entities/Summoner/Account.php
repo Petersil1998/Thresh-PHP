@@ -4,6 +4,10 @@ namespace Thresh\Entities\Summoner;
 
 use Thresh\Helper\HTTPClient;
 
+/**
+ * This class represents a Riot Account
+ * @package Thresh\Entities\Summoner
+ */
 class Account
 {
     /**

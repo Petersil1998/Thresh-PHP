@@ -63,7 +63,7 @@ class TimelineParticipant
 
     /**
      * TimelineParticipant constructor.
-     * @param $data
+     * @param $data stdClass
      */
     public function __construct($data)
     {

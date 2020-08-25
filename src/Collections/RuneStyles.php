@@ -4,6 +4,11 @@ namespace Thresh\Collections;
 
 use Thresh\Entities\Runes\RuneStyle;
 
+/**
+ * This class represents a collection of RuneStyles
+ * @see RuneStyle
+ * @package Thresh\Collections
+ */
 class RuneStyles
 {
     /**
@@ -12,7 +17,9 @@ class RuneStyles
     private static $runeStyles;
 
     /**
-     * @param $id int
+     * This Method returns the **RuneStyle** object with the specified ID.
+     * If no RuneStyle with the specified ID was found returns **false**
+     * @param $id int RuneStyle ID
      * @return false|RuneStyle
      */
     public static function getRuneStyle($id){
@@ -25,6 +32,7 @@ class RuneStyles
     }
 
     /**
+     * This Method returns an array containing all RuneStyles
      * @return RuneStyle[]
      */
     public static function getRuneStyles(): array
@@ -33,6 +41,7 @@ class RuneStyles
     }
 
     /**
+     * Used to set the list of RuneStyles (**Do not use it!**)
      * @param RuneStyle[] $runeStyles
      */
     public static function setRuneStyles(array $runeStyles): void

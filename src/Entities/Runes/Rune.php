@@ -2,6 +2,10 @@
 
 namespace Thresh\Entities\Runes;
 
+/**
+ * This class represents a Rune
+ * @package Thresh\Entities\Runes
+ */
 class Rune
 {
     /**

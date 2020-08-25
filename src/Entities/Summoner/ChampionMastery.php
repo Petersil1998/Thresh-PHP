@@ -2,6 +2,10 @@
 
 namespace Thresh\Entities\Summoner;
 
+/**
+ * This class represents a Champion Mastery belonging to a specific Summoner
+ * @package Thresh\Entities\Summoner
+ */
 class ChampionMastery
 {
     /**
@@ -46,18 +50,18 @@ class ChampionMastery
 
     /**
      * ChampionMastery constructor.
-     * @param $championMastery mixed
+     * @param $data mixed
      */
-    public function __construct($championMastery)
+    public function __construct($data)
     {
-        $this->chestGranted = $championMastery->chestGranted;
-        $this->championLevel = $championMastery->championLevel;
-        $this->championPoints = $championMastery->championPoints;
-        $this->championId = $championMastery->championId;
-        $this->championPointsUntilNextLevel = $championMastery->championPointsUntilNextLevel;
-        $this->lastPlayTime = $championMastery->lastPlayTime;
-        $this->tokensEarned = $championMastery->tokensEarned;
-        $this->championPointsSinceLastLevel = $championMastery->championPointsSinceLastLevel;
+        $this->chestGranted = $data->chestGranted;
+        $this->championLevel = $data->championLevel;
+        $this->championPoints = $data->championPoints;
+        $this->championId = $data->championId;
+        $this->championPointsUntilNextLevel = $data->championPointsUntilNextLevel;
+        $this->lastPlayTime = $data->lastPlayTime;
+        $this->tokensEarned = $data->tokensEarned;
+        $this->championPointsSinceLastLevel = $data->championPointsSinceLastLevel;
     }
 
     /**

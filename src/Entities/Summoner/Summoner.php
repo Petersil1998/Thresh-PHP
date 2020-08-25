@@ -4,6 +4,10 @@ namespace Thresh\Entities\Summoner;
 
 use Thresh\Helper\HTTPClient;
 
+/**
+ * This is the Main Class representing a Summoner
+ * @package Thresh\Entities\Summoner
+ */
 class Summoner extends SummonerBasic
 {
     /**

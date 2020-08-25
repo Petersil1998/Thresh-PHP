@@ -2,13 +2,33 @@
 
 namespace Thresh\Entities\Summoner;
 
+use stdClass;
 use Thresh\Collections\Runes;
 use Thresh\Collections\RuneStyles;
 use Thresh\Entities\Runes\Rune;
 use Thresh\Entities\Runes\RuneStyle;
 
-class SummonerGameParticipant extends SummonerBasic
+/**
+ * Class SummonerGameParticipant
+ * @package Thresh\Entities\Summoner
+ */
+class ActiveGameParticipant
 {
+    /**
+     * @var String
+     */
+    private $summonername;
+
+    /**
+     * @var string
+     */
+    private $summonerID;
+
+    /**
+     * @var int
+     */
+    private $profileIcon;
+
     /**
      * @var bool
      */
@@ -51,30 +71,49 @@ class SummonerGameParticipant extends SummonerBasic
 
     /**
      * SummonerGameParticipant constructor.
-     * @param mixed $player
+     * @param stdClass $data
      */
-    public function __construct($player)
+    public function __construct($data)
     {
-        parent::__construct("", false);
-        parent::setAllFields($player->summonerName, $player->summonerId, $player->profileIconId);
-        $this->initiatePlayer($player);
-    }
-
-
-    protected function initiatePlayer($player)
-    {
-        $this->isBot = $player->bot;
-        $this->championId = $player->championId;
-        $this->teamId = $player->teamId;
-        $this->spell1Id = $player->spell1Id;
-        $this->spell2Id = $player->spell2Id;
-        $this->runeStyle = RuneStyles::getRuneStyle($player->perks->perkStyle);
-        $this->runeSubStyle = RuneStyles::getRuneStyle($player->perks->perkSubStyle);
+        $this->summonername = $data->summonerName;
+        $this->summonerID = $data->summonerId;
+        $this->profileIcon = $data->profileIconId;
+        $this->isBot = $data->bot;
+        $this->championId = $data->championId;
+        $this->teamId = $data->teamId;
+        $this->spell1Id = $data->spell1Id;
+        $this->spell2Id = $data->spell2Id;
+        $this->runeStyle = RuneStyles::getRuneStyle($data->perks->perkStyle);
+        $this->runeSubStyle = RuneStyles::getRuneStyle($data->perks->perkSubStyle);
         $runes = array();
-        foreach ($player->perks->perkIds as $perkId) {
+        foreach ($data->perks->perkIds as $perkId) {
             $runes[] = Runes::getRune($perkId);
         }
         $this->runes = $runes;
+    }
+
+    /**
+     * @return String
+     */
+    public function getSummonername(): string
+    {
+        return $this->summonername;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSummonerID(): string
+    {
+        return $this->summonerID;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProfileIcon(): int
+    {
+        return $this->profileIcon;
     }
 
     /**

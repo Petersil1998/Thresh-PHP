@@ -2,6 +2,12 @@
 
 namespace Thresh\Entities\Match;
 
+use stdClass;
+
+/**
+ * This Class represents a Team in a Match
+ * @package Thresh\Entities\Match
+ */
 class Team
 {
     /**
@@ -84,25 +90,29 @@ class Team
      */
     private $bans;
 
-    public function __construct($team)
+    /**
+     * Team constructor.
+     * @param stdClass $data
+     */
+    public function __construct($data)
     {
-        $this->teamId = $team->teamId;
-        $this->win = $team->win === 'Win';
-        $this->firstBlood = $team->firstBlood;
-        $this->firstTower = $team->firstTower;
-        $this->firstInhibitor = $team->firstInhibitor;
-        $this->firstBaron = $team->firstBaron;
-        $this->firstDragon = $team->firstDragon;
-        $this->firstRiftHerald = $team->firstRiftHerald;
-        $this->towerKills = $team->towerKills;
-        $this->inhibitorKills = $team->inhibitorKills;
-        $this->baronKills = $team->baronKills;
-        $this->dragonKills = $team->dragonKills;
-        $this->vilemawKills = $team->vilemawKills;
-        $this->riftHeraldKills = $team->riftHeraldKills;
-        $this->dominionVictoryScore = $team->dominionVictoryScore;
+        $this->teamId = $data->teamId;
+        $this->win = $data->win === 'Win';
+        $this->firstBlood = $data->firstBlood;
+        $this->firstTower = $data->firstTower;
+        $this->firstInhibitor = $data->firstInhibitor;
+        $this->firstBaron = $data->firstBaron;
+        $this->firstDragon = $data->firstDragon;
+        $this->firstRiftHerald = $data->firstRiftHerald;
+        $this->towerKills = $data->towerKills;
+        $this->inhibitorKills = $data->inhibitorKills;
+        $this->baronKills = $data->baronKills;
+        $this->dragonKills = $data->dragonKills;
+        $this->vilemawKills = $data->vilemawKills;
+        $this->riftHeraldKills = $data->riftHeraldKills;
+        $this->dominionVictoryScore = $data->dominionVictoryScore;
         $bans = array();
-        foreach ($team->bans as $ban){
+        foreach ($data->bans as $ban){
             $bans[$ban->pickTurn] = $ban->championId;
         }
         $this->bans = $bans;

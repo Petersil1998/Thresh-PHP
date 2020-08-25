@@ -2,6 +2,10 @@
 
 namespace Thresh\Constants;
 
+/**
+ * This class contains all possible Platforms (used for API request)
+ * @package Thresh\Constants
+ */
 class Platforms
 {
     const EUW = 'euw1';

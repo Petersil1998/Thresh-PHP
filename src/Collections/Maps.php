@@ -4,6 +4,11 @@ namespace Thresh\Collections;
 
 use Thresh\Entities\Map;
 
+/**
+ * This class represents a collection of Maps
+ * @see Map
+ * @package Thresh\Collections
+ */
 class Maps
 {
     /**
@@ -12,7 +17,9 @@ class Maps
     private static $maps;
 
     /**
-     * @param $id int
+     * This Method returns the **Map** object with the specified ID.
+     * If no Map with the specified ID was found returns **false**
+     * @param $id int Map ID
      * @return false|Map
      */
     public static function getMap($id){
@@ -25,6 +32,7 @@ class Maps
     }
 
     /**
+     * This Method returns an array containing all Maps
      * @return Map[]
      */
     public static function getMaps(): array
@@ -33,6 +41,7 @@ class Maps
     }
 
     /**
+     * Used to set the list of Maps (**Do not use it!**)
      * @param Map[] $maps
      */
     public static function setMaps(array $maps): void

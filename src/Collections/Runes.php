@@ -4,6 +4,11 @@ namespace Thresh\Collections;
 
 use Thresh\Entities\Runes\Rune;
 
+/**
+ * This class represents a collection of Runes
+ * @see Rune
+ * @package Thresh\Collections
+ */
 class Runes
 {
     /**
@@ -12,7 +17,9 @@ class Runes
     private static $runes;
 
     /**
-     * @param $id int
+     * This Method returns the **Rune** object with the specified ID.
+     * If no Rune with the specified ID was found returns **false**
+     * @param $id int Rune ID
      * @return false|Rune
      */
     public static function getRune($id){
@@ -25,6 +32,7 @@ class Runes
     }
 
     /**
+     * This Method returns an array containing all Runes
      * @return Rune[]
      */
     public static function getRunes(): array
@@ -33,6 +41,7 @@ class Runes
     }
 
     /**
+     * Used to set the list of Runes (**Do not use it!**)
      * @param Rune[] $runes
      */
     public static function setRunes(array $runes): void

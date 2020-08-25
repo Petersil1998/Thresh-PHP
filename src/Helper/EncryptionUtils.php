@@ -2,11 +2,19 @@
 
 namespace Thresh\Helper;
 
+/**
+ * This class is used to encrypt the API Key
+ * @package Thresh\Helper
+ */
 class EncryptionUtils
 {
     private static $cipher_method = 'aes-128-ctr';
     private static $digest_method = 'SHA256';
 
+    /**
+     * @param $data
+     * @return string
+     */
     public static function encrypt($data){
         $enc_key = openssl_digest(php_uname(), self::$digest_method, true);
         $enc_iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length(self::$cipher_method));
@@ -15,6 +23,10 @@ class EncryptionUtils
         return $crypted_data;
     }
 
+    /**
+     * @param $data
+     * @return string
+     */
     public static function decrypt($data){
         list($crypted_token, $enc_iv) = explode("::", $data);;
         $enc_key = openssl_digest(php_uname(), self::$digest_method, true);

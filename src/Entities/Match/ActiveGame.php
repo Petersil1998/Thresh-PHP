@@ -3,9 +3,13 @@
 namespace Thresh\Entities\Match;
 
 use Thresh\Entities\Summoner\SummonerBasic;
-use Thresh\Entities\Summoner\SummonerGameParticipant;
+use Thresh\Entities\Summoner\ActiveGameParticipant;
 use Thresh\Helper\HTTPClient;
 
+/**
+ * This class represents an active Game of a Summoner
+ * @package Thresh\Entities\Match
+ */
 class ActiveGame
 {
     /**
@@ -34,12 +38,12 @@ class ActiveGame
     private $gameQueueConfigId;
 
     /**
-     * @var SummonerGameParticipant[]
+     * @var ActiveGameParticipant[]
      */
     private $blueSideTeam;
 
     /**
-     * @var SummonerGameParticipant[]
+     * @var ActiveGameParticipant[]
      */
     private $redSideTeam;
 
@@ -50,11 +54,10 @@ class ActiveGame
 
     /**
      * Game constructor.
-     * @param string $summonername
+     * @param SummonerBasic $summoner
      */
-    public function __construct($summonername)
+    public function __construct($summoner)
     {
-        $summoner = new SummonerBasic($summonername);
         if($summoner->exists()) {
             $game = json_decode(HTTPClient::getInstance()->requestSpectatorEndpoint("active-games/by-summoner/" . $summoner->getId()));
             if(!empty($game)) {
@@ -87,7 +90,7 @@ class ActiveGame
         $this->blueSideTeam = array();
         $this->redSideTeam = array();
         foreach ($participants as $participant){
-            $player = new SummonerGameParticipant($participant);
+            $player = new ActiveGameParticipant($participant);
             if($player->getTeamId() == 100){
                 $this->blueSideTeam[] = $player;
             } elseif ($player->getTeamId() == 200){
@@ -139,7 +142,7 @@ class ActiveGame
     }
 
     /**
-     * @return SummonerGameParticipant[]
+     * @return ActiveGameParticipant[]
      */
     public function getBlueSideTeam(): array
     {
@@ -147,7 +150,7 @@ class ActiveGame
     }
 
     /**
-     * @return SummonerGameParticipant[]
+     * @return ActiveGameParticipant[]
      */
     public function getRedSideTeam(): array
     {

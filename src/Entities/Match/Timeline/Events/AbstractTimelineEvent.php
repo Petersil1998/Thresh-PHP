@@ -2,6 +2,10 @@
 
 namespace Thresh\Entities\Match\Timeline\Events;
 
+/**
+ * Class AbstractTimelineEvent
+ * @package Thresh\Entities\Match\Timeline\Events
+ */
 abstract class AbstractTimelineEvent
 {
     /**
@@ -10,10 +14,15 @@ abstract class AbstractTimelineEvent
     protected $timestamp;
 
     /**
-     * @var TimelineEvents
+     * @var string
      */
     protected $type;
 
+    /**
+     * AbstractTimelineEvent constructor.
+     * @param $timestamp int
+     * @param $type string
+     */
     protected function __construct($timestamp, $type)
     {
         $this->timestamp = $timestamp;
@@ -21,6 +30,7 @@ abstract class AbstractTimelineEvent
     }
 
     /**
+     * Returns the Timestamp of the Event
      * @return int
      */
     public function getTimestamp(): int
@@ -28,9 +38,11 @@ abstract class AbstractTimelineEvent
         return $this->timestamp;
     }
     /**
-     * @return TimelineEvents
+     * Returns the Type of the Event
+     * @see TimelineEvents
+     * @return string
      */
-    public function getType(): TimelineEvents
+    public function getType(): string
     {
         return $this->type;
     }

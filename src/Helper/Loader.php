@@ -22,6 +22,10 @@ use Thresh\Entities\Sprite;
 
 define('BASE_PATH', dirname(dirname(dirname(__FILE__))));
 
+/**
+ * This class is used to initialize the project
+ * @package Thresh\Helper
+ */
 class Loader
 {
     private const RUNE_STATS_FILE_PATH = BASE_PATH.'/src/runeStats.json';
@@ -31,6 +35,9 @@ class Loader
     private const CHAMPIONS_FILE_PATH = BASE_PATH.'/src/champions.json';
     private const QUEUE_TYPES_FILE_PATH = BASE_PATH.'/src/queues.json';
 
+    /**
+     * This method initializes all Collections and checks for a new Data Dragon Version
+     */
     public static function init(){
         if(self::initAndUpdateDDragonVersion()) {
             self::updateRunesAndRuneStylesFile();
@@ -49,7 +56,7 @@ class Loader
 
     private static function initAndUpdateDDragonVersion(){
         $newVersion = json_decode(file_get_contents(Constants::DDRAGON_BASE_PATH . "api/versions.json"))[0];
-        Constants::setDDragonVersion($newVersion);
+        Constants::setDataDragonVersion($newVersion);
         $fileHandler = new FileHandler(self::DDRAGON_VERSION_FILE_PATH, 'r');
         $currentVersion = $fileHandler->read();
         $fileHandler->close();
@@ -64,7 +71,7 @@ class Loader
 
     private static function updateRunesAndRuneStylesFile(){
         $fileHandler = new FileHandler(self::RUNES_AND_RUNE_STYLES_FILE_PATH, 'w');
-        $runes = file_get_contents(Constants::DDRAGON_BASE_PATH."cdn/".Constants::getDDragonVersion()."/data/en_US/runesReforged.json");
+        $runes = file_get_contents(Constants::DDRAGON_BASE_PATH."cdn/".Constants::getDataDragonVersion()."/data/en_US/runesReforged.json");
         $fileHandler->write($runes);
         $fileHandler->close();
     }
@@ -127,7 +134,7 @@ class Loader
 
     private static function updateMapsFile(){
         $fileHandler = new FileHandler(self::MAPS_FILE_PATH, 'w');
-        $maps = json_encode(json_decode(file_get_contents(Constants::DDRAGON_BASE_PATH."cdn/".Constants::getDDragonVersion()."/data/en_US/map.json"))->data);
+        $maps = json_encode(json_decode(file_get_contents(Constants::DDRAGON_BASE_PATH."cdn/".Constants::getDataDragonVersion()."/data/en_US/map.json"))->data);
         $fileHandler->write($maps);
         $fileHandler->close();
     }
@@ -216,7 +223,7 @@ class Loader
 
     private static function createChampionsJSON(){
         $json = '[';
-        $champions = json_decode(file_get_contents(Constants::DDRAGON_BASE_PATH."cdn/".Constants::getDDragonVersion()."/data/en_US/championFull.json"));
+        $champions = json_decode(file_get_contents(Constants::DDRAGON_BASE_PATH."cdn/".Constants::getDataDragonVersion()."/data/en_US/championFull.json"));
         foreach ($champions->data as $key => $value) {
             $json .= '{"id":"'.$value->key.'",'.
                 '"name":"'.$value->name.'",'.

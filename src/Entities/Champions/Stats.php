@@ -2,6 +2,11 @@
 
 namespace Thresh\Entities\Champions;
 
+/**
+ * This class is used to represent a Champions base stats
+ * @see Champion
+ * @package Thresh\Entities\Champions
+ */
 class Stats
 {
     /**

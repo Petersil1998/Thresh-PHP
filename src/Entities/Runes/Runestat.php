@@ -2,6 +2,10 @@
 
 namespace Thresh\Entities\Runes;
 
+/**
+ * This Class represents a RuneStat (eg. Adaptive Force, Armor, Attack Speed, ...)
+ * @package Thresh\Entities\Runes
+ */
 class RuneStat
 {
     /**

@@ -2,6 +2,10 @@
 
 namespace Thresh\Entities\Champions;
 
+/**
+ * This Class represents a Skin with its associated Data
+ * @package Thresh\Entities\Champions
+ */
 class Skin
 {
     /**

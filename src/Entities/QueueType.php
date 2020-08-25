@@ -2,6 +2,10 @@
 
 namespace Thresh\Entities;
 
+/**
+ * This Class represents a Queue Type
+ * @package Thresh\Entities
+ */
 class QueueType
 {
     /**

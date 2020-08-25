@@ -2,6 +2,10 @@
 
 namespace Thresh\Entities;
 
+/**
+ * This class represents a Sprite
+ * @package Thresh\Entities
+ */
 class Sprite
 {
 

@@ -2,9 +2,16 @@
 
 namespace Thresh\Entities\Match;
 
-use Thresh\Helper\Constants;
+use stdClass;
+use Thresh\Collections\Champions;
+use Thresh\Collections\QueueTypes;
 use Thresh\Helper\HTTPClient;
 
+/**
+ * This class contains the Summoner-specific Data for a Match. For more Information use MatchDetails
+ * @see MatchDetails
+ * @package Thresh\Entities\Match
+ */
 class Match
 {
     /**
@@ -48,36 +55,23 @@ class Match
     private $lane;
 
     /**
-     * @var int
+     * Match constructor.
+     * @param stdClass $data
      */
-    private $startIndex;
-
-    /**
-     * @var int
-     */
-    private $endIndex;
-
-    /**
-     * @var int
-     */
-    private $totalGames;
-
-    private function __construct($match, $startIndex = 0, $endIndex = 0, $totalGames = 0)
+    private function __construct($data)
     {
-        $this->platformId = $match->platformId;
-        $this->gameId = $match->gameId;
-        $this->champion = $match->champion;
-        $this->queue = $match->queue;
-        $this->season = $match->season;
-        $this->timestamp = $match->timestamp;
-        $this->role = $match->role;
-        $this->lane = $match->lane;
-        $this->startIndex = $startIndex;
-        $this->endIndex = $endIndex;
-        $this->totalGames = $totalGames;
+        $this->platformId = $data->platformId;
+        $this->gameId = $data->gameId;
+        $this->champion = $data->champion;
+        $this->queue = $data->queue;
+        $this->season = $data->season;
+        $this->timestamp = $data->timestamp;
+        $this->role = $data->role;
+        $this->lane = $data->lane;
     }
 
     /**
+     * Returns the Match List for a given Account
      * @param string $accountId
      * @param array $filter The filter which can contain the following keys: <ul>
      * <li>champion (array of champion ID's)</li>
@@ -97,7 +91,7 @@ class Match
         $matchList = json_decode(HTTPClient::getInstance()->requestMatchEndpoint("matchlists/by-account/".$accountId, $filter));
         $matchObjs = $matchList->matches;
         foreach ($matchObjs as $matchObj){
-            $matches[] = new Match($matchObj, $matchList->startIndex, $matchList->endIndex, $matchList->totalGames);;
+            $matches[] = new Match($matchObj);
         }
         return $matches;
     }
@@ -110,7 +104,7 @@ class Match
         if(array_key_exists('champion', $filter)){
             if(is_array($filter['champion'])){
                 foreach ($filter['champion'] as $champion){
-                    if(Constants::CHAMPIONS[$champion] == null){
+                    if(Champions::getChampion($champion) === false){
                         syslog(LOG_ERR,'Unknown Champion ID: '.$champion);
                         return false;
                     }
@@ -123,7 +117,7 @@ class Match
         if(array_key_exists('queue', $filter)){
             if(is_array($filter['queue'])){
                 foreach ($filter['queue'] as $queue){
-                    if(Constants::QUEUES_TYPES[$queue] == null){
+                    if(QueueTypes::getQueueType($queue) === false){
                         syslog(LOG_ERR,'Unknown Queue ID: '.$queue);
                         return false;
                     }

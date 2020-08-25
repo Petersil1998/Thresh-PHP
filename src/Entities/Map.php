@@ -2,6 +2,10 @@
 
 namespace Thresh\Entities;
 
+/**
+ * This Class represents a Map
+ * @package Thresh\Entities
+ */
 class Map
 {
     /**

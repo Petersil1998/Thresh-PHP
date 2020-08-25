@@ -2,6 +2,10 @@
 
 namespace Thresh\Constants;
 
+/**
+ * This class contains API_BASE_PATHS Constants (some have placeholders) and the Data Dragon Version
+ * @package Thresh\Constants
+ */
 class Constants
 {
     private static $ddragonVersion;
@@ -12,19 +16,19 @@ class Constants
     const DDRAGON_BASE_PATH = "https://ddragon.leagueoflegends.com/";
     const STATIC_DATA_BASE_PATH = "http://static.developer.riotgames.com/docs/lol/";
 
-    const RANKED_QUEUES = array('RANKED_SOLO_5x5', 'RANKED_FLEX_SR');
-
-    const RANKED_DIVISIONS = array(1, 2, 3, 4);
-
-    const RANKED_TIERS = array('IRON', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'DIAMOND', 'MASTER',
-        'GRANDMASTER', 'CHALLENGER'
-    );
-
-    public static function getDDragonVersion(){
+    /**
+     * This Method returns the current Data Dragon (DDragon) Version
+     * @return string
+     */
+    public static function getDataDragonVersion(){
         return self::$ddragonVersion;
     }
 
-    public static function setDDragonVersion($ddragonVersion){
-        self::$ddragonVersion = $ddragonVersion;
+    /**
+     * Used to set the Data Dragon Version (**Do not use it!**)
+     * @param $dataDragonVersion
+     */
+    public static function setDataDragonVersion($dataDragonVersion){
+        self::$ddragonVersion = $dataDragonVersion;
     }
 }

@@ -5,6 +5,10 @@ namespace Thresh\Entities\Match;
 use Thresh\Entities\Match\Timeline\Timeline;
 use Thresh\Helper\HTTPClient;
 
+/**
+ * This class contains specific Data for a played Match
+ * @package Thresh\Entities\Match
+ */
 class MatchDetails
 {
     /**

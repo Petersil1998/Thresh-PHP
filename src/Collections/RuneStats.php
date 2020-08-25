@@ -4,6 +4,11 @@ namespace Thresh\Collections;
 
 use Thresh\Entities\Runes\RuneStat;
 
+/**
+ * This class represents a collection of RuneStats
+ * @see RuneStat
+ * @package Thresh\Collections
+ */
 class RuneStats
 {
     /**
@@ -12,7 +17,9 @@ class RuneStats
     private static $runeStats;
 
     /**
-     * @param $id int
+     * This Method returns the **RuneStat** object with the specified ID.
+     * If no RuneStat with the specified ID was found returns **false**
+     * @param $id int RuneStat ID
      * @return false|RuneStat
      */
     public static function getRuneStat($id){
@@ -25,6 +32,7 @@ class RuneStats
     }
 
     /**
+     * This Method returns an array containing all RuneStats
      * @return RuneStat[]
      */
     public static function getRuneStats(): array
@@ -33,6 +41,7 @@ class RuneStats
     }
 
     /**
+     * Used to set the list of RuneStats (**Do not use it!**)
      * @param RuneStat[] $runeStats
      */
     public static function setRuneStats(array $runeStats): void

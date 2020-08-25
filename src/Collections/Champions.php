@@ -4,6 +4,11 @@ namespace Thresh\Collections;
 
 use Thresh\Entities\Champions\Champion;
 
+/**
+ * This class represents a collection of Champions
+ * @see Champion
+ * @package Thresh\Collections
+ */
 class Champions
 {
     /**
@@ -12,7 +17,9 @@ class Champions
     private static $champions;
 
     /**
-     * @param $id int
+     * This Method returns the **Champion** object with the specified ID.
+     * If no Champion with the specified ID was found returns **false**
+     * @param $id int Champion ID
      * @return false|Champion
      */
     public static function getChampion($id){
@@ -25,6 +32,7 @@ class Champions
     }
 
     /**
+     * This Method returns an array containing all Champions
      * @return Champion[]
      */
     public static function getChampions(): array
@@ -33,6 +41,7 @@ class Champions
     }
 
     /**
+     * Used to set the list of Champions (**Do not use it!**)
      * @param Champion[] $champions
      */
     public static function setChampions(array $champions): void

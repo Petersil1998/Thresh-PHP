@@ -4,6 +4,10 @@ namespace Thresh\Entities\Match;
 
 use stdClass;
 
+/**
+ * This class represents a Match Participant
+ * @package Thresh\Entities\Match
+ */
 class MatchParticipant
 {
     /**

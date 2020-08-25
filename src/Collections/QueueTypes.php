@@ -4,6 +4,11 @@ namespace Thresh\Collections;
 
 use Thresh\Entities\QueueType;
 
+/**
+ * This class represents a collection of QueueTypes
+ * @see QueueType
+ * @package Thresh\Collections
+ */
 class QueueTypes
 {
     /**
@@ -12,7 +17,9 @@ class QueueTypes
     private static $queueTypes;
 
     /**
-     * @param $id int
+     * This Method returns the **QueueType** object with the specified ID.
+     * If no QueueType with the specified ID was found returns **false**
+     * @param $id int QueueType ID
      * @return false|QueueType
      */
     public static function getQueueType($id){
@@ -25,6 +32,7 @@ class QueueTypes
     }
 
     /**
+     * This Method returns an array containing all QueueTypes
      * @return QueueType[]
      */
     public static function getQueueTypes(): array
@@ -33,6 +41,7 @@ class QueueTypes
     }
 
     /**
+     * Used to set the list of QueueTypes (**Do not use it!**)
      * @param QueueType[] $queueTypes
      */
     public static function setQueueTypes(array $queueTypes): void

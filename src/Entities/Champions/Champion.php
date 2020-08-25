@@ -4,6 +4,10 @@ namespace Thresh\Entities\Champions;
 
 use Thresh\Entities\Sprite;
 
+/**
+ * This Class represents a Champion with its associated Data
+ * @package Thresh\Entities\Champions
+ */
 class Champion
 {
     /**

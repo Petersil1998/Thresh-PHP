@@ -4,6 +4,10 @@ namespace Thresh\Helper;
 
 use Thresh\Constants\Constants;
 
+/**
+ * This class is used to make the API requests
+ * @package Thresh\Helper
+ */
 class HTTPClient
 {
     private static $httpClient;
@@ -13,6 +17,10 @@ class HTTPClient
      */
     private $_curl;
 
+    /**
+     * Returns an instance of HTTPClient
+     * @return HTTPClient
+     */
     public static function getInstance(){
         if(self::$httpClient === null){
             self::$httpClient = new HTTPClient();
@@ -74,6 +82,11 @@ class HTTPClient
         return "";
     }
 
+    /**
+     * @param array $array
+     * @param false $qs
+     * @return string
+     */
     private function buildParameters($array, $qs = false) {
         $parts = array();
         if ($qs) {
@@ -92,6 +105,7 @@ class HTTPClient
     }
 
     /**
+     * Sends a request to the Summoner Endpoint
      * @param $url string
      * @return string
      */
@@ -100,6 +114,7 @@ class HTTPClient
     }
 
     /**
+     * Sends a request to the Champion Mastery Endpoint
      * @param $url string
      * @return string
      */
@@ -108,6 +123,7 @@ class HTTPClient
     }
 
     /**
+     * Sends a request to the League Endpoint
      * @param $url string
      * @return string
      */
@@ -116,6 +132,7 @@ class HTTPClient
     }
 
     /**
+     * Sends a request to the TFT League Endpoint
      * @param $url string
      * @return string
      */
@@ -124,6 +141,7 @@ class HTTPClient
     }
 
     /**
+     * Sends a request to the Spectator Endpoint
      * @param $url string
      * @return string
      */
@@ -132,6 +150,7 @@ class HTTPClient
     }
 
     /**
+     * Sends a request to the Match Endpoint
      * @param $url string
      * @param $filter array
      * @return string
@@ -141,6 +160,7 @@ class HTTPClient
     }
 
     /**
+     * Sends a request to the Account Endpoint
      * @param $url string
      * @return string
      */

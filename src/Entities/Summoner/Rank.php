@@ -4,6 +4,10 @@ namespace Thresh\Entities\Summoner;
 
 use stdClass;
 
+/**
+ * This class represents a Specific Rank
+ * @package Thresh\Entities\Summoner
+ */
 class Rank
 {
 
@@ -64,22 +68,22 @@ class Rank
 
     /**
      * Rank constructor.
-     * @param stdClass|bool $rankObj
+     * @param stdClass|bool $data
      */
-    public function __construct($rankObj)
+    public function __construct($data)
     {
-        if($rankObj) {
-            $this->leagueId = $rankObj->leagueId;
-            $this->queueType = $rankObj->queueType;
-            $this->tier = $rankObj->tier;
-            $this->rank = $rankObj->rank;
-            $this->leaguePoints = $rankObj->leaguePoints;
-            $this->wins = $rankObj->wins;
-            $this->losses = $rankObj->losses;
-            $this->veteran = $rankObj->veteran;
-            $this->inactive = $rankObj->inactive;
-            $this->freshBlood = $rankObj->freshBlood;
-            $this->hotStreak = $rankObj->hotStreak;
+        if($data) {
+            $this->leagueId = $data->leagueId;
+            $this->queueType = $data->queueType;
+            $this->tier = $data->tier;
+            $this->rank = $data->rank;
+            $this->leaguePoints = $data->leaguePoints;
+            $this->wins = $data->wins;
+            $this->losses = $data->losses;
+            $this->veteran = $data->veteran;
+            $this->inactive = $data->inactive;
+            $this->freshBlood = $data->freshBlood;
+            $this->hotStreak = $data->hotStreak;
         }
     }
 
