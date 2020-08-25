@@ -2,6 +2,7 @@
 
 namespace Thresh\Entities\Match;
 
+use RuntimeException;
 use Thresh\Entities\Summoner\SummonerBasic;
 use Thresh\Entities\Summoner\ActiveGameParticipant;
 use Thresh\Helper\HTTPClient;
@@ -96,7 +97,7 @@ class ActiveGame
             } elseif ($player->getTeamId() == 200){
                 $this->redSideTeam[] = $player;
             } else {
-                throw new \RuntimeException('Unknown TeamID: '.$player->getTeamId());
+                throw new RuntimeException('Unknown TeamID: '.$player->getTeamId());
             }
         }
     }
