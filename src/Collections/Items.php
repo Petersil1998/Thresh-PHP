@@ -3,7 +3,6 @@
 namespace Thresh\Collections;
 
 use Thresh\Entities\Item;
-use Thresh\Entities\Map;
 
 /**
  * This class represents a collection of ingame Items
