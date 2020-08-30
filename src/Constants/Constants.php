@@ -15,6 +15,7 @@ class Constants
     const RIOT_API_BASE_PATH = 'https://{region}.api.riotgames.com/riot/';
     const DDRAGON_BASE_PATH = 'https://ddragon.leagueoflegends.com/';
     const STATIC_DATA_BASE_PATH = 'http://static.developer.riotgames.com/docs/lol/';
+    const SPECTATOR_URL = 'spectator.{platform}.lol.riotgames.com:80';
 
     /**
      * This Method returns the current Data Dragon (DDragon) Version
