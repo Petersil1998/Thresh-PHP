@@ -5,7 +5,7 @@ namespace Thresh\Collections;
 use Thresh\Entities\Item;
 
 /**
- * This class represents a collection of ingame Items
+ * This class represents the collection of all ingame Items
  * @see Item
  * @package Thresh\Collections
  */

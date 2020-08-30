@@ -5,7 +5,7 @@ namespace Thresh\Collections;
 use Thresh\Entities\Runes\RuneStyle;
 
 /**
- * This class represents a collection of RuneStyles
+ * This class represents the collection of all RuneStyles
  * @see RuneStyle
  * @package Thresh\Collections
  */

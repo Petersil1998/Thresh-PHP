@@ -5,7 +5,7 @@ namespace Thresh\Collections;
 use Thresh\Entities\Runes\RuneStat;
 
 /**
- * This class represents a collection of RuneStats
+ * This class represents the collection of all RuneStats
  * @see RuneStat
  * @package Thresh\Collections
  */

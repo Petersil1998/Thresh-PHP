@@ -5,7 +5,7 @@ namespace Thresh\Collections;
 use Thresh\Entities\Champions\Champion;
 
 /**
- * This class represents a collection of Champions
+ * This class represents the collection of all Champions
  * @see Champion
  * @package Thresh\Collections
  */

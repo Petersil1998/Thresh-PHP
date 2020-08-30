@@ -5,7 +5,7 @@ namespace Thresh\Collections;
 use Thresh\Entities\QueueType;
 
 /**
- * This class represents a collection of QueueTypes
+ * This class represents the collection of all QueueTypes
  * @see QueueType
  * @package Thresh\Collections
  */

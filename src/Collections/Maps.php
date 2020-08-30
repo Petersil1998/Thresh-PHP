@@ -5,7 +5,7 @@ namespace Thresh\Collections;
 use Thresh\Entities\Map;
 
 /**
- * This class represents a collection of Maps
+ * This class represents the collection of all Maps
  * @see Map
  * @package Thresh\Collections
  */
