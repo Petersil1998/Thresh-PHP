@@ -57,6 +57,7 @@ class Loader
         self::loadChampions();
         self::loadQueueTypes();
         self::loadItems();
+        self::postLoadItems();
     }
 
     private static function initAndUpdateDDragonVersion(){
@@ -239,14 +240,20 @@ class Loader
     }
 
     private static function loadItems(){
-        /*$items = array();
+        $items = array();
         $fileHandler = new FileHandler(self::ITEMS_FILE_PATH, 'r');
         $json = json_decode($fileHandler->read());
         $fileHandler->close();
-        foreach ($json as $item) {
-            $items[] = new Item();
+        foreach ($json as $key => $item) {
+            $items[] = new Item($key, $item);
         }
-        Items::setItems($items);*/
+        Items::setItems($items);
+    }
+
+    private static function postLoadItems(){
+        foreach (Items::getItems() as $item){
+            $item->postItemsLoaded();
+        }
     }
 
     private static function createChampionsJSON(){

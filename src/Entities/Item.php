@@ -2,6 +2,10 @@
 
 namespace Thresh\Entities;
 
+use stdClass;
+use Thresh\Collections\Champions;
+use Thresh\Collections\Items;
+use Thresh\Collections\Maps;
 use Thresh\Entities\Champions\Champion;
 
 /**
@@ -33,7 +37,7 @@ class Item
     /**
      * @var int
      */
-    private $sell;
+    private $sellPrice;
 
     /**
      * @var bool
@@ -71,17 +75,17 @@ class Item
     private $consumeOnFull;
 
     /**
-     * @var Item[]
+     * @var Item[]|int[]
      */
     private $from;
 
     /**
-     * @var Item[]
+     * @var Item[]|int[]
      */
     private $into;
 
     /**
-     * @var Item
+     * @var Item|int
      */
     private $specialRecipe;
 
@@ -126,6 +130,11 @@ class Item
     private $sprite;
 
     /**
+     * @var string
+     */
+    private $image;
+
+    /**
      * @var array
      */
     private $effect;
@@ -133,56 +142,99 @@ class Item
     /**
      * Item constructor.
      * @param int $id
-     * @param string $name
-     * @param int $price
-     * @param int $totalPrice
-     * @param int $sell
-     * @param bool $purchasable
-     * @param string $description
-     * @param string $plaintext
-     * @param bool $consumed
-     * @param int $maxStackSize
-     * @param int $depth
-     * @param bool $consumeOnFull
-     * @param Item[] $from
-     * @param Item[] $into
-     * @param Item $specialRecipe
-     * @param bool $inStore
-     * @param bool $hideFromAll
-     * @param Champion $requiredChampion
-     * @param Champion $requiredAlly
-     * @param array $stats
-     * @param string[] $tags
-     * @param Map $maps
-     * @param Sprite $sprite
-     * @param array $effect
+     * @param stdClass $data
      */
-    public function __construct(int $id, string $name, int $price, int $totalPrice, int $sell, bool $purchasable, string $description, string $plaintext, bool $consumed, int $maxStackSize, int $depth, bool $consumeOnFull, array $from, array $into, Item $specialRecipe, bool $inStore, bool $hideFromAll, Champion $requiredChampion, Champion $requiredAlly, array $stats, array $tags, Map $maps, Sprite $sprite, array $effect)
+    public function __construct(int $id, stdClass $data)
     {
         $this->id = $id;
-        $this->name = $name;
-        $this->price = $price;
-        $this->totalPrice = $totalPrice;
-        $this->sell = $sell;
-        $this->purchasable = $purchasable;
-        $this->description = $description;
-        $this->plaintext = $plaintext;
-        $this->consumed = $consumed;
-        $this->maxStackSize = $maxStackSize;
-        $this->depth = $depth;
-        $this->consumeOnFull = $consumeOnFull;
-        $this->from = $from;
-        $this->into = $into;
-        $this->specialRecipe = $specialRecipe;
-        $this->inStore = $inStore;
-        $this->hideFromAll = $hideFromAll;
-        $this->requiredChampion = $requiredChampion;
-        $this->requiredAlly = $requiredAlly;
-        $this->stats = $stats;
-        $this->tags = $tags;
+        $this->setProperty($data, 'name');
+        if(property_exists($data, 'gold')) {
+            $this->setProperty($data->gold, 'base', 'price');
+            $this->setProperty($data->gold, 'total', 'totalPrice');
+            $this->setProperty($data->gold, 'sell', 'sellPrice');
+            $this->setProperty($data->gold, 'purchasable');
+        }
+        $this->setProperty($data, 'description');
+        $this->setProperty($data, 'plaintext');
+        $this->setProperty($data, 'consumed');
+        $this->setProperty($data, 'stacks', 'maxStackSize');
+        $this->setProperty($data, 'depth');
+        $this->setProperty($data, 'consumeOnFull');
+        $this->setProperty($data, 'from');
+        $this->setProperty($data, 'into');
+        $this->setProperty($data, 'specialRecipe');
+        $this->setProperty($data, 'inStore');
+        $this->setProperty($data, 'hideFromAll');
+        $this->setProperty($data, 'stats');
+        $this->setProperty($data, 'tags');
+        $this->setProperty($data, 'effect');
+
+
+        if(property_exists($data, 'requiredChampion')){
+            $this->requiredChampion = Champions::getChampionByName($data->requiredChampion);
+        }
+
+        if(property_exists($data, 'requiredAlly')){
+            $this->requiredAlly = Champions::getChampionByName($data->requiredAlly);
+        }
+
+        if(property_exists($data, 'image')) {
+            $this->sprite = new Sprite($data->image->sprite, $data->image->group, $data->image->x, $data->image->y, $data->image->w, $data->image->h);
+            $this->image = $data->image->full;
+        }
+
+        $maps = array();
+        if(property_exists($data, 'maps')) {
+            foreach ($data->maps as $mapId => $isAvailable){
+                if($isAvailable){
+                    $maps[] = Maps::getMap($mapId);
+                }
+            }
+        }
         $this->maps = $maps;
-        $this->sprite = $sprite;
-        $this->effect = $effect;
+    }
+
+    public function postItemsLoaded(){
+        $items = array();
+        if(!empty($this->from)){
+            foreach ($this->from as $item) {
+                $items[] = Items::getItem($item);
+            }
+        }
+        $this->from = $items;
+
+        $items = array();
+        if(!empty($this->into)){
+            foreach ($this->into as $item) {
+                $items[] = Items::getItem($item);
+            }
+        }
+        $this->into = $items;
+
+        if(!empty($this->into)){
+            $this->specialRecipe = Items::getItem($this->specialRecipe);
+        }
+    }
+
+    /**
+     * @param $object stdClass The object that holds the property to be set
+     * @param $property string The properties name (has to be the same in $this and in the object)
+     * @param $alternativeName string The alternative Property name if it differs from the objects property name
+     * @param $convertPropertyToArray bool whether or not the property should be converted to an associative array
+     * (only works if the property is instance of stdClass)
+     */
+    private function setProperty($object, $property, $alternativeName = '', $convertPropertyToArray = false){
+        $thisFieldName = $property;
+        if(!empty($alternativeName)){
+            $thisFieldName = $alternativeName;
+        }
+        if(property_exists($object, $property)){
+            if($convertPropertyToArray && $object->$property instanceof stdClass){
+                $this->$thisFieldName = json_decode(json_encode($object->$property), true);
+            } else {
+                $this->$thisFieldName = $object->$property;
+            }
+        }
     }
 
     /**
@@ -220,9 +272,9 @@ class Item
     /**
      * @return int
      */
-    public function getSell(): int
+    public function getSellPrice(): int
     {
-        return $this->sell;
+        return $this->sellPrice;
     }
 
     /**
@@ -367,6 +419,14 @@ class Item
     public function getSprite(): Sprite
     {
         return $this->sprite;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage(): string
+    {
+        return $this->image;
     }
 
     /**
