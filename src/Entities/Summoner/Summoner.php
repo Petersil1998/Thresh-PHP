@@ -235,6 +235,19 @@ class Summoner
     }
 
     /**
+     * Returns the total number of mastery points of all champions combined
+     * @return int
+     */
+    public function getTotalMasteryPointsCombined(){
+        $championMasteries = $this->getChampionMasteries();
+        $totalMasteryPoints = 0;
+        foreach ($championMasteries as $championMastery){
+            $totalMasteryPoints += $championMastery->getChampionPoints();
+        }
+        return $totalMasteryPoints;
+    }
+
+    /**
      * @return string
      */
     public function getAccountId()
