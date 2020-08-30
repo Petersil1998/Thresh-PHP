@@ -3,7 +3,9 @@
 namespace Thresh\Entities\Match;
 
 use stdClass;
+use Thresh\Collections\Champions;
 use Thresh\Collections\Items;
+use Thresh\Entities\Champions\Champion;
 use Thresh\Entities\Item;
 
 /**
@@ -18,14 +20,9 @@ class MatchParticipant
     private $participantId;
 
     /**
-     * @var int
+     * @var Champion
      */
-    private $championId;
-
-    /**
-     * @var int
-     */
-    private $teamId;
+    private $champion;
 
     /**
      * @var int
@@ -599,8 +596,9 @@ class MatchParticipant
     public function __construct($participant)
     {
         $this->setProperty($participant, 'participantId');
-        $this->setProperty($participant, 'teamId');
-        $this->setProperty($participant, 'championId');
+        if(property_exists($participant, 'championId')){
+            $this->champion = Champions::getChampion($participant->championId);
+        }
         $this->setProperty($participant, 'spell1Id');
         $this->setProperty($participant, 'spell2Id');
         $stats = $participant->stats;
@@ -746,19 +744,11 @@ class MatchParticipant
     }
 
     /**
-     * @return int
+     * @return Champion
      */
-    public function getChampionId(): int
+    public function getChampion(): Champion
     {
-        return $this->championId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getTeamId(): int
-    {
-        return $this->teamId;
+        return $this->champion;
     }
 
     /**
@@ -778,57 +768,57 @@ class MatchParticipant
     }
 
     /**
-     * @return int
+     * @return Item
      */
-    public function getItem0(): int
+    public function getItem0(): Item
     {
         return $this->item0;
     }
 
     /**
-     * @return int
+     * @return Item
      */
-    public function getItem1(): int
+    public function getItem1(): Item
     {
         return $this->item1;
     }
 
     /**
-     * @return int
+     * @return Item
      */
-    public function getItem2(): int
+    public function getItem2(): Item
     {
         return $this->item2;
     }
 
     /**
-     * @return int
+     * @return Item
      */
-    public function getItem3(): int
+    public function getItem3(): Item
     {
         return $this->item3;
     }
 
     /**
-     * @return int
+     * @return Item
      */
-    public function getItem4(): int
+    public function getItem4(): Item
     {
         return $this->item4;
     }
 
     /**
-     * @return int
+     * @return Item
      */
-    public function getItem5(): int
+    public function getItem5(): Item
     {
         return $this->item5;
     }
 
     /**
-     * @return int
+     * @return Item
      */
-    public function getItem6(): int
+    public function getItem6(): Item
     {
         return $this->item6;
     }

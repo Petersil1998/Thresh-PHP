@@ -2,7 +2,11 @@
 
 namespace Thresh\Entities\Match;
 
+use Thresh\Collections\Maps;
+use Thresh\Collections\QueueTypes;
+use Thresh\Entities\Map;
 use Thresh\Entities\Match\Timeline\Timeline;
+use Thresh\Entities\QueueType;
 use Thresh\Helper\HTTPClient;
 
 /**
@@ -32,14 +36,14 @@ class MatchDetails
     private $gameDuration;
 
     /**
-     * @var int
+     * @var QueueType
      */
-    private $queueId;
+    private $queueType;
 
     /**
-     * @var int
+     * @var Map
      */
-    private $mapId;
+    private $map;
 
     /**
      * @var int
@@ -92,8 +96,8 @@ class MatchDetails
         $this->platformId = $match->platformId;
         $this->gameCreation = $match->gameCreation;
         $this->gameDuration = $match->gameDuration;
-        $this->queueId = $match->queueId;
-        $this->mapId = $match->mapId;
+        $this->queueType = QueueTypes::getQueueType($match->queueId);
+        $this->map = Maps::getMap($match->mapId);
         $this->seasonId = $match->seasonId;
         $this->gameVersion = $match->gameVersion;
         $this->gameCreation = $match->gameMode;
@@ -143,19 +147,19 @@ class MatchDetails
     }
 
     /**
-     * @return int
+     * @return QueueType
      */
-    public function getQueueId(): int
+    public function getQueueType(): QueueType
     {
-        return $this->queueId;
+        return $this->queueType;
     }
 
     /**
-     * @return int
+     * @return Map
      */
-    public function getMapId(): int
+    public function getMap(): Map
     {
-        return $this->mapId;
+        return $this->map;
     }
 
     /**
