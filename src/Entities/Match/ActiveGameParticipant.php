@@ -6,9 +6,11 @@ use stdClass;
 use Thresh\Collections\Champions;
 use Thresh\Collections\Runes;
 use Thresh\Collections\RuneStyles;
+use Thresh\Collections\SummonerSpells;
 use Thresh\Entities\Champions\Champion;
 use Thresh\Entities\Runes\Rune;
 use Thresh\Entities\Runes\RuneStyle;
+use Thresh\Entities\SummonerSpell;
 
 /**
  * Class SummonerGameParticipant
@@ -47,14 +49,14 @@ class ActiveGameParticipant
     private $teamId;
 
     /**
-     * @var int
+     * @var SummonerSpell
      */
-    private $spell1Id;
+    private $summonerSpell1;
 
     /**
-     * @var int
+     * @var SummonerSpell
      */
-    private $spell2Id;
+    private $summonerSpell2;
 
     /**
      * @var Rune[]
@@ -83,8 +85,8 @@ class ActiveGameParticipant
         $this->isBot = $data->bot;
         $this->champion = Champions::getChampion($data->championId);
         $this->teamId = $data->teamId;
-        $this->spell1Id = $data->spell1Id;
-        $this->spell2Id = $data->spell2Id;
+        $this->summonerSpell1 = SummonerSpells::getSummonerSpell($data->spell1Id);
+        $this->summonerSpell2 = SummonerSpells::getSummonerSpell($data->spell2Id);
         $this->runeStyle = RuneStyles::getRuneStyle($data->perks->perkStyle);
         $this->runeSubStyle = RuneStyles::getRuneStyle($data->perks->perkSubStyle);
         $runes = array();
@@ -143,19 +145,19 @@ class ActiveGameParticipant
     }
 
     /**
-     * @return int
+     * @return SummonerSpell
      */
-    public function getSpell1Id()
+    public function getSummonerSpell1()
     {
-        return $this->spell1Id;
+        return $this->summonerSpell1;
     }
 
     /**
-     * @return int
+     * @return SummonerSpell
      */
-    public function getSpell2Id()
+    public function getSummonerSpell2()
     {
-        return $this->spell2Id;
+        return $this->summonerSpell2;
     }
 
     /**

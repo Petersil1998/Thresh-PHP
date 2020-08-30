@@ -10,6 +10,7 @@ use Thresh\Collections\QueueTypes;
 use Thresh\Collections\Runes;
 use Thresh\Collections\RuneStats;
 use Thresh\Collections\RuneStyles;
+use Thresh\Collections\SummonerSpells;
 use Thresh\Constants\Constants;
 use Thresh\Entities\Champions\Champion;
 use Thresh\Entities\Champions\Skin;
@@ -21,6 +22,7 @@ use Thresh\Entities\Runes\Rune;
 use Thresh\Entities\Runes\RuneStat;
 use Thresh\Entities\Runes\RuneStyle;
 use Thresh\Entities\Sprite;
+use Thresh\Entities\SummonerSpell;
 
 define('BASE_PATH', dirname(dirname(dirname(__FILE__))));
 
@@ -37,6 +39,7 @@ class Loader
     private const CHAMPIONS_FILE_PATH = BASE_PATH.'/src/champions.json';
     private const QUEUE_TYPES_FILE_PATH = BASE_PATH.'/src/queues.json';
     private const ITEMS_FILE_PATH = BASE_PATH.'/src/items.json';
+    private const SUMMONER_SPELLS_FILE_PATH = BASE_PATH.'/src/summonerSpells.json';
 
     /**
      * This method initializes all Collections and checks for a new Data Dragon Version
@@ -49,6 +52,7 @@ class Loader
             self::updateChampionsFile();
             self::updateQueueTypesFile();
             self::updateItemsFile();
+            self::updateSummonerSpellsFile();
         }
         self::loadRuneStyles();
         self::loadRunes();
@@ -58,6 +62,7 @@ class Loader
         self::loadQueueTypes();
         self::loadItems();
         self::postLoadItems();
+        self::loadSummonerSpells();
     }
 
     private static function initAndUpdateDDragonVersion(){
@@ -254,6 +259,44 @@ class Loader
         foreach (Items::getItems() as $item){
             $item->postItemsLoaded();
         }
+    }
+
+    private static function updateSummonerSpellsFile(){
+        $fileHandler = new FileHandler(self::SUMMONER_SPELLS_FILE_PATH, 'w');
+        $summonerSpells  = json_decode(file_get_contents(Constants::DDRAGON_BASE_PATH.'cdn/'.Constants::getDataDragonVersion().'/data/en_US/summoner.json'))->data;
+        foreach ($summonerSpells as $name => $summonerSpell) {
+            unset($summonerSpell->tooltip);
+            $summonerSpell->cooldown = $summonerSpell->cooldown[0];
+            unset($summonerSpell->cooldownBurn);
+            unset($summonerSpell->cost);
+            unset($summonerSpell->costBurn);
+            unset($summonerSpell->datavalues);
+            unset($summonerSpell->effect);
+            unset($summonerSpell->effectBurn);
+            unset($summonerSpell->vars);
+            unset($summonerSpell->costType);
+            unset($summonerSpell->maxammo);
+            $summonerSpell->range = $summonerSpell->range[0];
+            unset($summonerSpell->rangeBurn);
+            unset($summonerSpell->resource);
+        }
+        $fileHandler->write(json_encode($summonerSpells));
+        $fileHandler->close();
+    }
+
+    private static function loadSummonerSpells(){
+        $summonerSpells = array();
+        $fileHandler = new FileHandler(self::SUMMONER_SPELLS_FILE_PATH, 'r');
+        $json = json_decode($fileHandler->read());
+        $fileHandler->close();
+        foreach ($json as $name => $summonerSpell) {
+            $image = $summonerSpell->image;
+            $sprite = new Sprite($image->sprite, $image->group, $image->x, $image->y, $image->w, $image->h);
+            $summonerSpells[] = new SummonerSpell($summonerSpell->key, $summonerSpell->name, $summonerSpell->description,
+                $summonerSpell->cooldown, $summonerSpell->summonerLevel, $summonerSpell->range, $summonerSpell->mode,
+                $sprite, $image->full);
+        }
+        SummonerSpells::setSummonerSpells($summonerSpells);
     }
 
     private static function createChampionsJSON(){

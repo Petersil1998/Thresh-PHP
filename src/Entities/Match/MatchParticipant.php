@@ -5,8 +5,10 @@ namespace Thresh\Entities\Match;
 use stdClass;
 use Thresh\Collections\Champions;
 use Thresh\Collections\Items;
+use Thresh\Collections\SummonerSpells;
 use Thresh\Entities\Champions\Champion;
 use Thresh\Entities\Item;
+use Thresh\Entities\SummonerSpell;
 
 /**
  * This class represents a Match Participant
@@ -25,14 +27,14 @@ class MatchParticipant
     private $champion;
 
     /**
-     * @var int
+     * @var SummonerSpell
      */
-    private $spell1Id;
+    private $summonerSpell1;
 
     /**
-     * @var int
+     * @var SummonerSpell
      */
-    private $spell2Id;
+    private $summonerSpell2;
 
     /**
      * @var Item
@@ -599,8 +601,12 @@ class MatchParticipant
         if(property_exists($participant, 'championId')){
             $this->champion = Champions::getChampion($participant->championId);
         }
-        $this->setProperty($participant, 'spell1Id');
-        $this->setProperty($participant, 'spell2Id');
+        if(property_exists($participant, 'spell1Id')){
+            $this->summonerSpell1 = SummonerSpells::getSummonerSpell($participant->spell1Id);
+        }
+        if(property_exists($participant, 'spell2Id')){
+            $this->summonerSpell2 = SummonerSpells::getSummonerSpell($participant->spell2Id);
+        }
         $stats = $participant->stats;
         for ($i = 0; $i < 7; $i++){
             if(property_exists($stats, "item$i")){
@@ -752,19 +758,19 @@ class MatchParticipant
     }
 
     /**
-     * @return int
+     * @return SummonerSpell
      */
-    public function getSpell1Id(): int
+    public function getSummonerSpell1(): SummonerSpell
     {
-        return $this->spell1Id;
+        return $this->summonerSpell1;
     }
 
     /**
-     * @return int
+     * @return SummonerSpell
      */
-    public function getSpell2Id(): int
+    public function getSummonerSpell2(): SummonerSpell
     {
-        return $this->spell2Id;
+        return $this->summonerSpell2;
     }
 
     /**
