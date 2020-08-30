@@ -1,6 +1,6 @@
 <?php
 
-namespace Thresh\Entities\Summoner;
+namespace Thresh\Entities\ActiveGame;
 
 use stdClass;
 use Thresh\Collections\Champions;

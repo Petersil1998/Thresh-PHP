@@ -1,12 +1,11 @@
 <?php
 
-namespace Thresh\Entities\Match;
+namespace Thresh\Entities\ActiveGame;
 
 use RuntimeException;
 use Thresh\Collections\Champions;
 use Thresh\Collections\Maps;
 use Thresh\Collections\QueueTypes;
-use Thresh\Entities\ActiveGame\Ban;
 use Thresh\Entities\Map;
 use Thresh\Entities\QueueType;
 use Thresh\Entities\Summoner\Summoner;
