@@ -32,6 +32,21 @@ class Champions
     }
 
     /**
+     * This Method returns the **Champion** object with the specified Name.
+     * If no Champion with the specified Name was found returns **false**
+     * @param $name string Champion Name
+     * @return false|Champion
+     */
+    public static function getChampionByName($name){
+        foreach (self::$champions as $champion){
+            if(strtolower($champion->getName()) === strtolower($name)){
+                return $champion;
+            }
+        }
+        return false;
+    }
+
+    /**
      * This Method returns an array containing all Champions
      * @return Champion[]
      */
