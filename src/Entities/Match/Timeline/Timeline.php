@@ -2,6 +2,7 @@
 
 namespace Thresh\Entities\Match\Timeline;
 
+use Thresh\Collections\Items;
 use Thresh\Entities\Match\Timeline\Events\AbstractTimelineEvent;
 use Thresh\Entities\Match\Timeline\Events\BuildingKillEvent;
 use Thresh\Entities\Match\Timeline\Events\ChampionKillEvent;
@@ -103,19 +104,19 @@ class Timeline
                         break;
                     case TimelineEvents::ITEM_PURCHASED:
                         $participant = TimelineParticipant::getParticipantById($participants, $event->participantId);
-                        $events[] = new ItemPurchasedEvent($event->timestamp, $participant, $event->itemId);
+                        $events[] = new ItemPurchasedEvent($event->timestamp, $participant, Items::getItem($event->itemId));
                         break;
                     case TimelineEvents::ITEM_SOLD:
                         $participant = TimelineParticipant::getParticipantById($participants, $event->participantId);
-                        $events[] = new ItemSoldEvent($event->timestamp, $participant, $event->itemId);
+                        $events[] = new ItemSoldEvent($event->timestamp, $participant, Items::getItem($event->itemId));
                         break;
                     case TimelineEvents::ITEM_DESTROYED:
                         $participant = TimelineParticipant::getParticipantById($participants, $event->participantId);
-                        $events[] = new ItemDestroyedEvent($event->timestamp, $participant, $event->itemId);
+                        $events[] = new ItemDestroyedEvent($event->timestamp, $participant, Items::getItem($event->itemId));
                         break;
                     case TimelineEvents::ITEM_UNDO:
                         $participant = TimelineParticipant::getParticipantById($participants, $event->participantId);
-                        $events[] = new ItemUndoEvent($event->timestamp, $participant, $event->afterId, $event->beforeId);
+                        $events[] = new ItemUndoEvent($event->timestamp, $participant, Items::getItem($event->afterId), Items::getItem($event->beforeId));
                         break;
                     case TimelineEvents::SKILL_LEVEL_UP:
                         $participant = TimelineParticipant::getParticipantById($participants, $event->participantId);

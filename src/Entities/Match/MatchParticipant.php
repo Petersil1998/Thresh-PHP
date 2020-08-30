@@ -3,6 +3,8 @@
 namespace Thresh\Entities\Match;
 
 use stdClass;
+use Thresh\Collections\Items;
+use Thresh\Entities\Item;
 
 /**
  * This class represents a Match Participant
@@ -36,37 +38,37 @@ class MatchParticipant
     private $spell2Id;
 
     /**
-     * @var int
+     * @var Item
      */
     private $item0;
 
     /**
-     * @var int
+     * @var Item
      */
     private $item1;
 
     /**
-     * @var int
+     * @var Item
      */
     private $item2;
 
     /**
-     * @var int
+     * @var Item
      */
     private $item3;
 
     /**
-     * @var int
+     * @var Item
      */
     private $item4;
 
     /**
-     * @var int
+     * @var Item
      */
     private $item5;
 
     /**
-     * @var int
+     * @var Item
      */
     private $item6;
 
@@ -602,13 +604,11 @@ class MatchParticipant
         $this->setProperty($participant, 'spell1Id');
         $this->setProperty($participant, 'spell2Id');
         $stats = $participant->stats;
-        $this->setProperty($stats, 'item0');
-        $this->setProperty($stats, 'item1');
-        $this->setProperty($stats, 'item2');
-        $this->setProperty($stats, 'item3');
-        $this->setProperty($stats, 'item4');
-        $this->setProperty($stats, 'item5');
-        $this->setProperty($stats, 'item6');
+        for ($i = 0; $i < 7; $i++){
+            if(property_exists($stats, "item$i")){
+                $this->${"item$i"} = Items::getItem($stats->${"item$i"});
+            }
+        }
         $this->setProperty($stats, 'kills');
         $this->setProperty($stats, 'deaths');
         $this->setProperty($stats, 'assists');

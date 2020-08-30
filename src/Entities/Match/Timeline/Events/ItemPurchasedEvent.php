@@ -2,6 +2,7 @@
 
 namespace Thresh\Entities\Match\Timeline\Events;
 
+use Thresh\Entities\Item;
 use Thresh\Entities\Match\Timeline\TimelineParticipant;
 
 class ItemPurchasedEvent extends AbstractTimelineEvent
@@ -12,21 +13,21 @@ class ItemPurchasedEvent extends AbstractTimelineEvent
     private $participant;
 
     /**
-     * @var int
+     * @var Item
      */
-    private $itemId;
+    private $item;
 
     /**
      * ItemPurchasedEvent constructor.
      * @param $timestamp int
      * @param $participant TimelineParticipant
-     * @param $itemId int
+     * @param $item Item
      */
-    public function __construct($timestamp, $participant, $itemId)
+    public function __construct($timestamp, $participant, $item)
     {
         parent::__construct($timestamp, TimelineEvents::ITEM_PURCHASED);
         $this->participant = $participant;
-        $this->itemId = $itemId;
+        $this->item = $item;
     }
 
     /**
@@ -38,10 +39,10 @@ class ItemPurchasedEvent extends AbstractTimelineEvent
     }
 
     /**
-     * @return int
+     * @return Item
      */
-    public function getItemId(): int
+    public function getItem(): Item
     {
-        return $this->itemId;
+        return $this->item;
     }
 }

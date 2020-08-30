@@ -2,6 +2,7 @@
 
 namespace Thresh\Entities\Match\Timeline\Events;
 
+use Thresh\Entities\Item;
 use Thresh\Entities\Match\Timeline\TimelineParticipant;
 
 class ItemUndoEvent extends AbstractTimelineEvent
@@ -12,28 +13,28 @@ class ItemUndoEvent extends AbstractTimelineEvent
     private $participant;
 
     /**
-     * @var int
+     * @var Item
      */
-    private $afterId;
+    private $after;
 
     /**
-     * @var int
+     * @var Item
      */
-    private $beforeId;
+    private $before;
 
     /**
      * ItemUndoEvent constructor.
      * @param $timestamp int
      * @param $participant TimelineParticipant
-     * @param $afterId int
-     * @param $beforeId int
+     * @param $after Item
+     * @param $before Item
      */
-    public function __construct($timestamp, $participant, $afterId, $beforeId)
+    public function __construct($timestamp, $participant, $after, $before)
     {
         parent::__construct($timestamp, TimelineEvents::ITEM_UNDO);
         $this->participant = $participant;
-        $this->afterId = $afterId;
-        $this->beforeId = $beforeId;
+        $this->after = $after;
+        $this->before = $before;
     }
 
     /**
@@ -45,18 +46,18 @@ class ItemUndoEvent extends AbstractTimelineEvent
     }
 
     /**
-     * @return int
+     * @return Item
      */
-    public function getAfterId(): int
+    public function getAfter(): Item
     {
-        return $this->afterId;
+        return $this->after;
     }
 
     /**
-     * @return int
+     * @return Item
      */
-    public function getBeforeId(): int
+    public function getBefore(): Item
     {
-        return $this->beforeId;
+        return $this->before;
     }
 }
