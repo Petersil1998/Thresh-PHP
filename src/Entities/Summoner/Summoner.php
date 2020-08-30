@@ -99,7 +99,7 @@ class Summoner
      * @return false|Summoner
      */
     public static function getSummonerByName($summonerName){
-        $data = HTTPClient::getInstance()->requestSummonerEndpoint("summoners/by-name/" . $summonerName);
+        $data = HTTPClient::getInstance()->requestSummonerEndpoint('summoners/by-name/' . $summonerName);
         if (!empty($data)) {
             return new Summoner(json_decode($data));
         }
@@ -112,7 +112,7 @@ class Summoner
      * @return false|Summoner
      */
     public static function getSummonerByAccountID($accountID){
-        $data = HTTPClient::getInstance()->requestSummonerEndpoint("summoners/by-account/" . $accountID);
+        $data = HTTPClient::getInstance()->requestSummonerEndpoint('summoners/by-account/' . $accountID);
         if (!empty($data)) {
             return new Summoner(json_decode($data));
         }
@@ -125,7 +125,7 @@ class Summoner
      * @return false|Summoner
      */
     public static function getSummonerByPUUID($puuid){
-        $data = HTTPClient::getInstance()->requestSummonerEndpoint("summoners/by-puuid/" . $puuid);
+        $data = HTTPClient::getInstance()->requestSummonerEndpoint('summoners/by-puuid/' . $puuid);
         if (!empty($data)) {
             return new Summoner(json_decode($data));
         }
@@ -133,23 +133,23 @@ class Summoner
     }
 
     private function initRanks(){
-        $tft = json_decode(HTTPClient::getInstance()->requestTftLeagueEndpoint("entries/by-summoner/".$this->getId()));
-        $flexNSoloQ = json_decode(HTTPClient::getInstance()->requestLeagueEndpoint("entries/by-summoner/".$this->getId()));
+        $tft = json_decode(HTTPClient::getInstance()->requestTftLeagueEndpoint('entries/by-summoner/'.$this->getId()));
+        $flexNSoloQ = json_decode(HTTPClient::getInstance()->requestLeagueEndpoint('entries/by-summoner/'.$this->getId()));
         $ranks = array_merge($flexNSoloQ, $tft);
         foreach ($ranks as $rank){
             if(isset($rank->queueType)) {
                 switch ($rank->queueType) {
-                    case "RANKED_SOLO_5x5":
+                    case 'RANKED_SOLO_5x5':
                     {
                         $this->rank_solo_duo = new Rank($rank);
                         break;
                     }
-                    case "RANKED_FLEX_SR":
+                    case 'RANKED_FLEX_SR':
                     {
                         $this->rank_flex_5v5 = new Rank($rank);
                         break;
                     }
-                    case "RANKED_TFT":{
+                    case 'RANKED_TFT':{
                         $this->rank_tft = new Rank($rank);
                         break;
                     }
@@ -198,7 +198,7 @@ class Summoner
     public function getTotalMasteryPoints()
     {
         if(empty($this->totalMasteryPoints)){
-            $this->totalMasteryPoints = json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint("scores/by-summoner/".$this->getId()));
+            $this->totalMasteryPoints = json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint('scores/by-summoner/'.$this->getId()));
         }
         return $this->totalMasteryPoints;
     }
@@ -225,7 +225,7 @@ class Summoner
     public function getChampionMasteries()
     {
         if(empty($this->championMasteries)){
-            $championMasteries = json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint("champion-masteries/by-summoner/".$this->getId()));
+            $championMasteries = json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint('champion-masteries/by-summoner/'.$this->getId()));
             $this->championMasteries = array();
             foreach ($championMasteries as $championMastery){
                 $this->championMasteries[] = new ChampionMastery($championMastery);

@@ -10,11 +10,11 @@ class Constants
 {
     private static $ddragonVersion;
 
-    const LEAGUE_API_BASE_PATH = "https://{platform}.api.riotgames.com/lol/";
-    const TFT_API_BASE_PATH = "https://{platform}.api.riotgames.com/tft/";
-    const RIOT_API_BASE_PATH = "https://{region}.api.riotgames.com/riot/";
-    const DDRAGON_BASE_PATH = "https://ddragon.leagueoflegends.com/";
-    const STATIC_DATA_BASE_PATH = "http://static.developer.riotgames.com/docs/lol/";
+    const LEAGUE_API_BASE_PATH = 'https://{platform}.api.riotgames.com/lol/';
+    const TFT_API_BASE_PATH = 'https://{platform}.api.riotgames.com/tft/';
+    const RIOT_API_BASE_PATH = 'https://{region}.api.riotgames.com/riot/';
+    const DDRAGON_BASE_PATH = 'https://ddragon.leagueoflegends.com/';
+    const STATIC_DATA_BASE_PATH = 'http://static.developer.riotgames.com/docs/lol/';
 
     /**
      * This Method returns the current Data Dragon (DDragon) Version

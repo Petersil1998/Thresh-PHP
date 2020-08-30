@@ -87,7 +87,7 @@ class MatchDetails
      */
     public function __construct($gameId)
     {
-        $match = json_decode(HTTPClient::getInstance()->requestMatchEndpoint("matches/".$gameId));
+        $match = json_decode(HTTPClient::getInstance()->requestMatchEndpoint('matches/'.$gameId));
         $this->gameId = $gameId;
         $this->platformId = $match->platformId;
         $this->gameCreation = $match->gameCreation;

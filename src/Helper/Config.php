@@ -2,6 +2,8 @@
 
 namespace Thresh\Helper;
 
+use RuntimeException;
+
 /**
  * This class stores the configurations
  * @package Thresh\Helper
@@ -17,7 +19,7 @@ class Config
         if(isset(self::$configs[$key])){
             return self::$configs[$key];
         } else {
-            throw new \RuntimeException('Config Key '.$key.' not found!');
+            throw new RuntimeException('Config Key \''.$key.'\' not found!');
         }
     }
 

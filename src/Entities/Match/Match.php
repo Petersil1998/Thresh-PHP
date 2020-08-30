@@ -88,7 +88,7 @@ class Match
             return false;
         }
         $matches = array();
-        $matchList = json_decode(HTTPClient::getInstance()->requestMatchEndpoint("matchlists/by-account/".$accountId, $filter));
+        $matchList = json_decode(HTTPClient::getInstance()->requestMatchEndpoint('matchlists/by-account/'.$accountId, $filter));
         $matchObjs = $matchList->matches;
         foreach ($matchObjs as $matchObj){
             $matches[] = new Match($matchObj);

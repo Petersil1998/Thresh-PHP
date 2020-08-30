@@ -61,7 +61,7 @@ class HTTPClient
         }
         $api_key = EncryptionUtils::decrypt(Config::getApiKey());
         curl_setopt($this->_curl, CURLOPT_URL, $basePath . $url .
-            "?api_key=" . $api_key.'&'.$this->buildParameters($extraData));
+            '?api_key=' . $api_key.'&'.$this->buildParameters($extraData));
         curl_setopt($this->_curl, CURLOPT_HEADER  , true);
 
         $response = curl_exec($this->_curl);
@@ -74,12 +74,12 @@ class HTTPClient
             return $body;
         } else {
             syslog(LOG_ALERT,
-                sprintf("API Request returned a statusCode other than 200! Status Code: %s%sBody: %s",
+                sprintf('API Request returned a statusCode other than 200! Status Code: %s%sBody: %s',
                     $httpStatusCode,
                     PHP_EOL,
                     $body));
         }
-        return "";
+        return '';
     }
 
     /**
@@ -110,7 +110,7 @@ class HTTPClient
      * @return string
      */
     public function requestSummonerEndpoint($url){
-        return $this->request("summoner/v4/".$url, 'lol');
+        return $this->request('summoner/v4/'.$url, 'lol');
     }
 
     /**
@@ -119,7 +119,7 @@ class HTTPClient
      * @return string
      */
     public function requestChampionMasteryEndpoint($url){
-        return $this->request("champion-mastery/v4/".$url, 'lol');
+        return $this->request('champion-mastery/v4/'.$url, 'lol');
     }
 
     /**
@@ -128,7 +128,7 @@ class HTTPClient
      * @return string
      */
     public function requestLeagueEndpoint($url){
-        return $this->request("league/v4/".$url, 'lol');
+        return $this->request('league/v4/'.$url, 'lol');
     }
 
     /**
@@ -137,7 +137,7 @@ class HTTPClient
      * @return string
      */
     public function requestTftLeagueEndpoint($url){
-        return $this->request("league/v1/".$url, 'tft');
+        return $this->request('league/v1/'.$url, 'tft');
     }
 
     /**
@@ -146,7 +146,7 @@ class HTTPClient
      * @return string
      */
     public function requestSpectatorEndpoint($url){
-        return $this->request("spectator/v4/".$url, 'lol');
+        return $this->request('spectator/v4/'.$url, 'lol');
     }
 
     /**
@@ -156,7 +156,7 @@ class HTTPClient
      * @return string
      */
     public function requestMatchEndpoint($url, $filter = array()){
-        return $this->request("match/v4/".$url, 'lol', $filter);
+        return $this->request('match/v4/'.$url, 'lol', $filter);
     }
 
     /**
@@ -165,6 +165,6 @@ class HTTPClient
      * @return string
      */
     public function requestAccountEndpoint($url){
-        return $this->request("account/v1/".$url, 'riot');
+        return $this->request('account/v1/'.$url, 'riot');
     }
 }

@@ -59,7 +59,7 @@ class ActiveGame
      */
     public function __construct($summoner)
     {
-        $game = json_decode(HTTPClient::getInstance()->requestSpectatorEndpoint("active-games/by-summoner/" . $summoner->getId()));
+        $game = json_decode(HTTPClient::getInstance()->requestSpectatorEndpoint('active-games/by-summoner/' . $summoner->getId()));
         if(!empty($game)) {
             $this->gameId = $game->gameId;
             $this->mapId = $game->mapId;

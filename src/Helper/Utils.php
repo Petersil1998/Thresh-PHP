@@ -22,24 +22,24 @@ class Utils
      */
     public static function getChampWithoutSpecials($championName)
     {
-        if ($championName == "Wukong") {
-            return "MonkeyKing";
-        } elseif ($championName == "Cho'Gath") {
-            return "Chogath";
-        } elseif ($championName == "LeBlanc") {
-            return "Leblanc";
-        } elseif ($championName == "Vel'Koz") {
-            return "Velkoz";
-        } elseif ($championName == "Kai'Sa") {
-            return "Kaisa";
-        } elseif ($championName == "Kha'Zix") {
-            return "Khazix";
-        } elseif ($championName == "Nunu & Willump") {
-            return "Nunu";
+        if ($championName == 'Wukong') {
+            return 'MonkeyKing';
+        } elseif ($championName == 'Cho\'Gath') {
+            return 'Chogath';
+        } elseif ($championName == 'LeBlanc') {
+            return 'Leblanc';
+        } elseif ($championName == 'Vel\'Koz') {
+            return 'Velkoz';
+        } elseif ($championName == 'Kai\'Sa') {
+            return 'Kaisa';
+        } elseif ($championName == 'Kha\'Zix') {
+            return 'Khazix';
+        } elseif ($championName == 'Nunu & Willump') {
+            return 'Nunu';
         }
-        $ret = str_replace("'", "", $championName);
-        $ret = str_replace(" ", "", $ret);
-        $ret = str_replace(".", "", $ret);
+        $ret = str_replace('\'', '', $championName);
+        $ret = str_replace(' ', '', $ret);
+        $ret = str_replace('.', '', $ret);
         return $ret;
     }
 
@@ -58,7 +58,7 @@ class Utils
      * @return string
      */
     public static function getChampionIconURL($championId){
-        return Constants::DDRAGON_BASE_PATH . "cdn/" . Constants::getDataDragonVersion() . "/img/champion/" . Utils::getChampWithoutSpecials(Champions::getChampion($championId)->getName()) . ".png";
+        return Constants::DDRAGON_BASE_PATH . 'cdn/' . Constants::getDataDragonVersion() . '/img/champion/' . Utils::getChampWithoutSpecials(Champions::getChampion($championId)->getName()) . '.png';
     }
 
     /**

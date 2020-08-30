@@ -63,7 +63,7 @@ class Timeline
      */
     public static function getTimelinesForMatch($matchID){
         $timelines = array();
-        $timelinesObj = json_decode(HTTPClient::getInstance()->requestMatchEndpoint("timelines/by-match/".$matchID));
+        $timelinesObj = json_decode(HTTPClient::getInstance()->requestMatchEndpoint('timelines/by-match/'.$matchID));
         self::$frameInterval = $timelinesObj->frameInterval;
         foreach ($timelinesObj->frames as $frame){
             $participants = array();
@@ -123,8 +123,8 @@ class Timeline
                             $event->levelUpType);
                         break;
                     default:
-                        syslog(LOG_WARNING, "Unknown Event Type for Timeline found: ".$event->type.".
-                            This is and error, please report it to the author (with game ID)");
+                        syslog(LOG_WARNING, 'Unknown Event Type for Timeline found: '.$event->type.'.
+                            This is and error, please report it to the author (with game ID)');
                         break;
                 }
             }
