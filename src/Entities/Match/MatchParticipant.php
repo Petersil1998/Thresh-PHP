@@ -606,7 +606,7 @@ class MatchParticipant
         $stats = $participant->stats;
         for ($i = 0; $i < 7; $i++){
             if(property_exists($stats, "item$i")){
-                $this->${"item$i"} = Items::getItem($stats->${"item$i"});
+                $this->{"item$i"} = Items::getItem($stats->{"item$i"});
             }
         }
         $this->setProperty($stats, 'kills');
