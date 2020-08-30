@@ -10,6 +10,19 @@ use Thresh\Entities\Match\MatchDetails;
 
 class MatchUtils
 {
+    /**
+     * Returns the Match List for a given Account
+     * @param string $accountId
+     * @param array $filter The filter which can contain the following keys: <ul>
+     * <li>champion (array of champion ID's)</li>
+     * <li>queue (array of Queue ID's)</li>
+     * <li>endTime (end limit for the query in epoch milliseconds)</li>
+     * <li>beginTime (begin limit for the query in epoch milliseconds)</li>
+     * <li>endIndex (end index for the list of matches)</li>
+     * <li>startIndex (start index for the list of matches)</li>
+     * </ul>
+     * @return MatchDetails[] | false Returns false if the filter is invalid, see logs for details
+     */
     public static function getMatchListForAccount($accountId, $filter = array()){
         if(!self::validateFilter($filter)){
             return false;
