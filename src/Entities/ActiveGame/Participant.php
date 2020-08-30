@@ -16,7 +16,7 @@ use Thresh\Entities\SummonerSpell;
  * Class SummonerGameParticipant
  * @package Thresh\Entities\Summoner
  */
-class ActiveGameParticipant
+class Participant
 {
     /**
      * @var String

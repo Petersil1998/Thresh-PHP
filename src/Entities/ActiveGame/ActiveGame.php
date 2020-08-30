@@ -3,12 +3,14 @@
 namespace Thresh\Entities\Match;
 
 use RuntimeException;
+use Thresh\Collections\Champions;
 use Thresh\Collections\Maps;
 use Thresh\Collections\QueueTypes;
+use Thresh\Entities\ActiveGame\Ban;
 use Thresh\Entities\Map;
 use Thresh\Entities\QueueType;
 use Thresh\Entities\Summoner\Summoner;
-use Thresh\Entities\Summoner\ActiveGameParticipant;
+use Thresh\Entities\Summoner\Participant;
 use Thresh\Helper\HTTPClient;
 
 /**
@@ -43,12 +45,12 @@ class ActiveGame
     private $queueType;
 
     /**
-     * @var ActiveGameParticipant[]
+     * @var Participant[]
      */
     private $blueSideTeam;
 
     /**
-     * @var ActiveGameParticipant[]
+     * @var Participant[]
      */
     private $redSideTeam;
 
@@ -56,6 +58,31 @@ class ActiveGame
      * @var int
      */
     private $teamsize;
+
+    /**
+     * @var Ban[]
+     */
+    private $bans;
+
+    /**
+     * @var string
+     */
+    private $spectatorKey;
+
+    /**
+     * @var string
+     */
+    private $platformId;
+
+    /**
+     * @var int
+     */
+    private $startTime;
+
+    /**
+     * @var int
+     */
+    private $duration;
 
     /**
      * Game constructor.
@@ -71,6 +98,15 @@ class ActiveGame
             $this->gameType = $game->gameType;
             $this->queueType = QueueTypes::getQueueType($game->gameQueueConfigId);
             $this->teamsize = (count($game->participants)) / 2;
+            $bans = array();
+            foreach ($game->bannedChampions as $ban){
+                $bans[] = new Ban(Champions::getChampion($ban->championId), $ban->teamId, $ban->pickTurn);
+            }
+            $this->bans = $bans;
+            $this->spectatorKey = $game->observers->encryptionKey;
+            $this->platformId = $game->platformId;
+            $this->startTime = $game->gameStartTime;
+            $this->duration = $game->gameLength;
             $this->loadParticipants($game->participants);
         }
     }
@@ -86,7 +122,7 @@ class ActiveGame
         $this->blueSideTeam = array();
         $this->redSideTeam = array();
         foreach ($participants as $participant){
-            $player = new ActiveGameParticipant($participant);
+            $player = new Participant($participant);
             if($player->getTeamId() == 100){
                 $this->blueSideTeam[] = $player;
             } elseif ($player->getTeamId() == 200){
@@ -138,7 +174,7 @@ class ActiveGame
     }
 
     /**
-     * @return ActiveGameParticipant[]
+     * @return Participant[]
      */
     public function getBlueSideTeam(): array
     {
@@ -146,7 +182,7 @@ class ActiveGame
     }
 
     /**
-     * @return ActiveGameParticipant[]
+     * @return Participant[]
      */
     public function getRedSideTeam(): array
     {
@@ -159,5 +195,45 @@ class ActiveGame
     public function getTeamsize()
     {
         return $this->teamsize;
+    }
+
+    /**
+     * @return Ban[]
+     */
+    public function getBans(): array
+    {
+        return $this->bans;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSpectatorKey(): string
+    {
+        return $this->spectatorKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlatformId(): string
+    {
+        return $this->platformId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStartTime(): int
+    {
+        return $this->startTime;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDuration(): int
+    {
+        return $this->duration;
     }
 }
