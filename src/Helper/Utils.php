@@ -7,6 +7,7 @@ use Thresh\Constants\Constants;
 use Thresh\Entities\Runes\Rune;
 use Thresh\Entities\Runes\RuneStat;
 use Thresh\Entities\Runes\RuneStyle;
+use Thresh\Entities\Sprite;
 use Thresh\Entities\Summoner\Summoner;
 
 /**
@@ -68,5 +69,18 @@ class Utils
      */
     public static function getRuneIconURL($rune){
         return Constants::DDRAGON_BASE_PATH.'cdn/img/'.$rune->getIconPath();
+    }
+
+    /**
+     * This Method returns the PNG image of a given sprite. Use imagepng() to convert the resource into an image
+     * @see imagepng()
+     * @see imagecrop()
+     * @param Sprite $sprite
+     * @return bool|resource The resource returned by imagecrop()
+     */
+    public static function getPNGFromSprite($sprite){
+        $path = Constants::DDRAGON_BASE_PATH.'cdn/'. Constants::getDataDragonVersion().'/img/sprite/'.$sprite->getSprite();
+        $filter = array('x' => $sprite->getX(), 'y' => $sprite->getY(), 'width' => $sprite->getWidth(), 'height' => $sprite->getHeight());
+        return imagecrop(imagecreatefrompng($path), $filter);
     }
 }
