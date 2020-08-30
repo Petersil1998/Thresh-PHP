@@ -24,7 +24,7 @@ class Champions
      */
     public static function getChampion($id){
         foreach (self::$champions as $champion){
-            if($champion->getId() === $id){
+            if($champion->getId() == $id){
                 return $champion;
             }
         }
@@ -39,7 +39,7 @@ class Champions
      */
     public static function getChampionByName($name){
         foreach (self::$champions as $champion){
-            if(strtolower($champion->getName()) === strtolower($name)){
+            if(strtolower($champion->getName()) == strtolower($name)){
                 return $champion;
             }
         }

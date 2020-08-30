@@ -24,7 +24,7 @@ class RuneStats
      */
     public static function getRuneStat($id){
         foreach (self::$runeStats as $runeStat){
-            if($runeStat->getId() === $id){
+            if($runeStat->getId() == $id){
                 return $runeStat;
             }
         }

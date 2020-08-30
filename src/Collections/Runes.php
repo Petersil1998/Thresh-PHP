@@ -24,7 +24,7 @@ class Runes
      */
     public static function getRune($id){
         foreach (self::$runes as $rune){
-            if($rune->getId() === $id){
+            if($rune->getId() == $id){
                 return $rune;
             }
         }

@@ -24,7 +24,7 @@ class QueueTypes
      */
     public static function getQueueType($id){
         foreach (self::$queueTypes as $queueType){
-            if($queueType->getId() === $id){
+            if($queueType->getId() == $id){
                 return $queueType;
             }
         }

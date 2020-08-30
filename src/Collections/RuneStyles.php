@@ -24,7 +24,7 @@ class RuneStyles
      */
     public static function getRuneStyle($id){
         foreach (self::$runeStyles as $runeStyle){
-            if($runeStyle->getId() === $id){
+            if($runeStyle->getId() == $id){
                 return $runeStyle;
             }
         }

@@ -24,7 +24,7 @@ class Items
      */
     public static function getItem($id){
         foreach (self::$items as $item){
-            if($item->getId() === $id){
+            if($item->getId() == $id){
                 return $item;
             }
         }

@@ -24,7 +24,7 @@ class Maps
      */
     public static function getMap($id){
         foreach (self::$maps as $map){
-            if($map->getId() === $id){
+            if($map->getId() == $id){
                 return $map;
             }
         }
