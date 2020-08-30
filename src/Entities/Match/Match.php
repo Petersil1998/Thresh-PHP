@@ -5,6 +5,8 @@ namespace Thresh\Entities\Match;
 use stdClass;
 use Thresh\Collections\Champions;
 use Thresh\Collections\QueueTypes;
+use Thresh\Entities\Champions\Champion;
+use Thresh\Entities\QueueType;
 use Thresh\Helper\HTTPClient;
 
 /**
@@ -20,19 +22,19 @@ class Match
     private $platformId;
 
     /**
-     * @var float
+     * @var int
      */
     private $gameId;
 
     /**
-     * @var int
+     * @var Champion
      */
     private $champion;
 
     /**
-     * @var int
+     * @var QueueType
      */
-    private $queue;
+    private $queueType;
 
     /**
      * @var int
@@ -62,8 +64,8 @@ class Match
     {
         $this->platformId = $data->platformId;
         $this->gameId = $data->gameId;
-        $this->champion = $data->champion;
-        $this->queue = $data->queue;
+        $this->champion = Champions::getChampion($data->champion);
+        $this->queueType = QueueTypes::getQueueType($data->queue);
         $this->season = $data->season;
         $this->timestamp = $data->timestamp;
         $this->role = $data->role;
@@ -183,7 +185,7 @@ class Match
     }
 
     /**
-     * @return float
+     * @return int
      */
     public function getGameId(): float
     {
@@ -191,19 +193,19 @@ class Match
     }
 
     /**
-     * @return int
+     * @return Champion
      */
-    public function getChampion(): int
+    public function getChampion(): Champion
     {
         return $this->champion;
     }
 
     /**
-     * @return int
+     * @return QueueType
      */
-    public function getQueue(): int
+    public function getQueueType(): QueueType
     {
-        return $this->queue;
+        return $this->queueType;
     }
 
     /**

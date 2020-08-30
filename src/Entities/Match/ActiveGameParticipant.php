@@ -3,8 +3,10 @@
 namespace Thresh\Entities\Summoner;
 
 use stdClass;
+use Thresh\Collections\Champions;
 use Thresh\Collections\Runes;
 use Thresh\Collections\RuneStyles;
+use Thresh\Entities\Champions\Champion;
 use Thresh\Entities\Runes\Rune;
 use Thresh\Entities\Runes\RuneStyle;
 
@@ -35,9 +37,9 @@ class ActiveGameParticipant
     private $isBot;
 
     /**
-     * @var int
+     * @var Champion
      */
-    private $championId;
+    private $champion;
 
     /**
      * @var int
@@ -79,7 +81,7 @@ class ActiveGameParticipant
         $this->summonerID = $data->summonerId;
         $this->profileIcon = $data->profileIconId;
         $this->isBot = $data->bot;
-        $this->championId = $data->championId;
+        $this->champion = Champions::getChampion($data->championId);
         $this->teamId = $data->teamId;
         $this->spell1Id = $data->spell1Id;
         $this->spell2Id = $data->spell2Id;
@@ -125,11 +127,11 @@ class ActiveGameParticipant
     }
 
     /**
-     * @return int
+     * @return Champion
      */
-    public function getChampionId()
+    public function getChampion()
     {
-        return $this->championId;
+        return $this->champion;
     }
 
     /**

@@ -3,6 +3,10 @@
 namespace Thresh\Entities\Match;
 
 use RuntimeException;
+use Thresh\Collections\Maps;
+use Thresh\Collections\QueueTypes;
+use Thresh\Entities\Map;
+use Thresh\Entities\QueueType;
 use Thresh\Entities\Summoner\Summoner;
 use Thresh\Entities\Summoner\ActiveGameParticipant;
 use Thresh\Helper\HTTPClient;
@@ -14,14 +18,14 @@ use Thresh\Helper\HTTPClient;
 class ActiveGame
 {
     /**
-     * @var float
+     * @var int
      */
     private $gameId;
 
     /**
-     * @var int
+     * @var Map
      */
-    private $mapId;
+    private $map;
 
     /**
      * @var string
@@ -34,9 +38,9 @@ class ActiveGame
     private $gameType;
 
     /**
-     * @var int
+     * @var QueueType
      */
-    private $gameQueueConfigId;
+    private $queueType;
 
     /**
      * @var ActiveGameParticipant[]
@@ -62,10 +66,10 @@ class ActiveGame
         $game = json_decode(HTTPClient::getInstance()->requestSpectatorEndpoint('active-games/by-summoner/' . $summoner->getId()));
         if(!empty($game)) {
             $this->gameId = $game->gameId;
-            $this->mapId = $game->mapId;
+            $this->map = Maps::getMap($game->mapId);
             $this->gameMode = $game->gameMode;
             $this->gameType = $game->gameType;
-            $this->gameQueueConfigId = $game->gameQueueConfigId;
+            $this->queueType = QueueTypes::getQueueType($game->gameQueueConfigId);
             $this->teamsize = (count($game->participants)) / 2;
             $this->loadParticipants($game->participants);
         }
@@ -94,7 +98,7 @@ class ActiveGame
     }
 
     /**
-     * @return float
+     * @return int
      */
     public function getGameId()
     {
@@ -102,11 +106,11 @@ class ActiveGame
     }
 
     /**
-     * @return int
+     * @return Map
      */
-    public function getMapId()
+    public function getMap()
     {
-        return $this->mapId;
+        return $this->map;
     }
 
     /**
@@ -126,11 +130,11 @@ class ActiveGame
     }
 
     /**
-     * @return int
+     * @return QueueType
      */
-    public function getGameQueueConfigId()
+    public function getQueueType()
     {
-        return $this->gameQueueConfigId;
+        return $this->queueType;
     }
 
     /**
