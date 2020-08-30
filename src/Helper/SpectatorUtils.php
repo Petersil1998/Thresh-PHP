@@ -3,7 +3,7 @@
 namespace Thresh\Helper;
 
 use Thresh\Constants\Constants;
-use Thresh\Entities\Match\ActiveGame;
+use Thresh\Entities\ActiveGame\ActiveGame;
 
 class SpectatorUtils
 {

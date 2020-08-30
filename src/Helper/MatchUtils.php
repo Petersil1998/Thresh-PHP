@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Thresh\Helper;
-
 
 use Thresh\Collections\Champions;
 use Thresh\Collections\QueueTypes;
