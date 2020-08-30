@@ -1,91 +1,16 @@
 <?php
 
-namespace Thresh\Entities\Match;
 
-use stdClass;
+namespace Thresh\Helper;
+
+
 use Thresh\Collections\Champions;
 use Thresh\Collections\QueueTypes;
-use Thresh\Entities\Champions\Champion;
-use Thresh\Entities\QueueType;
-use Thresh\Helper\HTTPClient;
+use Thresh\Entities\Match\MatchDetails;
 
-/**
- * This class contains the Summoner-specific Data for a Match. For more Information use MatchDetails
- * @see MatchDetails
- * @package Thresh\Entities\Match
- */
-class Match
+class MatchUtils
 {
-    /**
-     * @var string
-     */
-    private $platformId;
-
-    /**
-     * @var int
-     */
-    private $gameId;
-
-    /**
-     * @var Champion
-     */
-    private $champion;
-
-    /**
-     * @var QueueType
-     */
-    private $queueType;
-
-    /**
-     * @var int
-     */
-    private $season;
-
-    /**
-     * @var int
-     */
-    private $timestamp;
-
-    /**
-     * @var string
-     */
-    private $role;
-
-    /**
-     * @var string
-     */
-    private $lane;
-
-    /**
-     * Match constructor.
-     * @param stdClass $data
-     */
-    private function __construct($data)
-    {
-        $this->platformId = $data->platformId;
-        $this->gameId = $data->gameId;
-        $this->champion = Champions::getChampion($data->champion);
-        $this->queueType = QueueTypes::getQueueType($data->queue);
-        $this->season = $data->season;
-        $this->timestamp = $data->timestamp;
-        $this->role = $data->role;
-        $this->lane = $data->lane;
-    }
-
-    /**
-     * Returns the Match List for a given Account
-     * @param string $accountId
-     * @param array $filter The filter which can contain the following keys: <ul>
-     * <li>champion (array of champion ID's)</li>
-     * <li>queue (array of Queue ID's)</li>
-     * <li>endTime (end limit for the query in epoch milliseconds)</li>
-     * <li>beginTime (begin limit for the query in epoch milliseconds)</li>
-     * <li>endIndex (end index for the list of matches)</li>
-     * <li>startIndex (start index for the list of matches)</li>
-     * </ul>
-     * @return Match[] | false Returns false if the filter is invalid, see logs for details
-     */
-    public static function getMatchListFromAccount($accountId, $filter = array()){
+    public static function getMatchListForAccount($accountId, $filter = array()){
         if(!self::validateFilter($filter)){
             return false;
         }
@@ -93,7 +18,7 @@ class Match
         $matchList = json_decode(HTTPClient::getInstance()->requestMatchEndpoint('matchlists/by-account/'.$accountId, $filter));
         $matchObjs = $matchList->matches;
         foreach ($matchObjs as $matchObj){
-            $matches[] = new Match($matchObj);
+            $matches[] = new MatchDetails($matchObj->gameId);
         }
         return $matches;
     }
@@ -174,69 +99,5 @@ class Match
             }
         }
         return true;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPlatformId(): string
-    {
-        return $this->platformId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getGameId(): float
-    {
-        return $this->gameId;
-    }
-
-    /**
-     * @return Champion
-     */
-    public function getChampion(): Champion
-    {
-        return $this->champion;
-    }
-
-    /**
-     * @return QueueType
-     */
-    public function getQueueType(): QueueType
-    {
-        return $this->queueType;
-    }
-
-    /**
-     * @return int
-     */
-    public function getSeason(): int
-    {
-        return $this->season;
-    }
-
-    /**
-     * @return int
-     */
-    public function getTimestamp(): int
-    {
-        return $this->timestamp;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRole(): string
-    {
-        return $this->role;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLane(): string
-    {
-        return $this->lane;
     }
 }
