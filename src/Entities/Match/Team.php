@@ -3,6 +3,7 @@
 namespace Thresh\Entities\Match;
 
 use stdClass;
+use Thresh\Collections\Champions;
 
 /**
  * This Class represents a Team in a Match
@@ -113,7 +114,7 @@ class Team
         $this->dominionVictoryScore = $data->dominionVictoryScore;
         $bans = array();
         foreach ($data->bans as $ban){
-            $bans[$ban->pickTurn] = $ban->championId;
+            $bans[$ban->pickTurn] = Champions::getChampion($ban->championId);
         }
         $this->bans = $bans;
     }
@@ -129,7 +130,7 @@ class Team
     /**
      * @return bool
      */
-    public function isWin(): bool
+    public function hasWon(): bool
     {
         return $this->win;
     }
@@ -137,7 +138,7 @@ class Team
     /**
      * @return bool
      */
-    public function isFirstBlood(): bool
+    public function hasFirstBlood(): bool
     {
         return $this->firstBlood;
     }
@@ -145,7 +146,7 @@ class Team
     /**
      * @return bool
      */
-    public function isFirstTower(): bool
+    public function hasFirstTower(): bool
     {
         return $this->firstTower;
     }
@@ -153,7 +154,7 @@ class Team
     /**
      * @return bool
      */
-    public function isFirstInhibitor(): bool
+    public function hasFirstInhibitor(): bool
     {
         return $this->firstInhibitor;
     }
@@ -161,7 +162,7 @@ class Team
     /**
      * @return bool
      */
-    public function isFirstBaron(): bool
+    public function hasFirstBaron(): bool
     {
         return $this->firstBaron;
     }
@@ -169,7 +170,7 @@ class Team
     /**
      * @return bool
      */
-    public function isFirstDragon(): bool
+    public function hasFirstDragon(): bool
     {
         return $this->firstDragon;
     }
@@ -177,7 +178,7 @@ class Team
     /**
      * @return bool
      */
-    public function isFirstRiftHerald(): bool
+    public function hasFirstRiftHerald(): bool
     {
         return $this->firstRiftHerald;
     }
@@ -239,6 +240,7 @@ class Team
     }
 
     /**
+     * Returns the Bans as a associative array with key being the pick Turn and value the actual Champion
      * @return array
      */
     public function getBans(): array
