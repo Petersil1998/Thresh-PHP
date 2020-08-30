@@ -4,6 +4,7 @@ namespace Thresh\Helper;
 
 use RuntimeException;
 use Thresh\Collections\Champions;
+use Thresh\Collections\Items;
 use Thresh\Collections\Maps;
 use Thresh\Collections\QueueTypes;
 use Thresh\Collections\Runes;
@@ -13,6 +14,7 @@ use Thresh\Constants\Constants;
 use Thresh\Entities\Champions\Champion;
 use Thresh\Entities\Champions\Skin;
 use Thresh\Entities\Champions\Stats;
+use Thresh\Entities\Item;
 use Thresh\Entities\Map;
 use Thresh\Entities\QueueType;
 use Thresh\Entities\Runes\Rune;
@@ -34,6 +36,7 @@ class Loader
     private const MAPS_FILE_PATH = BASE_PATH.'/src/maps.json';
     private const CHAMPIONS_FILE_PATH = BASE_PATH.'/src/champions.json';
     private const QUEUE_TYPES_FILE_PATH = BASE_PATH.'/src/queues.json';
+    private const ITEMS_FILE_PATH = BASE_PATH.'/src/items.json';
 
     /**
      * This method initializes all Collections and checks for a new Data Dragon Version
@@ -45,6 +48,7 @@ class Loader
             self::updateMapsFile();
             self::updateChampionsFile();
             self::updateQueueTypesFile();
+            self::updateItemsFile();
         }
         self::loadRuneStyles();
         self::loadRunes();
@@ -52,10 +56,11 @@ class Loader
         self::loadMaps();
         self::loadChampions();
         self::loadQueueTypes();
+        self::loadItems();
     }
 
     private static function initAndUpdateDDragonVersion(){
-        $newVersion = json_decode(file_get_contents(Constants::DDRAGON_BASE_PATH . "api/versions.json"))[0];
+        $newVersion = json_decode(file_get_contents(Constants::DDRAGON_BASE_PATH . 'api/versions.json'))[0];
         Constants::setDataDragonVersion($newVersion);
         $fileHandler = new FileHandler(self::DDRAGON_VERSION_FILE_PATH, 'r');
         $currentVersion = $fileHandler->read();
@@ -71,7 +76,7 @@ class Loader
 
     private static function updateRunesAndRuneStylesFile(){
         $fileHandler = new FileHandler(self::RUNES_AND_RUNE_STYLES_FILE_PATH, 'w');
-        $runes = file_get_contents(Constants::DDRAGON_BASE_PATH."cdn/".Constants::getDataDragonVersion()."/data/en_US/runesReforged.json");
+        $runes = file_get_contents(Constants::DDRAGON_BASE_PATH.'cdn/'.Constants::getDataDragonVersion().'/data/en_US/runesReforged.json');
         $fileHandler->write($runes);
         $fileHandler->close();
     }
@@ -110,9 +115,9 @@ class Loader
         $fileHandler->close();
         if($fileSize <= 2){
             $runeStats = array();
-            $runes = json_decode(file_get_contents("https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json"));
+            $runes = json_decode(file_get_contents('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json'));
             foreach ($runes as $rune){
-                if(substr($rune->id,0,1) == "5"){
+                if(substr($rune->id,0,1) == '5'){
                     array_push($runeStats, json_encode($rune));
                 }
             }
@@ -123,7 +128,7 @@ class Loader
     private static function loadRuneStats(){
         $runeStats = array();
         $fileHandler = new FileHandler(self::RUNE_STATS_FILE_PATH, 'r');
-        $json = json_decode(str_replace('\\', "", $fileHandler->read()));
+        $json = json_decode(str_replace('\\', '', $fileHandler->read()));
         $fileHandler->close();
         foreach ($json as $runeStat) {
             $runeStats[] = new RuneStat($runeStat->id, $runeStat->name, $runeStat->shortDesc,
@@ -134,7 +139,7 @@ class Loader
 
     private static function updateMapsFile(){
         $fileHandler = new FileHandler(self::MAPS_FILE_PATH, 'w');
-        $maps = json_encode(json_decode(file_get_contents(Constants::DDRAGON_BASE_PATH."cdn/".Constants::getDataDragonVersion()."/data/en_US/map.json"))->data);
+        $maps = json_encode(json_decode(file_get_contents(Constants::DDRAGON_BASE_PATH.'cdn/'.Constants::getDataDragonVersion().'/data/en_US/map.json'))->data);
         $fileHandler->write($maps);
         $fileHandler->close();
     }
@@ -205,8 +210,8 @@ class Loader
 
     private static function updateQueueTypesFile(){
         $fileHandler = new FileHandler(self::QUEUE_TYPES_FILE_PATH, 'w');
-        $maps = file_get_contents(Constants::STATIC_DATA_BASE_PATH."queues.json");
-        $fileHandler->write($maps);
+        $queues = file_get_contents(Constants::STATIC_DATA_BASE_PATH.'queues.json');
+        $fileHandler->write($queues);
         $fileHandler->close();
     }
 
@@ -221,9 +226,32 @@ class Loader
         QueueTypes::setQueueTypes($queueTypes);
     }
 
+    private static function updateItemsFile(){
+        $fileHandler = new FileHandler(self::ITEMS_FILE_PATH, 'w');
+        $items  = json_decode(file_get_contents(Constants::DDRAGON_BASE_PATH.'cdn/'.Constants::getDataDragonVersion().'/data/en_US/item.json'))->data;
+        foreach ($items as $key => $item) {
+            if(property_exists($item, 'colloq')){
+                unset($item->colloq);
+            }
+        }
+        $fileHandler->write(json_encode($items));
+        $fileHandler->close();
+    }
+
+    private static function loadItems(){
+        /*$items = array();
+        $fileHandler = new FileHandler(self::ITEMS_FILE_PATH, 'r');
+        $json = json_decode($fileHandler->read());
+        $fileHandler->close();
+        foreach ($json as $item) {
+            $items[] = new Item();
+        }
+        Items::setItems($items);*/
+    }
+
     private static function createChampionsJSON(){
         $json = '[';
-        $champions = json_decode(file_get_contents(Constants::DDRAGON_BASE_PATH."cdn/".Constants::getDataDragonVersion()."/data/en_US/championFull.json"));
+        $champions = json_decode(file_get_contents(Constants::DDRAGON_BASE_PATH.'cdn/'.Constants::getDataDragonVersion().'/data/en_US/championFull.json'));
         foreach ($champions->data as $key => $value) {
             $json .= '{"id":"'.$value->key.'",'.
                 '"name":"'.$value->name.'",'.
@@ -304,7 +332,7 @@ class Loader
         $json = '[';
         for($i = 0; $i < count($array); $i++) {
             if($i < count($array)-1){
-                $json .= $array[$i] . ",";
+                $json .= $array[$i] . ',';
             } else {
                 $json .= $array[$i];
             }
