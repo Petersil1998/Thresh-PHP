@@ -82,7 +82,6 @@ class Summoner
      */
     private function __construct($data)
     {
-        $data = json_decode($data);
         $this->summonername = $data->name;
         $this->id = $data->id;
         $this->profileIcon = $data->profileIconId;
