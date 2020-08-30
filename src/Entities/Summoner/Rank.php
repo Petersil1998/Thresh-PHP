@@ -14,57 +14,57 @@ class Rank
     /**
      * @var string
      */
-    protected $leagueId = "";
+    protected $leagueId;
 
     /**
      * @var string
      */
-    protected $queueType = "";
+    protected $queueType;
 
     /**
      * @var string
      */
-    protected $tier = "";
+    protected $tier;
 
     /**
      * @var string
      */
-    protected $rank = "";
+    protected $rank;
 
     /**
      * @var int
      */
-    protected $leaguePoints = 0;
+    protected $leaguePoints;
 
     /**
      * @var int
      */
-    protected $wins = 0;
+    protected $wins;
 
     /**
      * @var int
      */
-    protected $losses = 0;
+    protected $losses;
 
     /**
      * @var bool
      */
-    protected $veteran = false;
+    protected $veteran;
 
     /**
      * @var bool
      */
-    protected $inactive = false;
+    protected $inactive;
 
     /**
      * @var bool
      */
-    protected $freshBlood = false;
+    protected $freshBlood;
 
     /**
      * @var bool
      */
-    protected $hotStreak = false;
+    protected $hotStreak;
 
     /**
      * Rank constructor.
