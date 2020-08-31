@@ -293,7 +293,7 @@ class Loader
             $image = $summonerSpell->image;
             $sprite = new Sprite($image->sprite, $image->group, $image->x, $image->y, $image->w, $image->h);
             $summonerSpells[] = new SummonerSpell($summonerSpell->key, $summonerSpell->name, $summonerSpell->description,
-                $summonerSpell->cooldown, $summonerSpell->summonerLevel, $summonerSpell->range, $summonerSpell->mode,
+                $summonerSpell->cooldown, $summonerSpell->summonerLevel, $summonerSpell->range, $summonerSpell->modes,
                 $sprite, $image->full);
         }
         SummonerSpells::setSummonerSpells($summonerSpells);
