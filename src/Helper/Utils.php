@@ -84,4 +84,17 @@ class Utils
         $filter = array('x' => $sprite->getX(), 'y' => $sprite->getY(), 'width' => $sprite->getWidth(), 'height' => $sprite->getHeight());
         return imagecrop(imagecreatefrompng($path), $filter);
     }
+
+    /**
+     * This Method returns the base 64 encoded PNG image of a given sprite.
+     * @param Sprite $sprite
+     * @return string base64 encoded image as string
+     */
+    public static function getBase64EncodedImageFromSprite($sprite){
+        ob_start();
+        imagepng(Utils::getPNGFromSprite($sprite));
+        $image = ob_get_contents();
+        ob_end_clean();
+        return base64_encode($image);
+    }
 }
