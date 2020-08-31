@@ -2,6 +2,9 @@
 
 namespace Thresh\Entities\Summoner;
 
+use Thresh\Collections\Champions;
+use Thresh\Entities\Champions\Champion;
+
 /**
  * This class represents a Champion Mastery belonging to a specific Summoner
  * @package Thresh\Entities\Summoner
@@ -24,9 +27,9 @@ class ChampionMastery
     private $championPoints;
 
     /**
-     * @var int
+     * @var Champion
      */
-    private $championId;
+    private $champion;
 
     /**
      * @var int
@@ -57,7 +60,7 @@ class ChampionMastery
         $this->chestGranted = $data->chestGranted;
         $this->championLevel = $data->championLevel;
         $this->championPoints = $data->championPoints;
-        $this->championId = $data->championId;
+        $this->champion = Champions::getChampion($data->championId);
         $this->championPointsUntilNextLevel = $data->championPointsUntilNextLevel;
         $this->lastPlayTime = $data->lastPlayTime;
         $this->tokensEarned = $data->tokensEarned;
@@ -89,11 +92,11 @@ class ChampionMastery
     }
 
     /**
-     * @return int
+     * @return Champion
      */
-    public function getChampionId()
+    public function getChampion()
     {
-        return $this->championId;
+        return $this->champion;
     }
 
     /**
