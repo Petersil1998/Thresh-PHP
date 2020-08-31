@@ -4,6 +4,7 @@ namespace Thresh\Helper;
 
 use Thresh\Collections\Champions;
 use Thresh\Constants\Constants;
+use Thresh\Entities\Champions\Champion;
 use Thresh\Entities\Runes\Rune;
 use Thresh\Entities\Runes\RuneStat;
 use Thresh\Entities\Runes\RuneStyle;
@@ -55,11 +56,11 @@ class Utils
 
     /**
      * This Method returns the URL for the Champion Icon
-     * @param $championId int
+     * @param $champion Champion
      * @return string
      */
-    public static function getChampionIconURL($championId){
-        return Constants::DDRAGON_BASE_PATH . 'cdn/' . Constants::getDataDragonVersion() . '/img/champion/' . Utils::getChampWithoutSpecials(Champions::getChampion($championId)->getName()) . '.png';
+    public static function getChampionIconURL($champion){
+        return Constants::DDRAGON_BASE_PATH . 'cdn/' . Constants::getDataDragonVersion() . '/img/champion/' . Utils::getChampWithoutSpecials($champion->getName()) . '.png';
     }
 
     /**
