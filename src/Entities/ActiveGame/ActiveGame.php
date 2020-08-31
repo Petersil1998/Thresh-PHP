@@ -9,7 +9,6 @@ use Thresh\Collections\QueueTypes;
 use Thresh\Entities\Map;
 use Thresh\Entities\QueueType;
 use Thresh\Entities\Summoner\Summoner;
-use Thresh\Entities\Summoner\Participant;
 use Thresh\Helper\HTTPClient;
 
 /**
