@@ -99,7 +99,7 @@ class BuildingKillEvent extends AbstractTimelineEvent
     /**
      * @return TimelineParticipant[]
      */
-    public function getAssistingIds(): array
+    public function getAssists(): array
     {
         return $this->assists;
     }
