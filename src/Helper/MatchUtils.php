@@ -5,12 +5,14 @@ namespace Thresh\Helper;
 use Thresh\Collections\Champions;
 use Thresh\Collections\QueueTypes;
 use Thresh\Entities\Match\MatchDetails;
+use Thresh\Entities\Summoner\Account;
+use Thresh\Entities\Summoner\Summoner;
 
 class MatchUtils
 {
     /**
-     * Returns the Match List for a given Account
-     * @param string $accountId
+     * Returns the Match List for a given Summoner
+     * @param Summoner $summoner
      * @param array $filter The filter which can contain the following keys: <ul>
      * <li>champion (array of champion ID's)</li>
      * <li>queue (array of Queue ID's)</li>
@@ -21,12 +23,12 @@ class MatchUtils
      * </ul>
      * @return MatchDetails[] | false Returns false if the filter is invalid, see logs for details
      */
-    public static function getMatchListForAccount($accountId, $filter = array()){
+    public static function getMatchListForSummoner($summoner, $filter = array()){
         if(!self::validateFilter($filter)){
             return false;
         }
         $matches = array();
-        $matchList = json_decode(HTTPClient::getInstance()->requestMatchEndpoint('matchlists/by-account/'.$accountId, $filter));
+        $matchList = json_decode(HTTPClient::getInstance()->requestMatchEndpoint('matchlists/by-account/'.$summoner->getAccountId(), $filter));
         $matchObjs = $matchList->matches;
         foreach ($matchObjs as $matchObj){
             $matches[] = new MatchDetails($matchObj->gameId);
