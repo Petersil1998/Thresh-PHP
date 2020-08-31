@@ -30,4 +30,20 @@ class Account
         $this->gameName = $account->gameName;
         $this->tagLine = $account->tagLine;
     }
+
+    /**
+     * @return string
+     */
+    public function getGameName(): string
+    {
+        return $this->gameName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTagLine(): string
+    {
+        return $this->tagLine;
+    }
 }
