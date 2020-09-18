@@ -16,6 +16,7 @@
         "ext-json": "*",
         "ext-curl": "*",
         "ext-openssl": "*",
-        "ext-gd": "*"
+        "ext-gd": "*",
+        "petersil98/thresh-core": "dev-master"
     }
 }

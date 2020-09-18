@@ -4,8 +4,37 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2846e1b9b112aa5274772020014da152",
+    "content-hash": "1cc29cef753d8e036f2670c4d215187d",
     "packages": [
+        {
+            "name": "petersil98/thresh-core",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Petersil1998/Thresh-Core.git",
+                "reference": "0b8dbd492593867b0d3226e0f5f80efaf753780d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Petersil1998/Thresh-Core/zipball/0b8dbd492593867b0d3226e0f5f80efaf753780d",
+                "reference": "0b8dbd492593867b0d3226e0f5f80efaf753780d",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Thresh-Core\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Peter Silbernagl"
+                }
+            ],
+            "description": "This is the core module for the Thresh Libraries",
+            "time": "2020-09-18T22:13:26+00:00"
+        },
         {
             "name": "symfony/polyfill-ctype",
             "version": "v1.17.0",
@@ -233,12 +262,16 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "petersil98/thresh-core": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "ext-json": "*",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "ext-openssl": "*",
+        "ext-gd": "*"
     },
     "platform-dev": []
 }

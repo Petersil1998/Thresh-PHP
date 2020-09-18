@@ -23,7 +23,7 @@ class MatchUtils
      * </ul>
      * @return MatchDetails[] | false Returns false if the filter is invalid, see logs for details
      */
-    public static function getMatchListForSummoner($summoner, $filter = array()){
+    public static function getMatchListForSummoner(Summoner $summoner, $filter = array()){
         if(!self::validateFilter($filter)){
             return false;
         }
