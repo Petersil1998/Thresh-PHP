@@ -63,33 +63,33 @@ class TimelineParticipant
 
     /**
      * TimelineParticipant constructor.
-     * @param $data stdClass
+     * @param stdClass $timelineParticipantData
      */
-    public function __construct($data)
+    public function __construct(stdClass $timelineParticipantData)
     {
-        $this->setProperty($data, 'participantId');
-        $this->setProperty($data, 'currentGold');
-        $this->setProperty($data, 'totalGold');
-        $this->setProperty($data, 'level');
-        $this->setProperty($data, 'xp');
-        $this->setProperty($data, 'minionsKilled');
-        $this->setProperty($data, 'jungleMinionsKilled');
-        $this->setProperty($data, 'dominionScore');
-        $this->setProperty($data, 'teamScore');
-        if(property_exists($data,'position')) {
-            $this->setProperty($data->position, 'x', 'positionX');
-            $this->setProperty($data->position, 'y', 'positionY');
+        $this->setProperty($timelineParticipantData, 'participantId');
+        $this->setProperty($timelineParticipantData, 'currentGold');
+        $this->setProperty($timelineParticipantData, 'totalGold');
+        $this->setProperty($timelineParticipantData, 'level');
+        $this->setProperty($timelineParticipantData, 'xp');
+        $this->setProperty($timelineParticipantData, 'minionsKilled');
+        $this->setProperty($timelineParticipantData, 'jungleMinionsKilled');
+        $this->setProperty($timelineParticipantData, 'dominionScore');
+        $this->setProperty($timelineParticipantData, 'teamScore');
+        if(property_exists($timelineParticipantData,'position')) {
+            $this->setProperty($timelineParticipantData->position, 'x', 'positionX');
+            $this->setProperty($timelineParticipantData->position, 'y', 'positionY');
         }
     }
 
     /**
-     * @param $object stdClass The object that holds the property to be set
-     * @param $property string The properties name (has to be the same in $this and in the object)
-     * @param $alternativeName string The alternative Property name if it differs from the objects property name
-     * @param $convertPropertyToArray bool whether or not the property should be converted to an associative array
+     * @param stdClass $object The object that holds the property to be set
+     * @param string $property The properties name (has to be the same in $this and in the object)
+     * @param string $alternativeName The alternative Property name if it differs from the objects property name
+     * @param bool $convertPropertyToArray whether or not the property should be converted to an associative array
      * (only works if the property is instance of stdClass)
      */
-    protected function setProperty($object, $property, $alternativeName = '', $convertPropertyToArray = false){
+    private function setProperty($object, $property, $alternativeName = '', $convertPropertyToArray = false){
         $thisFieldName = $property;
         if(!empty($alternativeName)){
             $thisFieldName = $alternativeName;
@@ -104,11 +104,11 @@ class TimelineParticipant
     }
 
     /**
-     * @param $participants TimelineParticipant[]
-     * @param $id int
+     * @param TimelineParticipant[] $participants
+     * @param int $id
      * @return false|TimelineParticipant
      */
-    public static function getParticipantById($participants, $id){
+    public static function getParticipantById(array $participants, int $id){
         foreach ($participants as $participant){
             if($participant->getParticipantId() === $id){
                 return $participant;
@@ -118,11 +118,11 @@ class TimelineParticipant
     }
 
     /**
-     * @param $participants TimelineParticipant[]
-     * @param $ids array
+     * @param TimelineParticipant[] $participants
+     * @param int[] $ids
      * @return TimelineParticipant[]
      */
-    public static function getParticipantByIds($participants, $ids){
+    public static function getParticipantByIds(array $participants, array $ids){
         $realParticipants = array();
         foreach ($participants as $participant){
             if(in_array($participant->getParticipantId(), $ids)){

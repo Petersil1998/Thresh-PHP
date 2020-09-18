@@ -3,14 +3,14 @@
 namespace Thresh\Entities\ActiveGame;
 
 use stdClass;
-use Thresh\Collections\Champions;
-use Thresh\Collections\Runes;
-use Thresh\Collections\RuneStyles;
-use Thresh\Collections\SummonerSpells;
-use Thresh\Entities\Champions\Champion;
-use Thresh\Entities\Runes\Rune;
-use Thresh\Entities\Runes\RuneStyle;
-use Thresh\Entities\SummonerSpell;
+use Thresh_Core\Collections\Champions;
+use Thresh_Core\Collections\Runes;
+use Thresh_Core\Collections\RuneStyles;
+use Thresh_Core\Collections\SummonerSpells;
+use Thresh_Core\Objects\Champions\Champion;
+use Thresh_Core\Objects\Runes\Rune;
+use Thresh_Core\Objects\Runes\RuneStyle;
+use Thresh_Core\Objects\SummonerSpell;
 
 /**
  * Class SummonerGameParticipant
@@ -75,22 +75,22 @@ class Participant
 
     /**
      * SummonerGameParticipant constructor.
-     * @param stdClass $data
+     * @param stdClass $participantData
      */
-    public function __construct($data)
+    public function __construct(stdClass $participantData)
     {
-        $this->summonername = $data->summonerName;
-        $this->summonerID = $data->summonerId;
-        $this->profileIcon = $data->profileIconId;
-        $this->isBot = $data->bot;
-        $this->champion = Champions::getChampion($data->championId);
-        $this->teamId = $data->teamId;
-        $this->summonerSpell1 = SummonerSpells::getSummonerSpell($data->spell1Id);
-        $this->summonerSpell2 = SummonerSpells::getSummonerSpell($data->spell2Id);
-        $this->runeStyle = RuneStyles::getRuneStyle($data->perks->perkStyle);
-        $this->runeSubStyle = RuneStyles::getRuneStyle($data->perks->perkSubStyle);
+        $this->summonername = $participantData->summonerName;
+        $this->summonerID = $participantData->summonerId;
+        $this->profileIcon = $participantData->profileIconId;
+        $this->isBot = $participantData->bot;
+        $this->champion = Champions::getChampion($participantData->championId);
+        $this->teamId = $participantData->teamId;
+        $this->summonerSpell1 = SummonerSpells::getSummonerSpell($participantData->spell1Id);
+        $this->summonerSpell2 = SummonerSpells::getSummonerSpell($participantData->spell2Id);
+        $this->runeStyle = RuneStyles::getRuneStyle($participantData->perks->perkStyle);
+        $this->runeSubStyle = RuneStyles::getRuneStyle($participantData->perks->perkSubStyle);
         $runes = array();
-        foreach ($data->perks->perkIds as $perkId) {
+        foreach ($participantData->perks->perkIds as $perkId) {
             $runes[] = Runes::getRune($perkId);
         }
         $this->runes = $runes;

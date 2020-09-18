@@ -2,11 +2,10 @@
 
 namespace Thresh\Helper;
 
-use Thresh\Collections\Champions;
-use Thresh\Collections\QueueTypes;
 use Thresh\Entities\Match\MatchDetails;
-use Thresh\Entities\Summoner\Account;
 use Thresh\Entities\Summoner\Summoner;
+use Thresh_Core\Collections\Champions;
+use Thresh_Core\Collections\QueueTypes;
 
 class MatchUtils
 {
@@ -28,7 +27,7 @@ class MatchUtils
             return false;
         }
         $matches = array();
-        $matchList = json_decode(HTTPClient::getInstance()->requestMatchEndpoint('matchlists/by-account/'.$summoner->getAccountId(), $filter));
+        $matchList = json_decode(Request::requestMatchEndpoint('matchlists/by-account/'.$summoner->getAccountId(), $filter));
         $matchObjs = $matchList->matches;
         foreach ($matchObjs as $matchObj){
             $matches[] = new MatchDetails($matchObj->gameId);
@@ -37,10 +36,10 @@ class MatchUtils
     }
 
     /**
-     * @param $filter
+     * @param array $filter
      * @return bool
      */
-    private static function validateFilter($filter){
+    private static function validateFilter(array $filter){
         if(array_key_exists('champion', $filter)){
             if(is_array($filter['champion'])){
                 foreach ($filter['champion'] as $champion){

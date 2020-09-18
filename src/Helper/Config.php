@@ -15,7 +15,11 @@ class Config
      */
     private static $configs;
 
-    private static function getConfig($key){
+    /**
+     * @param string $key
+     * @return string
+     */
+    private static function getConfig(string $key){
         if(isset(self::$configs[$key])){
             return self::$configs[$key];
         } else {
@@ -37,9 +41,9 @@ class Config
 
     /**
      * Sets the encrypted API Key
-     * @param $encryptedApiKey
+     * @param string $encryptedApiKey
      */
-    public static function setApiKey($encryptedApiKey){
+    public static function setApiKey(string $encryptedApiKey){
         self::setConfig('api_key', $encryptedApiKey);
     }
 
@@ -53,9 +57,9 @@ class Config
 
     /**
      * Sets the current Region used for API requests
-     * @param $region
+     * @param string $region
      */
-    public static function setRegion($region){
+    public static function setRegion(string $region){
         self::setConfig('region', $region);
     }
 
@@ -69,9 +73,9 @@ class Config
 
     /**
      * Sets the current Platform used for API requests
-     * @param $platform
+     * @param string $platform
      */
-    public static function setPlatform($platform){
+    public static function setPlatform(string $platform){
         self::setConfig('platform', $platform);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Thresh\Entities\ActiveGame;
 
-use Thresh\Entities\Champions\Champion;
+use Thresh_Core\Objects\Champions\Champion;
 
 /**
  * Class Ban represents a Ban in a running game

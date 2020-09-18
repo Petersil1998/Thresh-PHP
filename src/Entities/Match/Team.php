@@ -3,7 +3,7 @@
 namespace Thresh\Entities\Match;
 
 use stdClass;
-use Thresh\Collections\Champions;
+use Thresh_Core\Collections\Champions;
 
 /**
  * This Class represents a Team in a Match

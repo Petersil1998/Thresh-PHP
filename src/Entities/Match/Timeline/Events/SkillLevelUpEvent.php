@@ -24,12 +24,12 @@ class SkillLevelUpEvent extends AbstractTimelineEvent
 
     /**
      * SkillLevelUpEvent constructor.
-     * @param $timestamp int
-     * @param $participant TimelineParticipant
-     * @param $skillSlot int
-     * @param $levelUpType string
+     * @param int $timestamp
+     * @param TimelineParticipant $participant
+     * @param int $skillSlot
+     * @param string $levelUpType
      */
-    public function __construct($timestamp, $participant, $skillSlot, $levelUpType)
+    public function __construct(int $timestamp, TimelineParticipant $participant, int $skillSlot, string $levelUpType)
     {
         parent::__construct($timestamp, TimelineEvents::SKILL_LEVEL_UP);
         $this->participant = $participant;

@@ -18,11 +18,11 @@ class WardKillEvent extends AbstractTimelineEvent
 
     /**
      * WardKillEvent constructor.
-     * @param $timestamp int
-     * @param $wardType string
-     * @param $killer TimelineParticipant
+     * @param int $timestamp
+     * @param string $wardType
+     * @param TimelineParticipant $killer
      */
-    public function __construct($timestamp, $wardType, $killer)
+    public function __construct(int $timestamp, string $wardType, TimelineParticipant $killer)
     {
         parent::__construct($timestamp, TimelineEvents::WARD_KILL);
         $this->wardType = $wardType;

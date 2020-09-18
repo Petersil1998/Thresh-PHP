@@ -2,12 +2,12 @@
 
 namespace Thresh\Entities\Match;
 
-use Thresh\Collections\Maps;
-use Thresh\Collections\QueueTypes;
-use Thresh\Entities\Map;
 use Thresh\Entities\Match\Timeline\Timeline;
-use Thresh\Entities\QueueType;
-use Thresh\Helper\HTTPClient;
+use Thresh\Helper\Request;
+use Thresh_Core\Collections\Maps;
+use Thresh_Core\Collections\QueueTypes;
+use Thresh_Core\Objects\Map;
+use Thresh_Core\Objects\QueueType;
 
 /**
  * This class contains specific Data for a played Match
@@ -89,9 +89,9 @@ class MatchDetails
      * MatchDetails constructor.
      * @param float $gameId
      */
-    public function __construct($gameId)
+    public function __construct(float $gameId)
     {
-        $match = json_decode(HTTPClient::getInstance()->requestMatchEndpoint('matches/'.$gameId));
+        $match = json_decode(Request::requestMatchEndpoint('matches/'.$gameId));
         $this->gameId = $gameId;
         $this->platformId = $match->platformId;
         $this->gameCreation = $match->gameCreation;

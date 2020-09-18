@@ -2,7 +2,6 @@
 
 namespace Thresh\Entities\Match\Timeline;
 
-use Thresh\Collections\Items;
 use Thresh\Entities\Match\Timeline\Events\AbstractTimelineEvent;
 use Thresh\Entities\Match\Timeline\Events\BuildingKillEvent;
 use Thresh\Entities\Match\Timeline\Events\ChampionKillEvent;
@@ -15,7 +14,8 @@ use Thresh\Entities\Match\Timeline\Events\SkillLevelUpEvent;
 use Thresh\Entities\Match\Timeline\Events\TimelineEvents;
 use Thresh\Entities\Match\Timeline\Events\WardKillEvent;
 use Thresh\Entities\Match\Timeline\Events\WardPlacedEvent;
-use Thresh\Helper\HTTPClient;
+use Thresh\Helper\Request;
+use Thresh_Core\Collections\Items;
 
 /**
  * This class represents a Timeline within a Match (a Match consists of a List of Timelines).
@@ -59,12 +59,12 @@ class Timeline
 
     /**
      * This Method returns an array of Timelines of which the specified Match consists off
-     * @param $matchID int
+     * @param int $matchID
      * @return Timeline[]
      */
-    public static function getTimelinesForMatch($matchID){
+    public static function getTimelinesForMatch(int $matchID){
         $timelines = array();
-        $timelinesObj = json_decode(HTTPClient::getInstance()->requestMatchEndpoint('timelines/by-match/'.$matchID));
+        $timelinesObj = json_decode(Request::requestMatchEndpoint('timelines/by-match/'.$matchID));
         self::$frameInterval = $timelinesObj->frameInterval;
         foreach ($timelinesObj->frames as $frame){
             $participants = array();

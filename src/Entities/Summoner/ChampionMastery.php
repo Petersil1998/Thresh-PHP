@@ -2,8 +2,9 @@
 
 namespace Thresh\Entities\Summoner;
 
-use Thresh\Collections\Champions;
-use Thresh\Entities\Champions\Champion;
+use stdClass;
+use Thresh_Core\Collections\Champions;
+use Thresh_Core\Objects\Champions\Champion;
 
 /**
  * This class represents a Champion Mastery belonging to a specific Summoner
@@ -53,9 +54,9 @@ class ChampionMastery
 
     /**
      * ChampionMastery constructor.
-     * @param $data mixed
+     * @param stdClass $data
      */
-    public function __construct($data)
+    public function __construct(stdClass $data)
     {
         $this->chestGranted = $data->chestGranted;
         $this->championLevel = $data->championLevel;

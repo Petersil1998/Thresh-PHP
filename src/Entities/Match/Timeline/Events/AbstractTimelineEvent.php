@@ -20,10 +20,10 @@ abstract class AbstractTimelineEvent
 
     /**
      * AbstractTimelineEvent constructor.
-     * @param $timestamp int
-     * @param $type string
+     * @param int $timestamp
+     * @param string $type
      */
-    protected function __construct($timestamp, $type)
+    protected function __construct(int $timestamp, string $type)
     {
         $this->timestamp = $timestamp;
         $this->type = $type;

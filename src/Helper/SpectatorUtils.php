@@ -2,8 +2,8 @@
 
 namespace Thresh\Helper;
 
-use Thresh\Constants\Constants;
 use Thresh\Entities\ActiveGame\ActiveGame;
+use Thresh_Core\Constants\Constants;
 
 class SpectatorUtils
 {

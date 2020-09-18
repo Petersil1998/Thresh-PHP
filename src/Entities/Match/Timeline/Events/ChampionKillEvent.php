@@ -33,14 +33,14 @@ class ChampionKillEvent extends AbstractTimelineEvent
 
     /**
      * ChampionKillEvent constructor.
-     * @param $timestamp int
-     * @param $positionX int
-     * @param $positionY int
-     * @param $killer TimelineParticipant
-     * @param $victim TimelineParticipant
-     * @param $assists TimelineParticipant[]
+     * @param int $timestamp
+     * @param int $positionX
+     * @param int $positionY
+     * @param TimelineParticipant $killer
+     * @param TimelineParticipant $victim
+     * @param TimelineParticipant[] $assists
      */
-    public function __construct($timestamp, $positionX, $positionY, $killer, $victim, $assists)
+    public function __construct(int $timestamp, int $positionX, int $positionY, TimelineParticipant $killer, TimelineParticipant $victim, array $assists)
     {
         parent::__construct($timestamp, TimelineEvents::CHAMPION_KILL);
         $this->positionX = $positionX;

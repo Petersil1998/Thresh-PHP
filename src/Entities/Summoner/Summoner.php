@@ -3,7 +3,7 @@
 namespace Thresh\Entities\Summoner;
 
 use stdClass;
-use Thresh\Helper\HTTPClient;
+use Thresh\Helper\Request;
 
 /**
  * This is the Main Class representing a Summoner
@@ -80,7 +80,7 @@ class Summoner
      * Summoner constructor.
      * @param stdClass $data
      */
-    private function __construct($data)
+    private function __construct(stdClass $data)
     {
         $this->summonername = $data->name;
         $this->id = $data->id;
@@ -97,8 +97,8 @@ class Summoner
      * @param string $summonerName
      * @return false|Summoner
      */
-    public static function getSummonerByName($summonerName){
-        $data = HTTPClient::getInstance()->requestSummonerEndpoint('summoners/by-name/' . $summonerName);
+    public static function getSummonerByName(string $summonerName){
+        $data = Request::requestSummonerEndpoint('summoners/by-name/' . $summonerName);
         if (!empty($data)) {
             return new Summoner(json_decode($data));
         }
@@ -110,8 +110,8 @@ class Summoner
      * @param string $accountID
      * @return false|Summoner
      */
-    public static function getSummonerByAccountID($accountID){
-        $data = HTTPClient::getInstance()->requestSummonerEndpoint('summoners/by-account/' . $accountID);
+    public static function getSummonerByAccountID(string $accountID){
+        $data = Request::requestSummonerEndpoint('summoners/by-account/' . $accountID);
         if (!empty($data)) {
             return new Summoner(json_decode($data));
         }
@@ -123,8 +123,8 @@ class Summoner
      * @param string $puuid
      * @return false|Summoner
      */
-    public static function getSummonerByPUUID($puuid){
-        $data = HTTPClient::getInstance()->requestSummonerEndpoint('summoners/by-puuid/' . $puuid);
+    public static function getSummonerByPUUID(string $puuid){
+        $data = Request::requestSummonerEndpoint('summoners/by-puuid/' . $puuid);
         if (!empty($data)) {
             return new Summoner(json_decode($data));
         }
@@ -132,8 +132,8 @@ class Summoner
     }
 
     private function initRanks(){
-        $tft = json_decode(HTTPClient::getInstance()->requestTftLeagueEndpoint('entries/by-summoner/'.$this->getId()));
-        $flexNSoloQ = json_decode(HTTPClient::getInstance()->requestLeagueEndpoint('entries/by-summoner/'.$this->getId()));
+        $tft = json_decode(Request::requestTftLeagueEndpoint('entries/by-summoner/'.$this->getId()));
+        $flexNSoloQ = json_decode(Request::requestLeagueEndpoint('entries/by-summoner/'.$this->getId()));
         $ranks = array_merge($flexNSoloQ, $tft);
         foreach ($ranks as $rank){
             if(isset($rank->queueType)) {
@@ -197,7 +197,7 @@ class Summoner
     public function getTotalMasteryPoints()
     {
         if(empty($this->totalMasteryPoints)){
-            $this->totalMasteryPoints = json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint('scores/by-summoner/'.$this->getId()));
+            $this->totalMasteryPoints = json_decode(Request::requestChampionMasteryEndpoint('scores/by-summoner/'.$this->getId()));
         }
         return $this->totalMasteryPoints;
     }
@@ -224,7 +224,7 @@ class Summoner
     public function getChampionMasteries()
     {
         if(empty($this->championMasteries)){
-            $championMasteries = json_decode(HTTPClient::getInstance()->requestChampionMasteryEndpoint('champion-masteries/by-summoner/'.$this->getId()));
+            $championMasteries = json_decode(Request::requestChampionMasteryEndpoint('champion-masteries/by-summoner/'.$this->getId()));
             $this->championMasteries = array();
             foreach ($championMasteries as $championMastery){
                 $this->championMasteries[] = new ChampionMastery($championMastery);

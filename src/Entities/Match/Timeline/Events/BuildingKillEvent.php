@@ -49,17 +49,17 @@ class BuildingKillEvent extends AbstractTimelineEvent
 
     /**
      * BuildingKillEvent constructor.
-     * @param $timestamp int
-     * @param $positionX int
-     * @param $positionY int
-     * @param $killer TimelineParticipant
-     * @param $assists TimelineParticipant[]
-     * @param $teamId int
-     * @param $buildingType string
-     * @param $laneType string
-     * @param $towerType string
+     * @param int $timestamp
+     * @param int $positionX
+     * @param int $positionY
+     * @param TimelineParticipant $killer
+     * @param TimelineParticipant[] $assists
+     * @param int $teamId
+     * @param string $buildingType
+     * @param string $laneType
+     * @param string $towerType
      */
-    public function __construct($timestamp, $positionX, $positionY, $killer, $assists, $teamId, $buildingType, $laneType, $towerType)
+    public function __construct(int $timestamp, int $positionX, int $positionY, TimelineParticipant $killer, array $assists, int $teamId, string $buildingType, string $laneType, string $towerType)
     {
         parent::__construct($timestamp, TimelineEvents::BUILDING_KILL);
         $this->positionX = $positionX;

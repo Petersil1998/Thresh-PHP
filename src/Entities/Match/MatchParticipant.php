@@ -3,12 +3,12 @@
 namespace Thresh\Entities\Match;
 
 use stdClass;
-use Thresh\Collections\Champions;
-use Thresh\Collections\Items;
-use Thresh\Collections\SummonerSpells;
-use Thresh\Entities\Champions\Champion;
-use Thresh\Entities\Item;
-use Thresh\Entities\SummonerSpell;
+use Thresh_Core\Collections\Champions;
+use Thresh_Core\Collections\Items;
+use Thresh_Core\Collections\SummonerSpells;
+use Thresh_Core\Objects\Champions\Champion;
+use Thresh_Core\Objects\Item;
+use Thresh_Core\Objects\SummonerSpell;
 
 /**
  * This class represents a Match Participant
@@ -593,21 +593,21 @@ class MatchParticipant
 
     /**
      * MatchParticipant constructor.
-     * @param $participant
+     * @param stdClass $participantData
      */
-    public function __construct($participant)
+    public function __construct(stdClass $participantData)
     {
-        $this->setProperty($participant, 'participantId');
-        if(property_exists($participant, 'championId')){
-            $this->champion = Champions::getChampion($participant->championId);
+        $this->setProperty($participantData, 'participantId');
+        if(property_exists($participantData, 'championId')){
+            $this->champion = Champions::getChampion($participantData->championId);
         }
-        if(property_exists($participant, 'spell1Id')){
-            $this->summonerSpell1 = SummonerSpells::getSummonerSpell($participant->spell1Id);
+        if(property_exists($participantData, 'spell1Id')){
+            $this->summonerSpell1 = SummonerSpells::getSummonerSpell($participantData->spell1Id);
         }
-        if(property_exists($participant, 'spell2Id')){
-            $this->summonerSpell2 = SummonerSpells::getSummonerSpell($participant->spell2Id);
+        if(property_exists($participantData, 'spell2Id')){
+            $this->summonerSpell2 = SummonerSpells::getSummonerSpell($participantData->spell2Id);
         }
-        $stats = $participant->stats;
+        $stats = $participantData->stats;
         for ($i = 0; $i < 7; $i++){
             if(property_exists($stats, "item$i")){
                 $this->{"item$i"} = Items::getItem($stats->{"item$i"});
@@ -708,7 +708,7 @@ class MatchParticipant
         $this->setProperty($stats, 'statPerk0');
         $this->setProperty($stats, 'statPerk1');
         $this->setProperty($stats, 'statPerk2');;
-        $timeline = $participant->timeline;
+        $timeline = $participantData->timeline;
         $this->setProperty($timeline, 'creepsPerMinDeltas', '',true);
         $this->setProperty($timeline, 'xpPerMinDeltas', '',true);
         $this->setProperty($timeline, 'goldPerMinDeltas', '',true);
@@ -721,13 +721,13 @@ class MatchParticipant
     }
 
     /**
-     * @param $object stdClass The object that holds the property to be set
-     * @param $property string The properties name (has to be the same in $this and in the object)
-     * @param $alternativeName string The alternative Property name if it differs from the objects property name
-     * @param $convertPropertyToArray bool whether or not the property should be converted to an associative array
+     * @param stdClass $object The object that holds the property to be set
+     * @param string $property The properties name (has to be the same in $this and in the object)
+     * @param string $alternativeName The alternative Property name if it differs from the objects property name
+     * @param bool $convertPropertyToArray whether or not the property should be converted to an associative array
      * (only works if the property is instance of stdClass)
      */
-    protected function setProperty($object, $property, $alternativeName = '', $convertPropertyToArray = false){
+    private function setProperty(stdClass $object, string $property, $alternativeName = '', $convertPropertyToArray = false){
         $thisFieldName = $property;
         if(!empty($alternativeName)){
             $thisFieldName = $alternativeName;

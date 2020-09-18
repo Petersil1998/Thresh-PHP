@@ -3,13 +3,12 @@
 namespace Thresh\Entities\ActiveGame;
 
 use RuntimeException;
-use Thresh\Collections\Champions;
-use Thresh\Collections\Maps;
-use Thresh\Collections\QueueTypes;
-use Thresh\Entities\Map;
-use Thresh\Entities\QueueType;
-use Thresh\Entities\Summoner\Summoner;
-use Thresh\Helper\HTTPClient;
+use Thresh\Helper\Request;
+use Thresh_Core\Collections\Champions;
+use Thresh_Core\Collections\Maps;
+use Thresh_Core\Collections\QueueTypes;
+use Thresh_Core\Objects\Map;
+use Thresh_Core\Objects\QueueType;
 
 /**
  * This class represents an active Game of a Summoner
@@ -84,11 +83,11 @@ class ActiveGame
 
     /**
      * Game constructor.
-     * @param Summoner $summoner
+     * @param int $summonerId
      */
-    public function __construct($summoner)
+    public function __construct(int $summonerId)
     {
-        $game = json_decode(HTTPClient::getInstance()->requestSpectatorEndpoint('active-games/by-summoner/' . $summoner->getId()));
+        $game = json_decode(Request::requestSpectatorEndpoint('active-games/by-summoner/' . $summonerId));
         if(!empty($game)) {
             $this->gameId = $game->gameId;
             $this->map = Maps::getMap($game->mapId);
@@ -116,7 +115,7 @@ class ActiveGame
     /**
      * @param array $participants
      */
-    private function loadParticipants($participants){
+    private function loadParticipants(array $participants){
         $this->blueSideTeam = array();
         $this->redSideTeam = array();
         foreach ($participants as $participant){
