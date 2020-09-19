@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Petersil1998/Thresh-Core.git",
-                "reference": "210d5b667e6e611ec2c3c2d342465e8c6218e6be"
+                "reference": "d94adf298db75b0cf19522addab9c396c6dd1c5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Petersil1998/Thresh-Core/zipball/210d5b667e6e611ec2c3c2d342465e8c6218e6be",
-                "reference": "210d5b667e6e611ec2c3c2d342465e8c6218e6be",
+                "url": "https://api.github.com/repos/Petersil1998/Thresh-Core/zipball/d94adf298db75b0cf19522addab9c396c6dd1c5a",
+                "reference": "d94adf298db75b0cf19522addab9c396c6dd1c5a",
                 "shasum": ""
             },
             "require": {
@@ -36,7 +36,7 @@
                 }
             ],
             "description": "This is the core module for the Thresh Libraries",
-            "time": "2020-09-18T23:03:00+00:00"
+            "time": "2020-09-19T00:14:50+00:00"
         }
     ],
     "packages-dev": [],
