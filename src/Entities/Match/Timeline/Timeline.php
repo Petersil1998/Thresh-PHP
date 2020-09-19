@@ -14,7 +14,7 @@ use Thresh\Entities\Match\Timeline\Events\SkillLevelUpEvent;
 use Thresh\Entities\Match\Timeline\Events\TimelineEvents;
 use Thresh\Entities\Match\Timeline\Events\WardKillEvent;
 use Thresh\Entities\Match\Timeline\Events\WardPlacedEvent;
-use Thresh\Helper\Request;
+use Thresh\Helper\RiotAPIRequest;
 use Thresh_Core\Collections\Items;
 
 /**
@@ -46,11 +46,11 @@ class Timeline
 
     /**
      * Timeline constructor.
-     * @param $participants TimelineParticipant[]
-     * @param $events AbstractTimelineEvent[]
-     * @param $timestamp int
+     * @param TimelineParticipant[] $participants
+     * @param AbstractTimelineEvent[] $events
+     * @param int $timestamp
      */
-    private function __construct($participants, $events, $timestamp)
+    private function __construct(array $participants, array $events, int $timestamp)
     {
         $this->participants = $participants;
         $this->events = $events;
@@ -64,7 +64,7 @@ class Timeline
      */
     public static function getTimelinesForMatch(int $matchID){
         $timelines = array();
-        $timelinesObj = json_decode(Request::requestMatchEndpoint('timelines/by-match/'.$matchID));
+        $timelinesObj = json_decode(RiotAPIRequest::requestLoLMatchEndpoint('timelines/by-match/'.$matchID));
         self::$frameInterval = $timelinesObj->frameInterval;
         foreach ($timelinesObj->frames as $frame){
             $participants = array();

@@ -2,7 +2,7 @@
 
 namespace Thresh\Entities\Summoner;
 
-use Thresh\Helper\Request;
+use Thresh\Helper\RiotAPIRequest;
 
 /**
  * This class represents a Riot Account
@@ -26,7 +26,7 @@ class Account
      */
     public function __construct(string $puuid)
     {
-        $account = json_decode(Request::requestAccountEndpoint('accounts/by-puuid/'.$puuid));
+        $account = json_decode(RiotAPIRequest::requestRiotAccountEndpoint('accounts/by-puuid/'.$puuid));
         $this->gameName = $account->gameName;
         $this->tagLine = $account->tagLine;
     }

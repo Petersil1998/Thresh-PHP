@@ -3,7 +3,7 @@
 namespace Thresh\Entities\Summoner;
 
 use stdClass;
-use Thresh\Helper\Request;
+use Thresh\Helper\RiotAPIRequest;
 
 /**
  * This is the Main Class representing a Summoner
@@ -98,7 +98,7 @@ class Summoner
      * @return false|Summoner
      */
     public static function getSummonerByName(string $summonerName){
-        $data = Request::requestSummonerEndpoint('summoners/by-name/' . $summonerName);
+        $data = RiotAPIRequest::requestLoLSummonerEndpoint('summoners/by-name/' . $summonerName);
         if (!empty($data)) {
             return new Summoner(json_decode($data));
         }
@@ -111,7 +111,7 @@ class Summoner
      * @return false|Summoner
      */
     public static function getSummonerByAccountID(string $accountID){
-        $data = Request::requestSummonerEndpoint('summoners/by-account/' . $accountID);
+        $data = RiotAPIRequest::requestLoLSummonerEndpoint('summoners/by-account/' . $accountID);
         if (!empty($data)) {
             return new Summoner(json_decode($data));
         }
@@ -124,7 +124,7 @@ class Summoner
      * @return false|Summoner
      */
     public static function getSummonerByPUUID(string $puuid){
-        $data = Request::requestSummonerEndpoint('summoners/by-puuid/' . $puuid);
+        $data = RiotAPIRequest::requestLoLSummonerEndpoint('summoners/by-puuid/' . $puuid);
         if (!empty($data)) {
             return new Summoner(json_decode($data));
         }
@@ -132,8 +132,8 @@ class Summoner
     }
 
     private function initRanks(){
-        $tft = json_decode(Request::requestTftLeagueEndpoint('entries/by-summoner/'.$this->getId()));
-        $flexNSoloQ = json_decode(Request::requestLeagueEndpoint('entries/by-summoner/'.$this->getId()));
+        $tft = json_decode(RiotAPIRequest::requestTftLeagueEndpoint('entries/by-summoner/'.$this->getId()));
+        $flexNSoloQ = json_decode(RiotAPIRequest::requestLoLLeagueEndpoint('entries/by-summoner/'.$this->getId()));
         $ranks = array_merge($flexNSoloQ, $tft);
         foreach ($ranks as $rank){
             if(isset($rank->queueType)) {
@@ -197,7 +197,7 @@ class Summoner
     public function getTotalMasteryPoints()
     {
         if(empty($this->totalMasteryPoints)){
-            $this->totalMasteryPoints = json_decode(Request::requestChampionMasteryEndpoint('scores/by-summoner/'.$this->getId()));
+            $this->totalMasteryPoints = json_decode(RiotAPIRequest::requestLoLChampionMasteryEndpoint('scores/by-summoner/'.$this->getId()));
         }
         return $this->totalMasteryPoints;
     }
@@ -224,7 +224,7 @@ class Summoner
     public function getChampionMasteries()
     {
         if(empty($this->championMasteries)){
-            $championMasteries = json_decode(Request::requestChampionMasteryEndpoint('champion-masteries/by-summoner/'.$this->getId()));
+            $championMasteries = json_decode(RiotAPIRequest::requestLoLChampionMasteryEndpoint('champion-masteries/by-summoner/'.$this->getId()));
             $this->championMasteries = array();
             foreach ($championMasteries as $championMastery){
                 $this->championMasteries[] = new ChampionMastery($championMastery);

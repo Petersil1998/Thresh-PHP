@@ -3,7 +3,7 @@
 namespace Thresh\Entities\Match;
 
 use Thresh\Entities\Match\Timeline\Timeline;
-use Thresh\Helper\Request;
+use Thresh\Helper\RiotAPIRequest;
 use Thresh_Core\Collections\Maps;
 use Thresh_Core\Collections\QueueTypes;
 use Thresh_Core\Objects\Map;
@@ -91,7 +91,7 @@ class MatchDetails
      */
     public function __construct(float $gameId)
     {
-        $match = json_decode(Request::requestMatchEndpoint('matches/'.$gameId));
+        $match = json_decode(RiotAPIRequest::requestLoLMatchEndpoint('matches/'.$gameId));
         $this->gameId = $gameId;
         $this->platformId = $match->platformId;
         $this->gameCreation = $match->gameCreation;

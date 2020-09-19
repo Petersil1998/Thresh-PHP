@@ -3,7 +3,7 @@
 namespace Thresh\Entities\ActiveGame;
 
 use RuntimeException;
-use Thresh\Helper\Request;
+use Thresh\Helper\RiotAPIRequest;
 use Thresh_Core\Collections\Champions;
 use Thresh_Core\Collections\Maps;
 use Thresh_Core\Collections\QueueTypes;
@@ -83,11 +83,11 @@ class ActiveGame
 
     /**
      * Game constructor.
-     * @param int $summonerId
+     * @param string $summonerId
      */
-    public function __construct(int $summonerId)
+    public function __construct(string $summonerId)
     {
-        $game = json_decode(Request::requestSpectatorEndpoint('active-games/by-summoner/' . $summonerId));
+        $game = json_decode(RiotAPIRequest::requestLoLSpectatorEndpoint('active-games/by-summoner/' . $summonerId));
         if(!empty($game)) {
             $this->gameId = $game->gameId;
             $this->map = Maps::getMap($game->mapId);

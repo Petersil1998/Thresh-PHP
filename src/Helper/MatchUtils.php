@@ -3,7 +3,6 @@
 namespace Thresh\Helper;
 
 use Thresh\Entities\Match\MatchDetails;
-use Thresh\Entities\Summoner\Summoner;
 use Thresh_Core\Collections\Champions;
 use Thresh_Core\Collections\QueueTypes;
 
@@ -11,7 +10,7 @@ class MatchUtils
 {
     /**
      * Returns the Match List for a given Summoner
-     * @param Summoner $summoner
+     * @param string $accountId
      * @param array $filter The filter which can contain the following keys: <ul>
      * <li>champion (array of champion ID's)</li>
      * <li>queue (array of Queue ID's)</li>
@@ -22,12 +21,12 @@ class MatchUtils
      * </ul>
      * @return MatchDetails[] | false Returns false if the filter is invalid, see logs for details
      */
-    public static function getMatchListForSummoner(Summoner $summoner, $filter = array()){
+    public static function getMatchListForSummoner(string $accountId, $filter = array()){
         if(!self::validateFilter($filter)){
             return false;
         }
         $matches = array();
-        $matchList = json_decode(Request::requestMatchEndpoint('matchlists/by-account/'.$summoner->getAccountId(), $filter));
+        $matchList = json_decode(RiotAPIRequest::requestLoLMatchEndpoint('matchlists/by-account/'.$accountId, $filter));
         $matchObjs = $matchList->matches;
         foreach ($matchObjs as $matchObj){
             $matches[] = new MatchDetails($matchObj->gameId);
