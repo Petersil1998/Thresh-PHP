@@ -98,9 +98,9 @@ class Summoner
      * @return false|Summoner
      */
     public static function getSummonerByName(string $summonerName){
-        $data = RiotAPIRequest::requestLoLSummonerEndpoint('summoners/by-name/' . $summonerName);
-        if (!empty($data)) {
-            return new Summoner(json_decode($data));
+        $response = RiotAPIRequest::requestLoLSummonerEndpoint('summoners/by-name/' . $summonerName);
+        if ($response->getStatusCode() === 200) {
+            return new Summoner(json_decode($response->getBody()));
         }
         return false;
     }
@@ -111,9 +111,9 @@ class Summoner
      * @return false|Summoner
      */
     public static function getSummonerByAccountID(string $accountID){
-        $data = RiotAPIRequest::requestLoLSummonerEndpoint('summoners/by-account/' . $accountID);
-        if (!empty($data)) {
-            return new Summoner(json_decode($data));
+        $response = RiotAPIRequest::requestLoLSummonerEndpoint('summoners/by-account/' . $accountID);
+        if ($response->getStatusCode() === 200) {
+            return new Summoner(json_decode($response->getBody()));
         }
         return false;
     }
@@ -124,16 +124,16 @@ class Summoner
      * @return false|Summoner
      */
     public static function getSummonerByPUUID(string $puuid){
-        $data = RiotAPIRequest::requestLoLSummonerEndpoint('summoners/by-puuid/' . $puuid);
-        if (!empty($data)) {
-            return new Summoner(json_decode($data));
+        $response = RiotAPIRequest::requestLoLSummonerEndpoint('summoners/by-puuid/' . $puuid);
+        if ($response->getStatusCode() === 200) {
+            return new Summoner(json_decode($response->getBody()));
         }
         return false;
     }
 
     private function initRanks(){
-        $tft = json_decode(RiotAPIRequest::requestTftLeagueEndpoint('entries/by-summoner/'.$this->getId()));
-        $flexNSoloQ = json_decode(RiotAPIRequest::requestLoLLeagueEndpoint('entries/by-summoner/'.$this->getId()));
+        $tft = json_decode(RiotAPIRequest::requestTftLeagueEndpoint('entries/by-summoner/'.$this->getId())->getBody());
+        $flexNSoloQ = json_decode(RiotAPIRequest::requestLoLLeagueEndpoint('entries/by-summoner/'.$this->getId())->getBody());
         $ranks = array_merge($flexNSoloQ, $tft);
         foreach ($ranks as $rank){
             if(isset($rank->queueType)) {
@@ -194,10 +194,10 @@ class Summoner
     /**
      * @return int
      */
-    public function getTotalMasteryPoints()
+    public function getTotalMasteryPoints(): int
     {
         if(empty($this->totalMasteryPoints)){
-            $this->totalMasteryPoints = json_decode(RiotAPIRequest::requestLoLChampionMasteryEndpoint('scores/by-summoner/'.$this->getId()));
+            $this->totalMasteryPoints = json_decode(RiotAPIRequest::requestLoLChampionMasteryEndpoint('scores/by-summoner/'.$this->getId())->getBody());
         }
         return $this->totalMasteryPoints;
     }
@@ -221,10 +221,10 @@ class Summoner
     /**
      * @return ChampionMastery[]
      */
-    public function getChampionMasteries()
+    public function getChampionMasteries(): array
     {
         if(empty($this->championMasteries)){
-            $championMasteries = json_decode(RiotAPIRequest::requestLoLChampionMasteryEndpoint('champion-masteries/by-summoner/'.$this->getId()));
+            $championMasteries = json_decode(RiotAPIRequest::requestLoLChampionMasteryEndpoint('champion-masteries/by-summoner/'.$this->getId())->getBody());
             $this->championMasteries = array();
             foreach ($championMasteries as $championMastery){
                 $this->championMasteries[] = new ChampionMastery($championMastery);

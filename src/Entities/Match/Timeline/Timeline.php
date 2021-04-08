@@ -62,9 +62,10 @@ class Timeline
      * @param int $matchID
      * @return Timeline[]
      */
-    public static function getTimelinesForMatch(int $matchID){
+    public static function getTimelinesForMatch(int $matchID): array
+    {
         $timelines = array();
-        $timelinesObj = json_decode(RiotAPIRequest::requestLoLMatchEndpoint('timelines/by-match/'.$matchID));
+        $timelinesObj = json_decode(RiotAPIRequest::requestLoLMatchEndpoint('timelines/by-match/'.$matchID)->getBody());
         self::$frameInterval = $timelinesObj->frameInterval;
         foreach ($timelinesObj->frames as $frame){
             $participants = array();

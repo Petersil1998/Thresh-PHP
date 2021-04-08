@@ -26,7 +26,7 @@ class Account
      */
     public function __construct(string $puuid)
     {
-        $account = json_decode(RiotAPIRequest::requestRiotAccountEndpoint('accounts/by-puuid/'.$puuid));
+        $account = json_decode(RiotAPIRequest::requestRiotAccountEndpoint('accounts/by-puuid/'.$puuid)->getBody());
         $this->gameName = $account->gameName;
         $this->tagLine = $account->tagLine;
     }

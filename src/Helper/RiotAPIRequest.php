@@ -4,6 +4,7 @@ namespace Thresh\Helper;
 
 use Thresh_Core\Constants\Constants;
 use Thresh_Core\Utils\HTTPClient;
+use Thresh_Core\Utils\Response;
 
 /**
  * This class is used to make the API requests
@@ -16,9 +17,9 @@ class RiotAPIRequest
      * @param string $url
      * @param string $app
      * @param array $filter
-     * @return string
+     * @return Response
      */
-    private static function request(string $url, string $app, array $filter)
+    private static function request(string $url, string $app, array $filter): Response
     {
         $basePath = '';
         switch ($app){
@@ -41,9 +42,10 @@ class RiotAPIRequest
      * Sends a request to the Summoner Endpoint
      * @param string $url
      * @param array $filter
-     * @return string
+     * @return Response
      */
-    public static function requestLoLSummonerEndpoint(string $url, $filter = array()){
+    public static function requestLoLSummonerEndpoint(string $url, $filter = array()): Response
+    {
         return RiotAPIRequest::request('summoner/v4/'.$url, 'lol', $filter);
     }
 
@@ -51,9 +53,10 @@ class RiotAPIRequest
      * Sends a request to the Champion Mastery Endpoint
      * @param string $url
      * @param array $filter
-     * @return string
+     * @return Response
      */
-    public static function requestLoLChampionMasteryEndpoint(string $url, $filter = array()){
+    public static function requestLoLChampionMasteryEndpoint(string $url, $filter = array()): Response
+    {
         return RiotAPIRequest::request('champion-mastery/v4/'.$url, 'lol', $filter);
     }
 
@@ -61,9 +64,10 @@ class RiotAPIRequest
      * Sends a request to the League Endpoint
      * @param string $url
      * @param array $filter
-     * @return string
+     * @return Response
      */
-    public static function requestLoLLeagueEndpoint(string $url, $filter = array()){
+    public static function requestLoLLeagueEndpoint(string $url, $filter = array()): Response
+    {
         return RiotAPIRequest::request('league/v4/'.$url, 'lol', $filter);
     }
 
@@ -71,9 +75,10 @@ class RiotAPIRequest
      * Sends a request to the TFT League Endpoint
      * @param string $url
      * @param array $filter
-     * @return string
+     * @return Response
      */
-    public static function requestTftLeagueEndpoint(string $url, $filter = array()){
+    public static function requestTftLeagueEndpoint(string $url, $filter = array()): Response
+    {
         return RiotAPIRequest::request('league/v1/'.$url, 'tft', $filter);
     }
 
@@ -81,9 +86,10 @@ class RiotAPIRequest
      * Sends a request to the Spectator Endpoint
      * @param string $url
      * @param array $filter
-     * @return string
+     * @return Response
      */
-    public static function requestLoLSpectatorEndpoint(string $url, $filter = array()){
+    public static function requestLoLSpectatorEndpoint(string $url, $filter = array()): Response
+    {
         return RiotAPIRequest::request('spectator/v4/'.$url, 'lol', $filter);
     }
 
@@ -91,9 +97,10 @@ class RiotAPIRequest
      * Sends a request to the Match Endpoint
      * @param string $url
      * @param array $filter
-     * @return string
+     * @return Response
      */
-    public static function requestLoLMatchEndpoint(string $url, $filter = array()){
+    public static function requestLoLMatchEndpoint(string $url, $filter = array()): Response
+    {
         return RiotAPIRequest::request('match/v4/'.$url, 'lol', $filter);
     }
 
@@ -101,9 +108,10 @@ class RiotAPIRequest
      * Sends a request to the Account Endpoint
      * @param string $url
      * @param array $filter
-     * @return string
+     * @return Response
      */
-    public static function requestRiotAccountEndpoint(string $url, $filter = array()){
+    public static function requestRiotAccountEndpoint(string $url, $filter = array()): Response
+    {
         return RiotAPIRequest::request('account/v1/'.$url, 'riot', $filter);
     }
 }

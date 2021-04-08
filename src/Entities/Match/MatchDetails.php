@@ -91,9 +91,10 @@ class MatchDetails
      */
     public function __construct(float $gameId)
     {
-        $match = json_decode(RiotAPIRequest::requestLoLMatchEndpoint('matches/'.$gameId));
+        $match = json_decode(RiotAPIRequest::requestLoLMatchEndpoint('matches/'.$gameId)->getBody());
         $this->gameId = $gameId;
         $this->platformId = $match->platformId;
+        $this->gameMode = $match->gameMode;
         $this->gameCreation = $match->gameCreation;
         $this->gameDuration = $match->gameDuration;
         $this->queueType = QueueTypes::getQueueType($match->queueId);

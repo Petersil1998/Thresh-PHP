@@ -87,8 +87,9 @@ class ActiveGame
      */
     public function __construct(string $summonerId)
     {
-        $game = json_decode(RiotAPIRequest::requestLoLSpectatorEndpoint('active-games/by-summoner/' . $summonerId));
-        if(!empty($game)) {
+        $response = RiotAPIRequest::requestLoLSpectatorEndpoint('active-games/by-summoner/' . $summonerId);
+        if($response->getStatusCode() === 200) {
+            $game = json_decode($response->getBody());
             $this->gameId = $game->gameId;
             $this->map = Maps::getMap($game->mapId);
             $this->gameMode = $game->gameMode;

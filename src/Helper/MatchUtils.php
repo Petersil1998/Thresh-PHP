@@ -26,7 +26,7 @@ class MatchUtils
             return false;
         }
         $matches = array();
-        $matchList = json_decode(RiotAPIRequest::requestLoLMatchEndpoint('matchlists/by-account/'.$accountId, $filter));
+        $matchList = json_decode(RiotAPIRequest::requestLoLMatchEndpoint('matchlists/by-account/'.$accountId, $filter)->getBody());
         $matchObjs = $matchList->matches;
         foreach ($matchObjs as $matchObj){
             $matches[] = new MatchDetails($matchObj->gameId);
