@@ -38,7 +38,8 @@ class MatchUtils
      * @param array $filter
      * @return bool
      */
-    private static function validateFilter(array $filter){
+    private static function validateFilter(array $filter): bool
+    {
         if(array_key_exists('champion', $filter)){
             if(is_array($filter['champion'])){
                 foreach ($filter['champion'] as $champion){

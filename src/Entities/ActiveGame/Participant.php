@@ -123,7 +123,7 @@ class Participant
     /**
      * @return bool
      */
-    public function isBot()
+    public function isBot(): bool
     {
         return $this->isBot;
     }
@@ -131,7 +131,7 @@ class Participant
     /**
      * @return Champion
      */
-    public function getChampion()
+    public function getChampion(): Champion
     {
         return $this->champion;
     }
@@ -139,7 +139,7 @@ class Participant
     /**
      * @return int
      */
-    public function getTeamId()
+    public function getTeamId(): int
     {
         return $this->teamId;
     }
@@ -147,7 +147,7 @@ class Participant
     /**
      * @return SummonerSpell
      */
-    public function getSummonerSpell1()
+    public function getSummonerSpell1(): SummonerSpell
     {
         return $this->summonerSpell1;
     }
@@ -155,7 +155,7 @@ class Participant
     /**
      * @return SummonerSpell
      */
-    public function getSummonerSpell2()
+    public function getSummonerSpell2(): SummonerSpell
     {
         return $this->summonerSpell2;
     }
@@ -163,7 +163,7 @@ class Participant
     /**
      * @return Rune[]
      */
-    public function getRunes()
+    public function getRunes(): array
     {
         return $this->runes;
     }
@@ -171,7 +171,7 @@ class Participant
     /**
      * @return RuneStyle
      */
-    public function getRuneStyle()
+    public function getRuneStyle(): RuneStyle
     {
         return $this->runeStyle;
     }
@@ -179,7 +179,7 @@ class Participant
     /**
      * @return RuneStyle
      */
-    public function getRuneSubStyle()
+    public function getRuneSubStyle(): RuneStyle
     {
         return $this->runeSubStyle;
     }

@@ -109,8 +109,9 @@ class ActiveGame
         }
     }
 
-    public function exists(){
-        return !empty($this->getGameId());
+    public function exists(): bool
+    {
+        return $this->gameId != 0;
     }
 
     /**
@@ -134,7 +135,7 @@ class ActiveGame
     /**
      * @return int
      */
-    public function getGameId()
+    public function getGameId(): int
     {
         return $this->gameId;
     }
@@ -142,7 +143,7 @@ class ActiveGame
     /**
      * @return Map
      */
-    public function getMap()
+    public function getMap(): Map
     {
         return $this->map;
     }
@@ -150,7 +151,7 @@ class ActiveGame
     /**
      * @return string
      */
-    public function getGameMode()
+    public function getGameMode(): string
     {
         return $this->gameMode;
     }
@@ -158,7 +159,7 @@ class ActiveGame
     /**
      * @return string
      */
-    public function getGameType()
+    public function getGameType(): string
     {
         return $this->gameType;
     }
@@ -166,7 +167,7 @@ class ActiveGame
     /**
      * @return QueueType
      */
-    public function getQueueType()
+    public function getQueueType(): QueueType
     {
         return $this->queueType;
     }
@@ -190,7 +191,7 @@ class ActiveGame
     /**
      * @return int
      */
-    public function getTeamsize()
+    public function getTeamsize(): int
     {
         return $this->teamsize;
     }

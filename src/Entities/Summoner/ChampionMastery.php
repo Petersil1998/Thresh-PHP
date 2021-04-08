@@ -71,7 +71,7 @@ class ChampionMastery
     /**
      * @return bool
      */
-    public function isChestGranted()
+    public function isChestGranted(): bool
     {
         return $this->chestGranted;
     }
@@ -79,7 +79,7 @@ class ChampionMastery
     /**
      * @return int
      */
-    public function getChampionLevel()
+    public function getChampionLevel(): int
     {
         return $this->championLevel;
     }
@@ -87,7 +87,7 @@ class ChampionMastery
     /**
      * @return int
      */
-    public function getChampionPoints()
+    public function getChampionPoints(): int
     {
         return $this->championPoints;
     }
@@ -95,7 +95,7 @@ class ChampionMastery
     /**
      * @return Champion
      */
-    public function getChampion()
+    public function getChampion(): Champion
     {
         return $this->champion;
     }
@@ -103,7 +103,7 @@ class ChampionMastery
     /**
      * @return int
      */
-    public function getChampionPointsUntilNextLevel()
+    public function getChampionPointsUntilNextLevel(): int
     {
         return $this->championPointsUntilNextLevel;
     }
@@ -111,7 +111,7 @@ class ChampionMastery
     /**
      * @return int
      */
-    public function getLastPlayTime()
+    public function getLastPlayTime(): int
     {
         return $this->lastPlayTime;
     }
@@ -119,7 +119,7 @@ class ChampionMastery
     /**
      * @return int
      */
-    public function getTokensEarned()
+    public function getTokensEarned(): int
     {
         return $this->tokensEarned;
     }
@@ -127,7 +127,7 @@ class ChampionMastery
     /**
      * @return int
      */
-    public function getChampionPointsSinceLastLevel()
+    public function getChampionPointsSinceLastLevel(): int
     {
         return $this->championPointsSinceLastLevel;
     }

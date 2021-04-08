@@ -205,7 +205,7 @@ class Summoner
     /**
      * @return int
      */
-    public function getSummonerLevel()
+    public function getSummonerLevel(): int
     {
         return $this->summonerLevel;
     }
@@ -213,7 +213,7 @@ class Summoner
     /**
      * @return int
      */
-    public function getRevisionDate()
+    public function getRevisionDate(): int
     {
         return $this->revisionDate;
     }
@@ -237,7 +237,8 @@ class Summoner
      * Returns the total number of mastery points of all champions combined
      * @return int
      */
-    public function getTotalMasteryPointsCombined(){
+    public function getTotalMasteryPointsCombined(): int
+    {
         $championMasteries = $this->getChampionMasteries();
         $totalMasteryPoints = 0;
         foreach ($championMasteries as $championMastery){
@@ -249,7 +250,7 @@ class Summoner
     /**
      * @return string
      */
-    public function getAccountId()
+    public function getAccountId(): string
     {
         return $this->accountId;
     }
@@ -257,7 +258,7 @@ class Summoner
     /**
      * @return string
      */
-    public function getPuuid()
+    public function getPuuid(): string
     {
         return $this->puuid;
     }
@@ -265,7 +266,7 @@ class Summoner
     /**
      * @return Rank
      */
-    public function getRankSoloDuo()
+    public function getRankSoloDuo(): Rank
     {
         return $this->rank_solo_duo;
     }
@@ -273,7 +274,7 @@ class Summoner
     /**
      * @return Rank
      */
-    public function getRankFlex5v5()
+    public function getRankFlex5v5(): Rank
     {
         return $this->rank_flex_5v5;
     }
@@ -281,7 +282,7 @@ class Summoner
     /**
      * @return Rank
      */
-    public function getRankTft()
+    public function getRankTft(): Rank
     {
         return $this->rank_tft;
     }
@@ -289,7 +290,7 @@ class Summoner
     /**
      * @return Account
      */
-    public function getAccount()
+    public function getAccount(): Account
     {
         if(empty($this->account)){
             $this->account = new Account($this->puuid);

@@ -90,7 +90,7 @@ class Rank
     /**
      * @return string
      */
-    public function getLeagueId()
+    public function getLeagueId(): string
     {
         return $this->leagueId;
     }
@@ -98,7 +98,7 @@ class Rank
     /**
      * @return string
      */
-    public function getQueueType()
+    public function getQueueType(): string
     {
         return $this->queueType;
     }
@@ -106,7 +106,7 @@ class Rank
     /**
      * @return string
      */
-    public function getTier()
+    public function getTier(): string
     {
         return $this->tier;
     }
@@ -114,7 +114,7 @@ class Rank
     /**
      * @return string
      */
-    public function getRank()
+    public function getRank(): string
     {
         return $this->rank;
     }
@@ -122,7 +122,7 @@ class Rank
     /**
      * @return int
      */
-    public function getLeaguePoints()
+    public function getLeaguePoints(): int
     {
         return $this->leaguePoints;
     }
@@ -130,7 +130,7 @@ class Rank
     /**
      * @return int
      */
-    public function getWins()
+    public function getWins(): int
     {
         return $this->wins;
     }
@@ -138,7 +138,7 @@ class Rank
     /**
      * @return int
      */
-    public function getLosses()
+    public function getLosses(): int
     {
         return $this->losses;
     }
@@ -146,7 +146,7 @@ class Rank
     /**
      * @return bool
      */
-    public function isVeteran()
+    public function isVeteran(): bool
     {
         return $this->veteran;
     }
@@ -154,7 +154,7 @@ class Rank
     /**
      * @return bool
      */
-    public function isInactive()
+    public function isInactive(): bool
     {
         return $this->inactive;
     }
@@ -162,7 +162,7 @@ class Rank
     /**
      * @return bool
      */
-    public function isFreshBlood()
+    public function isFreshBlood(): bool
     {
         return $this->freshBlood;
     }
@@ -170,7 +170,7 @@ class Rank
     /**
      * @return bool
      */
-    public function isHotStreak()
+    public function isHotStreak(): bool
     {
         return $this->hotStreak;
     }

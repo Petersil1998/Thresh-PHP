@@ -89,7 +89,7 @@ class TimelineParticipant
      * @param bool $convertPropertyToArray whether or not the property should be converted to an associative array
      * (only works if the property is instance of stdClass)
      */
-    private function setProperty($object, $property, $alternativeName = '', $convertPropertyToArray = false){
+    private function setProperty(stdClass $object, string $property, $alternativeName = '', $convertPropertyToArray = false){
         $thisFieldName = $property;
         if(!empty($alternativeName)){
             $thisFieldName = $alternativeName;
@@ -122,7 +122,8 @@ class TimelineParticipant
      * @param int[] $ids
      * @return TimelineParticipant[]
      */
-    public static function getParticipantByIds(array $participants, array $ids){
+    public static function getParticipantByIds(array $participants, array $ids): array
+    {
         $realParticipants = array();
         foreach ($participants as $participant){
             if(in_array($participant->getParticipantId(), $ids)){

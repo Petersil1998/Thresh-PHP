@@ -95,7 +95,7 @@ class Team
      * Team constructor.
      * @param stdClass $data
      */
-    public function __construct($data)
+    public function __construct(stdClass $data)
     {
         $this->teamId = $data->teamId;
         $this->win = $data->win === 'Win';

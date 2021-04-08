@@ -13,7 +13,8 @@ class SpectatorUtils
      * @param $game ActiveGame The current game
      * @return string
      */
-    public static function getSpectatorCommandWindows(string $pathToRiotFolder, ActiveGame $game){
+    public static function getSpectatorCommandWindows(string $pathToRiotFolder, ActiveGame $game): string
+    {
         $url = preg_replace('~{platform}~',Config::getPlatform(),Constants::SPECTATOR_URL);
         return 'cd /d "'.$pathToRiotFolder.'Riot Games\\League of Legends\\Game" && "League of Legends.exe" "spectator '
             .$url.' '.$game->getSpectatorKey().' '.$game->getGameId().' '.$game->getPlatformId().'" "-UseRads"';
