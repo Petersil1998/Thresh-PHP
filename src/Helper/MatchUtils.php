@@ -5,6 +5,8 @@ namespace Thresh\Helper;
 use Thresh\Entities\Match\MatchDetails;
 use Thresh_Core\Collections\Champions;
 use Thresh_Core\Collections\QueueTypes;
+use Thresh_Core\Objects\Champions\Champion;
+use Thresh_Core\Objects\QueueType;
 
 class MatchUtils
 {
@@ -12,17 +14,17 @@ class MatchUtils
      * Returns the Match List for a given Summoner
      * @param string $accountId
      * @param array $filter The filter which can contain the following keys: <ul>
-     * <li>champion (array of champion ID's)</li>
-     * <li>queue (array of Queue ID's)</li>
+     * <li>champion (array of {@link Champion}s or champion ID's)</li>
+     * <li>queue (array of {@link QueueType} or Queue ID's)</li>
      * <li>endTime (end limit for the query in epoch milliseconds)</li>
      * <li>beginTime (begin limit for the query in epoch milliseconds)</li>
      * <li>endIndex (end index for the list of matches)</li>
      * <li>startIndex (start index for the list of matches)</li>
      * </ul>
-     * @return MatchDetails[] | false Returns false if the filter is invalid, see logs for details
+     * @return MatchDetails[] | false Returns false if the filter is invalid, see syslogs for details
      */
     public static function getMatchListForSummoner(string $accountId, $filter = array()){
-        if(!self::validateFilter($filter)){
+        if(!self::validateAndParseFilter($filter)){
             return false;
         }
         $matches = array();
@@ -38,16 +40,23 @@ class MatchUtils
      * @param array $filter
      * @return bool
      */
-    private static function validateFilter(array $filter): bool
+    private static function validateAndParseFilter(array $filter): bool
     {
         if(array_key_exists('champion', $filter)){
             if(is_array($filter['champion'])){
+                $championIDs = array();
+                /** @var Champion|int $champion */
                 foreach ($filter['champion'] as $champion){
-                    if(Champions::getChampion($champion) === false){
+                    if($champion instanceof Champion) {
+                        $championIDs[] = $champion->getId();
+                    } elseif (Champions::getChampion($champion) !== false){
+                        $championIDs[] = $champion;
+                    } else {
                         syslog(LOG_ERR,'Unknown Champion ID: '.$champion);
                         return false;
                     }
                 }
+                $filter['champion'] = $championIDs;
             } else {
                 syslog(LOG_ERR,'Filter value of key \'champion\' must be an array');
                 return false;
@@ -55,12 +64,19 @@ class MatchUtils
         }
         if(array_key_exists('queue', $filter)){
             if(is_array($filter['queue'])){
+                $queueIDs = array();
+                /** @var QueueType|int $queue */
                 foreach ($filter['queue'] as $queue){
-                    if(QueueTypes::getQueueType($queue) === false){
+                    if($queue instanceof QueueType) {
+                        $queueIDs[] = $queue->getId();
+                    } elseif (QueueTypes::getQueueType($queue) !== false){
+                        $queueIDs[] = $queue;
+                    } else {
                         syslog(LOG_ERR,'Unknown Queue ID: '.$queue);
                         return false;
                     }
                 }
+                $filter['queue'] = $queueIDs;
             } else {
                 syslog(LOG_ERR,'Filter value of key \'queue\' must be an array');
                 return false;
