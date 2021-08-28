@@ -24,7 +24,9 @@ use Thresh\Entities\Match\Timeline\Events\TurretPlateDestroyedEvent;
 use Thresh\Entities\Match\Timeline\Events\WardKillEvent;
 use Thresh\Entities\Match\Timeline\Events\WardPlacedEvent;
 use Thresh\Helper\RiotAPIRequest;
+use Thresh_Core\Collections\Champions;
 use Thresh_Core\Collections\Items;
+use Thresh_Core\Objects\Champions\Champion;
 use Thresh_Core\Objects\Item;
 
 /**
@@ -75,12 +77,11 @@ class Timeline
     /**
      * This Method returns an array of Timelines of which the specified Match consists off
      * @param string $matchID
-     * @param MatchParticipant[] $matchParticipants
      * @param Team $blueTeam
      * @param Team $redTeam
      * @return Timeline[]
      */
-    public static function getTimelinesForMatch(string $matchID, array $matchParticipants, Team $blueTeam, Team $redTeam): array
+    public static function getTimelinesForMatch(string $matchID, Team $blueTeam, Team $redTeam): array
     {
         $timelines = array();
         $response = RiotAPIRequest::requestLoLMatchEndpoint('matches/'.$matchID.'/timeline');
@@ -104,10 +105,11 @@ class Timeline
                         $victimDamageDealt = array();
                         if(isset($event->victimDamageDealt)) {
                             foreach ($event->victimDamageDealt as $damage) {
+                                $champion = Champions::getChampionByName($damage->name);
+                                $champion = $champion ?: null;
                                 $participant = TimelineParticipant::getParticipantById($participants, $damage->participantId);
-                                $matchParticipant = self::getMatchParticipant($matchParticipants, $damage->participantId);
                                 $victimDamageDealt[] = new ChampionKillDamage($damage->basic, $damage->physicalDamage, $damage->magicDamage, $damage->trueDamage,
-                                    $participant, $matchParticipant->getChampion(), $damage->spellName, $damage->spellSlot, $damage->type);
+                                    $participant, $champion, $damage->spellName, $damage->spellSlot, $damage->type);
                             }
                         }
                         $victimDamageReceived = array();
@@ -117,9 +119,8 @@ class Timeline
                                     null, null, $damage->spellName, $damage->spellSlot, $damage->type);
                             } else {
                                 $participant = TimelineParticipant::getParticipantById($participants, $damage->participantId);
-                                $matchParticipant = self::getMatchParticipant($matchParticipants, $damage->participantId);
                                 $victimDamageReceived[] = new ChampionKillDamage($damage->basic, $damage->physicalDamage, $damage->magicDamage, $damage->trueDamage,
-                                    $participant, $matchParticipant->getChampion(), $damage->spellName, $damage->spellSlot, $damage->type);
+                                    $participant, Champions::getChampionByName($damage->name), $damage->spellName, $damage->spellSlot, $damage->type);
                             }
                         }
                         $events[] = new ChampionKillEvent($event->timestamp, $event->position->x, $event->position->y,
@@ -205,21 +206,6 @@ class Timeline
             $timelines[] = new Timeline($participants, $events, $frame->timestamp, $frameInterval);
         }
         return $timelines;
-    }
-
-    /**
-     * @param MatchParticipant[] $matchParticipants
-     * @param $id
-     * @return MatchParticipant|false
-     */
-    private static function getMatchParticipant(array $matchParticipants, $id)
-    {
-        foreach ($matchParticipants as $matchParticipant) {
-            if($matchParticipant->getParticipantId() === $id) {
-                return $matchParticipant;
-            }
-        }
-        return false;
     }
 
     /**

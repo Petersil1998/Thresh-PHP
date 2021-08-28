@@ -267,7 +267,7 @@ class MatchDetails
     public function getTimelines(): array
     {
         if(empty($this->timelines)){
-            $this->timelines = Timeline::getTimelinesForMatch($this->matchId, $this->participants, $this->blueTeam, $this->redTeam);
+            $this->timelines = Timeline::getTimelinesForMatch($this->matchId, $this->blueTeam, $this->redTeam);
         }
         return $this->timelines;
     }
