@@ -23,18 +23,25 @@ class ItemUndoEvent extends AbstractTimelineEvent
     private $before;
 
     /**
+     * @var int
+     */
+    private $goldGain;
+
+    /**
      * ItemUndoEvent constructor.
      * @param int $timestamp
      * @param TimelineParticipant $participant
      * @param Item $after
      * @param Item $before
+     * @param int $goldGain
      */
-    public function __construct(int $timestamp, TimelineParticipant $participant, Item $after, Item $before)
+    public function __construct(int $timestamp, TimelineParticipant $participant, Item $after, Item $before, int $goldGain)
     {
         parent::__construct($timestamp, TimelineEvents::ITEM_UNDO);
         $this->participant = $participant;
         $this->after = $after;
         $this->before = $before;
+        $this->goldGain = $goldGain;
     }
 
     /**
@@ -59,5 +66,13 @@ class ItemUndoEvent extends AbstractTimelineEvent
     public function getBefore(): Item
     {
         return $this->before;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGoldGain(): int
+    {
+        return $this->goldGain;
     }
 }

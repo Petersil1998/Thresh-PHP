@@ -12,7 +12,7 @@ class MatchUtils
 {
     /**
      * Returns the Match List for a given Summoner
-     * @param string $accountId
+     * @param string $puuid The Summoners PUUID
      * @param array $filter The filter which can contain the following keys: <ul>
      * <li>champion (array of {@link Champion}s or champion ID's)</li>
      * <li>queue (array of {@link QueueType} or Queue ID's)</li>
@@ -23,15 +23,14 @@ class MatchUtils
      * </ul>
      * @return MatchDetails[] | false Returns false if the filter is invalid, see syslogs for details
      */
-    public static function getMatchListForSummoner(string $accountId, $filter = array()){
+    public static function getMatchListForSummoner(string $puuid, $filter = array()){
         if(!self::validateAndParseFilter($filter)){
             return false;
         }
         $matches = array();
-        $matchList = json_decode(RiotAPIRequest::requestLoLMatchEndpoint('matchlists/by-account/'.$accountId, $filter)->getBody());
-        $matchObjs = $matchList->matches;
-        foreach ($matchObjs as $matchObj){
-            $matches[] = new MatchDetails($matchObj->gameId);
+        $matchList = json_decode(RiotAPIRequest::requestLoLMatchEndpoint('matches/by-puuid/'.$puuid.'/ids', $filter)->getBody());
+        foreach ($matchList as $matchID){
+            $matches[] = new MatchDetails($matchID);
         }
         return $matches;
     }

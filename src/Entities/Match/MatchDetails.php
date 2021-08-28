@@ -16,9 +16,14 @@ use Thresh_Core\Objects\QueueType;
 class MatchDetails
 {
     /**
-     * @var float
+     * @var int
      */
     private $gameId;
+
+    /**
+     * @var string
+     */
+    private $matchId;
 
     /**
      * @var string
@@ -36,6 +41,11 @@ class MatchDetails
     private $gameDuration;
 
     /**
+     * @var int
+     */
+    private $gameStart;
+
+    /**
      * @var QueueType
      */
     private $queueType;
@@ -46,11 +56,6 @@ class MatchDetails
     private $map;
 
     /**
-     * @var int
-     */
-    private $seasonId;
-
-    /**
      * @var string
      */
     private $gameVersion;
@@ -59,6 +64,11 @@ class MatchDetails
      * @var string
      */
     private $gameMode;
+
+    /**
+     * @var string
+     */
+    private $gameName;
 
     /**
      * @var string
@@ -81,46 +91,62 @@ class MatchDetails
     private $participants = array();
 
     /**
+     * @var string
+     */
+    private $tournamentCode;
+
+    /**
      * @var Timeline[]
      */
     private $timelines;
 
     /**
      * MatchDetails constructor.
-     * @param float $gameId
+     * @param string $matchID
      */
-    public function __construct(float $gameId)
+    public function __construct(string $matchID)
     {
-        $match = json_decode(RiotAPIRequest::requestLoLMatchEndpoint('matches/'.$gameId)->getBody());
-        $this->gameId = $gameId;
-        $this->platformId = $match->platformId;
-        $this->gameMode = $match->gameMode;
-        $this->gameCreation = $match->gameCreation;
-        $this->gameDuration = $match->gameDuration;
-        $this->queueType = QueueTypes::getQueueType($match->queueId);
-        $this->map = Maps::getMap($match->mapId);
-        $this->seasonId = $match->seasonId;
-        $this->gameVersion = $match->gameVersion;
-        $this->gameCreation = $match->gameMode;
-        $this->gameType = $match->gameType;
-        foreach ($match->teams as $team){
+        $match = json_decode(RiotAPIRequest::requestLoLMatchEndpoint('matches/'.$matchID)->getBody());
+        $this->gameId = $match->info->gameId;
+        $this->matchId = $match->metadata->matchId;
+        $this->gameCreation = $match->info->gameCreation;
+        $this->gameDuration = $match->info->gameDuration;
+        $this->gameMode = $match->info->gameMode;
+        $this->gameName = $match->info->gameName;
+        $this->gameStart = $match->info->gameStartTimestamp;
+        $this->gameType = $match->info->gameType;
+        $this->gameVersion = $match->info->gameVersion;
+        $this->map = Maps::getMap($match->info->mapId);
+        $this->platformId = $match->info->platformId;
+        $this->queueType = QueueTypes::getQueueType($match->info->queueId);
+        $this->tournamentCode = $match->info->tournamentCode;
+
+        foreach ($match->info->teams as $team){
             if($team->teamId === 100){
                 $this->blueTeam = new Team($team);
             } elseif ($team->teamId === 200){
                 $this->redTeam = new Team($team);
             }
         }
-        foreach ($match->participants as $participant){
+        foreach ($match->info->participants as $participant){
             $this->participants[] = new MatchParticipant($participant);
         }
     }
 
     /**
-     * @return float
+     * @return int
      */
-    public function getGameId(): float
+    public function getGameId(): int
     {
         return $this->gameId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMatchId(): string
+    {
+        return $this->matchId;
     }
 
     /**
@@ -148,6 +174,14 @@ class MatchDetails
     }
 
     /**
+     * @return int
+     */
+    public function getGameStart(): int
+    {
+        return $this->gameStart;
+    }
+
+    /**
      * @return QueueType
      */
     public function getQueueType(): QueueType
@@ -164,14 +198,6 @@ class MatchDetails
     }
 
     /**
-     * @return int
-     */
-    public function getSeasonId(): int
-    {
-        return $this->seasonId;
-    }
-
-    /**
      * @return string
      */
     public function getGameVersion(): string
@@ -185,6 +211,14 @@ class MatchDetails
     public function getGameMode(): string
     {
         return $this->gameMode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGameName(): string
+    {
+        return $this->gameName;
     }
 
     /**
@@ -212,6 +246,14 @@ class MatchDetails
     }
 
     /**
+     * @return string
+     */
+    public function getTournamentCode(): string
+    {
+        return $this->tournamentCode;
+    }
+
+    /**
      * @return MatchParticipant[]
      */
     public function getParticipants(): array
@@ -225,7 +267,7 @@ class MatchDetails
     public function getTimelines(): array
     {
         if(empty($this->timelines)){
-            $this->timelines = Timeline::getTimelinesForMatch($this->gameId);
+            $this->timelines = Timeline::getTimelinesForMatch($this->matchId, $this->participants, $this->blueTeam, $this->redTeam);
         }
         return $this->timelines;
     }

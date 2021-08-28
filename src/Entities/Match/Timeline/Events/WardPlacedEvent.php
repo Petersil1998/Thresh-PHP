@@ -13,7 +13,7 @@ class WardPlacedEvent extends AbstractTimelineEvent
     private $wardType;
 
     /**
-     * @var TimelineParticipant
+     * @var TimelineParticipant|null
      */
     private $creator;
 
@@ -21,9 +21,9 @@ class WardPlacedEvent extends AbstractTimelineEvent
      * WardPlacedEvent constructor.
      * @param int $timestamp
      * @param string $wardType
-     * @param TimelineParticipant $creator
+     * @param TimelineParticipant|null $creator
      */
-    public function __construct(int $timestamp, string $wardType, TimelineParticipant $creator)
+    public function __construct(int $timestamp, string $wardType, ?TimelineParticipant $creator)
     {
         parent::__construct($timestamp, TimelineEvents::WARD_PLACED);
         $this->wardType = $wardType;
@@ -39,9 +39,9 @@ class WardPlacedEvent extends AbstractTimelineEvent
     }
 
     /**
-     * @return TimelineParticipant
+     * @return TimelineParticipant|null
      */
-    public function getCreator(): TimelineParticipant
+    public function getCreator(): ?TimelineParticipant
     {
         return $this->creator;
     }

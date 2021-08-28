@@ -18,7 +18,7 @@ class EliteMonsterKillEvent extends AbstractTimelineEvent
     private $positionY;
 
     /**
-     * @var TimelineParticipant
+     * @var TimelineParticipant|null
      */
     private $killer;
 
@@ -37,11 +37,11 @@ class EliteMonsterKillEvent extends AbstractTimelineEvent
      * @param int $timestamp
      * @param int $positionX
      * @param int $positionY
-     * @param TimelineParticipant $killer
+     * @param TimelineParticipant|null $killer
      * @param string $monsterType
      * @param string|null $monsterSubType
      */
-    public function __construct(int $timestamp, int $positionX, int $positionY, TimelineParticipant $killer, string $monsterType, $monsterSubType = null)
+    public function __construct(int $timestamp, int $positionX, int $positionY, ?TimelineParticipant $killer, string $monsterType, string $monsterSubType = null)
     {
         parent::__construct($timestamp, TimelineEvents::ELITE_MONSTER_KILL);
         $this->positionX = $positionX;
@@ -68,9 +68,9 @@ class EliteMonsterKillEvent extends AbstractTimelineEvent
     }
 
     /**
-     * @return TimelineParticipant
+     * @return TimelineParticipant|null
      */
-    public function getKiller(): TimelineParticipant
+    public function getKiller(): ?TimelineParticipant
     {
         return $this->killer;
     }

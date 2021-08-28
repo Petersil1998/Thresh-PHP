@@ -17,7 +17,7 @@ use Thresh_Core\Objects\QueueType;
 class ActiveGame
 {
     /**
-     * @var int
+     * @var string
      */
     private $gameId;
 
@@ -133,9 +133,9 @@ class ActiveGame
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getGameId(): int
+    public function getGameId(): string
     {
         return $this->gameId;
     }

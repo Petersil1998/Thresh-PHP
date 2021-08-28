@@ -54,6 +54,11 @@ class Team
     /**
      * @var int
      */
+    private $championKills;
+
+    /**
+     * @var int
+     */
     private $towerKills;
 
     /**
@@ -74,17 +79,7 @@ class Team
     /**
      * @var int
      */
-    private $vilemawKills;
-
-    /**
-     * @var int
-     */
     private $riftHeraldKills;
-
-    /**
-     * @var int
-     */
-    private $dominionVictoryScore;
 
     /**
      * @var array
@@ -99,19 +94,18 @@ class Team
     {
         $this->teamId = $data->teamId;
         $this->win = $data->win === 'Win';
-        $this->firstBlood = $data->firstBlood;
-        $this->firstTower = $data->firstTower;
-        $this->firstInhibitor = $data->firstInhibitor;
-        $this->firstBaron = $data->firstBaron;
-        $this->firstDragon = $data->firstDragon;
-        $this->firstRiftHerald = $data->firstRiftHerald;
-        $this->towerKills = $data->towerKills;
-        $this->inhibitorKills = $data->inhibitorKills;
-        $this->baronKills = $data->baronKills;
-        $this->dragonKills = $data->dragonKills;
-        $this->vilemawKills = $data->vilemawKills;
-        $this->riftHeraldKills = $data->riftHeraldKills;
-        $this->dominionVictoryScore = $data->dominionVictoryScore;
+        $this->firstBaron = $data->objectives->baron->first;
+        $this->baronKills = $data->objectives->baron->kills;
+        $this->firstBlood = $data->objectives->champion->first;
+        $this->championKills = $data->objectives->champion->kills;
+        $this->firstDragon = $data->objectives->dragon->first;
+        $this->dragonKills = $data->objectives->dragon->kills;
+        $this->firstInhibitor = $data->objectives->inhibitor->first;
+        $this->inhibitorKills = $data->objectives->inhibitor->kills;
+        $this->firstRiftHerald = $data->objectives->riftHerald->first;
+        $this->riftHeraldKills = $data->objectives->riftHerald->kills;
+        $this->firstTower = $data->objectives->tower->first;
+        $this->towerKills = $data->objectives->tower->kills;
         $bans = array();
         foreach ($data->bans as $ban){
             $bans[$ban->pickTurn] = Champions::getChampion($ban->championId);
@@ -181,6 +175,14 @@ class Team
     public function hasFirstRiftHerald(): bool
     {
         return $this->firstRiftHerald;
+    }
+
+    /**
+     * @return int
+     */
+    public function getChampionKills(): int
+    {
+        return $this->championKills;
     }
 
     /**

@@ -17,7 +17,7 @@ class ChampionKillEvent extends AbstractTimelineEvent
     private $positionY;
 
     /**
-     * @var TimelineParticipant
+     * @var TimelineParticipant|null
      */
     private $killer;
 
@@ -32,15 +32,41 @@ class ChampionKillEvent extends AbstractTimelineEvent
     private $assists;
 
     /**
+     * @var int
+     */
+    private $bounty;
+
+    /**
+     * @var int
+     */
+    private $killStreakLength;
+
+    /**
+     * @var ChampionKillDamage[]
+     */
+    private $victimDamageDealt;
+
+    /**
+     * @var ChampionKillDamage[]
+     */
+    private $victimDamageReceived;
+
+    /**
      * ChampionKillEvent constructor.
      * @param int $timestamp
      * @param int $positionX
      * @param int $positionY
-     * @param TimelineParticipant $killer
+     * @param TimelineParticipant|null $killer
      * @param TimelineParticipant $victim
      * @param TimelineParticipant[] $assists
+     * @param int $bounty
+     * @param int $killStreakLength
+     * @param ChampionKillDamage[] $victimDamageDealt
+     * @param ChampionKillDamage[] $victimDamageReceived
      */
-    public function __construct(int $timestamp, int $positionX, int $positionY, TimelineParticipant $killer, TimelineParticipant $victim, array $assists)
+    public function __construct(int $timestamp, int $positionX, int $positionY, ?TimelineParticipant $killer,
+                                TimelineParticipant $victim, array $assists, int $bounty,
+                                int $killStreakLength, array $victimDamageDealt, array $victimDamageReceived)
     {
         parent::__construct($timestamp, TimelineEvents::CHAMPION_KILL);
         $this->positionX = $positionX;
@@ -48,6 +74,10 @@ class ChampionKillEvent extends AbstractTimelineEvent
         $this->killer = $killer;
         $this->victim = $victim;
         $this->assists = $assists;
+        $this->bounty = $bounty;
+        $this->killStreakLength = $killStreakLength;
+        $this->victimDamageDealt = $victimDamageDealt;
+        $this->victimDamageReceived = $victimDamageReceived;
     }
 
     /**
@@ -67,9 +97,9 @@ class ChampionKillEvent extends AbstractTimelineEvent
     }
 
     /**
-     * @return TimelineParticipant
+     * @return TimelineParticipant|null
      */
-    public function getKiller(): TimelineParticipant
+    public function getKiller(): ?TimelineParticipant
     {
         return $this->killer;
     }
@@ -88,5 +118,37 @@ class ChampionKillEvent extends AbstractTimelineEvent
     public function getAssists(): array
     {
         return $this->assists;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBounty(): int
+    {
+        return $this->bounty;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKillStreakLength(): int
+    {
+        return $this->killStreakLength;
+    }
+
+    /**
+     * @return ChampionKillDamage[]
+     */
+    public function getVictimDamageDealt(): array
+    {
+        return $this->victimDamageDealt;
+    }
+
+    /**
+     * @return ChampionKillDamage[]
+     */
+    public function getVictimDamageReceived(): array
+    {
+        return $this->victimDamageReceived;
     }
 }

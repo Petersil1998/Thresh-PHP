@@ -15,22 +15,20 @@ class RiotAPIRequest
 
     /**
      * @param string $url
-     * @param string $app
+     * @param string $app {@see AppType}
+     * @param string $type {@see RoutingType}
      * @param array $filter
      * @return Response
      */
-    private static function request(string $url, string $app, array $filter): Response
+    private static function request(string $url, string $app, string $type, array $filter): Response
     {
-        $basePath = '';
-        switch ($app){
-            case 'lol':
-                $basePath = preg_replace('~{platform}~',Config::getPlatform(),Constants::LEAGUE_API_BASE_PATH);
+        $basePath = Constants::API_BASE_PATH.$app.'/';
+        switch ($type) {
+            case RoutingType::PLATFORM:
+                $basePath = preg_replace('~{}~',Config::getPlatform(), $basePath);
                 break;
-            case 'tft':
-                $basePath = preg_replace('~{platform}~',Config::getPlatform(),Constants::TFT_API_BASE_PATH);
-                break;
-            case 'riot':
-                $basePath = preg_replace('~{region}~',Config::getRegion(),Constants::RIOT_API_BASE_PATH);
+            case RoutingType::REGION:
+                $basePath = preg_replace('~{}~',Config::getRegion(), $basePath);
                 break;
         }
         $api_key = EncryptionUtils::decrypt(Config::getApiKey());
@@ -46,7 +44,7 @@ class RiotAPIRequest
      */
     public static function requestLoLSummonerEndpoint(string $url, $filter = array()): Response
     {
-        return RiotAPIRequest::request('summoner/v4/'.$url, 'lol', $filter);
+        return RiotAPIRequest::request('summoner/v4/'.$url, AppType::LOL, RoutingType::PLATFORM, $filter);
     }
 
     /**
@@ -57,7 +55,7 @@ class RiotAPIRequest
      */
     public static function requestLoLChampionMasteryEndpoint(string $url, $filter = array()): Response
     {
-        return RiotAPIRequest::request('champion-mastery/v4/'.$url, 'lol', $filter);
+        return RiotAPIRequest::request('champion-mastery/v4/'.$url, AppType::LOL, RoutingType::PLATFORM, $filter);
     }
 
     /**
@@ -68,7 +66,7 @@ class RiotAPIRequest
      */
     public static function requestLoLLeagueEndpoint(string $url, $filter = array()): Response
     {
-        return RiotAPIRequest::request('league/v4/'.$url, 'lol', $filter);
+        return RiotAPIRequest::request('league/v4/'.$url, AppType::LOL, RoutingType::PLATFORM, $filter);
     }
 
     /**
@@ -79,7 +77,7 @@ class RiotAPIRequest
      */
     public static function requestTftLeagueEndpoint(string $url, $filter = array()): Response
     {
-        return RiotAPIRequest::request('league/v1/'.$url, 'tft', $filter);
+        return RiotAPIRequest::request('league/v1/'.$url, AppType::TFT, RoutingType::PLATFORM, $filter);
     }
 
     /**
@@ -90,7 +88,7 @@ class RiotAPIRequest
      */
     public static function requestLoLSpectatorEndpoint(string $url, $filter = array()): Response
     {
-        return RiotAPIRequest::request('spectator/v4/'.$url, 'lol', $filter);
+        return RiotAPIRequest::request('spectator/v4/'.$url, AppType::LOL, RoutingType::PLATFORM, $filter);
     }
 
     /**
@@ -101,7 +99,7 @@ class RiotAPIRequest
      */
     public static function requestLoLMatchEndpoint(string $url, $filter = array()): Response
     {
-        return RiotAPIRequest::request('match/v4/'.$url, 'lol', $filter);
+        return RiotAPIRequest::request('match/v5/'.$url, AppType::LOL, RoutingType::REGION, $filter);
     }
 
     /**
@@ -112,6 +110,17 @@ class RiotAPIRequest
      */
     public static function requestRiotAccountEndpoint(string $url, $filter = array()): Response
     {
-        return RiotAPIRequest::request('account/v1/'.$url, 'riot', $filter);
+        return RiotAPIRequest::request('account/v1/'.$url, AppType::RIOT, RoutingType::PLATFORM, $filter);
     }
+}
+
+class AppType {
+    const RIOT = "riot";
+    const LOL = "lol";
+    const TFT = "tft";
+}
+
+class RoutingType {
+    const PLATFORM = "platform";
+    const REGION = "region";
 }

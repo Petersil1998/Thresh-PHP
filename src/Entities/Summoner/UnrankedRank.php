@@ -12,5 +12,6 @@ class UnrankedRank extends Rank
     {
         parent::__construct(false);
         $this->tier = 'Unranked';
+        $this->rank = '';
     }
 }

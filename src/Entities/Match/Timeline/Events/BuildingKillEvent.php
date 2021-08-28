@@ -18,7 +18,7 @@ class BuildingKillEvent extends AbstractTimelineEvent
     private $positionY;
 
     /**
-     * @var TimelineParticipant
+     * @var TimelineParticipant|null
      */
     private $killer;
 
@@ -52,14 +52,14 @@ class BuildingKillEvent extends AbstractTimelineEvent
      * @param int $timestamp
      * @param int $positionX
      * @param int $positionY
-     * @param TimelineParticipant $killer
+     * @param TimelineParticipant|null $killer
      * @param TimelineParticipant[] $assists
      * @param int $teamId
      * @param string $buildingType
      * @param string $laneType
      * @param string $towerType
      */
-    public function __construct(int $timestamp, int $positionX, int $positionY, TimelineParticipant $killer, array $assists, int $teamId, string $buildingType, string $laneType, string $towerType)
+    public function __construct(int $timestamp, int $positionX, int $positionY, ?TimelineParticipant $killer, array $assists, int $teamId, string $buildingType, string $laneType, string $towerType)
     {
         parent::__construct($timestamp, TimelineEvents::BUILDING_KILL);
         $this->positionX = $positionX;
@@ -89,9 +89,9 @@ class BuildingKillEvent extends AbstractTimelineEvent
     }
 
     /**
-     * @return TimelineParticipant
+     * @return TimelineParticipant|null
      */
-    public function getKiller(): TimelineParticipant
+    public function getKiller(): ?TimelineParticipant
     {
         return $this->killer;
     }

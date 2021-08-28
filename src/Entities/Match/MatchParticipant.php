@@ -3,11 +3,18 @@
 namespace Thresh\Entities\Match;
 
 use stdClass;
+use Thresh\Entities\Summoner\Summoner;
 use Thresh_Core\Collections\Champions;
 use Thresh_Core\Collections\Items;
+use Thresh_Core\Collections\Runes;
+use Thresh_Core\Collections\RuneStats;
+use Thresh_Core\Collections\RuneStyles;
 use Thresh_Core\Collections\SummonerSpells;
 use Thresh_Core\Objects\Champions\Champion;
 use Thresh_Core\Objects\Item;
+use Thresh_Core\Objects\Runes\Rune;
+use Thresh_Core\Objects\Runes\RuneStat;
+use Thresh_Core\Objects\Runes\RuneStyle;
 use Thresh_Core\Objects\SummonerSpell;
 
 /**
@@ -219,7 +226,7 @@ class MatchParticipant
     /**
      * @var int
      */
-    private $magicalDamageTaken;
+    private $magicDamageTaken;
 
     /**
      * @var int
@@ -264,17 +271,7 @@ class MatchParticipant
     /**
      * @var int
      */
-    private $neutralMinionsKilledTeamJungle;
-
-    /**
-     * @var int
-     */
-    private $neutralMinionsKilledEnemyJungle;
-
-    /**
-     * @var int
-     */
-    private $totalTimeCrowdControlDealt;
+    private $totalTimeCCDealt;
 
     /**
      * @var int
@@ -322,264 +319,149 @@ class MatchParticipant
     private $firstTowerAssist;
 
     /**
-     * @var int
+     * @var Rune
      */
-    private $firstInhibitorKill;
+    private $keyStone;
 
     /**
      * @var int
      */
-    private $firstInhibitorAssist;
+    private $keyStoneExtra1;
 
     /**
      * @var int
      */
-    private $combatPlayerScore;
+    private $keyStoneExtra2;
 
     /**
      * @var int
      */
-    private $objectivePlayerScore;
+    private $keyStoneExtra3;
+
+    /**
+     * @var Rune
+     */
+    private $primarySub1;
 
     /**
      * @var int
      */
-    private $totalPlayerScore;
+    private $primarySub1Extra1;
 
     /**
      * @var int
      */
-    private $totalScoreRank;
+    private $primarySub1Extra2;
 
     /**
      * @var int
      */
-    private $playerScore0;
+    private $primarySub1Extra3;
+
+    /**
+     * @var Rune
+     */
+    private $primarySub2;
 
     /**
      * @var int
      */
-    private $playerScore1;
+    private $primarySub2Extra1;
 
     /**
      * @var int
      */
-    private $playerScore2;
+    private $primarySub2Extra2;
 
     /**
      * @var int
      */
-    private $playerScore3;
+    private $primarySub2Extra3;
+
+    /**
+     * @var Rune
+     */
+    private $primarySub3;
 
     /**
      * @var int
      */
-    private $playerScore4;
+    private $primarySub3Extra1;
 
     /**
      * @var int
      */
-    private $playerScore5;
+    private $primarySub3Extra2;
 
     /**
      * @var int
      */
-    private $playerScore6;
+    private $primarySub3Extra3;
 
     /**
-     * @var int
-     */
-    private $playerScore7;
-
-    /**
-     * @var int
-     */
-    private $playerScore8;
-
-    /**
-     * @var int
-     */
-    private $playerScore9;
-
-    /**
-     * @var int
-     */
-    private $perk0;
-
-    /**
-     * @var int
-     */
-    private $perk0Var1;
-
-    /**
-     * @var int
-     */
-    private $perk0Var2;
-
-    /**
-     * @var int
-     */
-    private $perk0Var3;
-
-    /**
-     * @var int
-     */
-    private $perk1;
-
-    /**
-     * @var int
-     */
-    private $perk1Var1;
-
-    /**
-     * @var int
-     */
-    private $perk1Var2;
-
-    /**
-     * @var int
-     */
-    private $perk1Var3;
-
-    /**
-     * @var int
-     */
-    private $perk2;
-
-    /**
-     * @var int
-     */
-    private $perk2Var1;
-
-    /**
-     * @var int
-     */
-    private $perk2Var2;
-
-    /**
-     * @var int
-     */
-    private $perk2Var3;
-
-    /**
-     * @var int
-     */
-    private $perk3;
-
-    /**
-     * @var int
-     */
-    private $perk3Var1;
-
-    /**
-     * @var int
-     */
-    private $perk3Var2;
-
-    /**
-     * @var int
-     */
-    private $perk3Var3;
-
-    /**
-    * @var int
+    * @var Rune
     */
-    private $perk4;
+    private $secondarySub1;
 
     /**
      * @var int
      */
-    private $perk4Var1;
+    private $secondarySub1Extra1;
 
     /**
      * @var int
      */
-    private $perk4Var2;
+    private $secondarySub1Extra2;
 
     /**
      * @var int
      */
-    private $perk4Var3;
+    private $secondarySub1Extra3;
+
+    /**
+     * @var Rune
+     */
+    private $secondarySub2;
 
     /**
      * @var int
      */
-    private $perk5;
+    private $secondarySub2Extra1;
 
     /**
      * @var int
      */
-    private $perk5Var1;
+    private $secondarySub2Extra2;
 
     /**
      * @var int
      */
-    private $perk5Var2;
+    private $secondarySub2Extra3;
 
     /**
-     * @var int
+     * @var RuneStyle
      */
-    private $perk5Var3;
+    private $primaryStyle;
 
     /**
-     * @var int
+     * @var RuneStyle
      */
-    private $perkPrimaryStyle;
+    private $secondaryStyle;
 
     /**
-     * @var int
+     * @var RuneStat
      */
-    private $perkSubStyle;
+    private $statDefense;
 
     /**
-     * @var int
+     * @var RuneStat
      */
-    private $statPerk0;
+    private $statFlex;
 
     /**
-     * @var int
+     * @var RuneStat
      */
-    private $statPerk1;
-
-    /**
-     * @var int
-     */
-    private $statPerk2;
-
-    /**
-     * @var array
-     */
-    private $creepsPerMinDeltas;
-
-    /**
-     * @var array
-     */
-    private $xpPerMinDeltas;
-
-    /**
-     * @var array
-     */
-    private $goldPerMinDeltas;
-
-    /**
-     * @var array
-     */
-    private $csDiffPerMinDeltas;
-
-    /**
-     * @var array
-     */
-    private $xpDiffPerMinDeltas;
-
-    /**
-     * @var array
-     */
-    private $damageTakenPerMinDeltas;
-
-    /**
-     * @var array
-     */
-    private $damageTakenDiffPerMinDeltas;
+    private $statOffense;
 
     /**
      * @var string
@@ -592,151 +474,317 @@ class MatchParticipant
     private $lane;
 
     /**
+     * @var int
+     */
+    private $baronKills;
+
+    /**
+     * @var int
+     */
+    private $bountyLevel;
+
+    /**
+     * @var int
+     */
+    private $champExperience;
+
+    /**
+     * @var int
+     */
+    private $championTransform;
+
+    /**
+     * @var int
+     */
+    private $consumablesPurchased;
+
+    /**
+     * @var int
+     */
+    private $controlWardsPlaces;
+
+    /**
+     * @var int
+     */
+    private $damageDealtToBuildings;
+
+    /**
+     * @var int
+     */
+    private $dragonKills;
+
+    /**
+     * @var bool
+     */
+    private $gameEndedInEarlySurrender;
+
+    /**
+     * @var bool
+     */
+    private $gameEndedInSurrender;
+
+    /**
+     * @var string
+     */
+    private $individualPosition;
+
+    /**
+     * @var int
+     */
+    private $inhibitorTakedowns;
+
+    /**
+     * @var int
+     */
+    private $inhibitorsLost;
+
+    /**
+     * @var int
+     */
+    private $itemsPurchased;
+
+    /**
+     * @var int
+     */
+    private $nexusKills;
+
+    /**
+     * @var int
+     */
+    private $nexusLost;
+
+    /**
+     * @var int
+     */
+    private $nexusTakedowns;
+
+    /**
+     * @var int
+     */
+    private $objectivesStolen;
+
+    /**
+     * @var int
+     */
+    private $objectivesStolenAssists;
+
+    /**
+     * @var Summoner
+     */
+    private $summoner;
+
+    /**
+     * @var int
+     */
+    private $spell1Casts;
+
+    /**
+     * @var int
+     */
+    private $spell2Casts;
+
+    /**
+     * @var int
+     */
+    private $spell3Casts;
+
+    /**
+     * @var int
+     */
+    private $spell4Casts;
+
+    /**
+     * @var int
+     */
+    private $summonerSpell1Casts;
+
+    /**
+     * @var int
+     */
+    private $summonerSpell2Casts;
+
+    /**
+     * @var bool
+     */
+    private $teamEarlySurrendered;
+
+    /**
+     * @var int
+     */
+    private $teamId;
+
+    /**
+     * @var string
+     */
+    private $teamPosition;
+
+    /**
+     * @var int
+     */
+    private $timePlayed;
+
+    /**
+     * @var int
+     */
+    private $totalDamageShieldedOnTeammates;
+
+    /**
+     * @var int
+     */
+    private $totalHealsOnTeammates;
+
+    /**
+     * @var int
+     */
+    private $totalTimeSpentDead;
+
+    /**
+     * @var int
+     */
+    private $turretTakedowns;
+
+    /**
+     * @var int
+     */
+    private $turretsLost;
+
+    /**
+     * @var bool
+     */
+    private $won;
+
+    /**
      * MatchParticipant constructor.
      * @param stdClass $participantData
      */
     public function __construct(stdClass $participantData)
     {
-        $this->setProperty($participantData, 'participantId');
-        if(property_exists($participantData, 'championId')){
-            $this->champion = Champions::getChampion($participantData->championId);
-        }
-        if(property_exists($participantData, 'spell1Id')){
-            $this->summonerSpell1 = SummonerSpells::getSummonerSpell($participantData->spell1Id);
-        }
-        if(property_exists($participantData, 'spell2Id')){
-            $this->summonerSpell2 = SummonerSpells::getSummonerSpell($participantData->spell2Id);
-        }
-        $stats = $participantData->stats;
-        for ($i = 0; $i < 7; $i++){
-            if(property_exists($stats, "item$i")){
-                $this->{"item$i"} = Items::getItem($stats->{"item$i"});
-            }
-        }
-        $this->setProperty($stats, 'kills');
-        $this->setProperty($stats, 'deaths');
-        $this->setProperty($stats, 'assists');
-        $this->setProperty($stats, 'largestKillingSpree');
-        $this->setProperty($stats, 'largestMultiKill');
-        $this->setProperty($stats, 'killingSprees');
-        $this->setProperty($stats, 'longestTimeSpentLiving');
-        $this->setProperty($stats, 'doubleKills');
-        $this->setProperty($stats, 'tripleKills');
-        $this->setProperty($stats, 'quadraKills');
-        $this->setProperty($stats, 'pentaKills');
-        $this->setProperty($stats, 'unrealKills');
-        $this->setProperty($stats, 'totalDamageDealt');
-        $this->setProperty($stats, 'magicDamageDealt');
-        $this->setProperty($stats, 'physicalDamageDealt');
-        $this->setProperty($stats, 'trueDamageDealt');
-        $this->setProperty($stats, 'largestCriticalStrike');
-        $this->setProperty($stats, 'totalDamageDealtToChampions');
-        $this->setProperty($stats, 'magicDamageDealtToChampions');
-        $this->setProperty($stats, 'physicalDamageDealtToChampions');
-        $this->setProperty($stats, 'trueDamageDealtToChampions');
-        $this->setProperty($stats, 'totalHeal');
-        $this->setProperty($stats, 'totalUnitsHealed');
-        $this->setProperty($stats, 'damageSelfMitigated');
-        $this->setProperty($stats, 'damageDealtToObjectives');
-        $this->setProperty($stats, 'damageDealtToTurrets');
-        $this->setProperty($stats, 'visionScore');
-        $this->setProperty($stats, 'timeCCingOthers');
-        $this->setProperty($stats, 'totalDamageTaken');
-        $this->setProperty($stats, 'magicalDamageTaken');
-        $this->setProperty($stats, 'physicalDamageTaken');
-        $this->setProperty($stats, 'trueDamageTaken');
-        $this->setProperty($stats, 'goldEarned');
-        $this->setProperty($stats, 'goldSpent');
-        $this->setProperty($stats, 'turretKills');
-        $this->setProperty($stats, 'inhibitorKills');
-        $this->setProperty($stats, 'totalMinionsKilled');
-        $this->setProperty($stats, 'neutralMinionsKilled');
-        $this->setProperty($stats, 'neutralMinionsKilledTeamJungle');
-        $this->setProperty($stats, 'neutralMinionsKilledEnemyJungle');
-        $this->setProperty($stats, 'totalTimeCrowdControlDealt');
-        $this->setProperty($stats, 'champLevel');
-        $this->setProperty($stats, 'visionWardsBoughtInGame');
-        $this->setProperty($stats, 'sightWardsBoughtInGame');
-        $this->setProperty($stats, 'wardsPlaced');
-        $this->setProperty($stats, 'wardsKilled');
-        $this->setProperty($stats, 'firstBloodKill');
-        $this->setProperty($stats, 'firstBloodAssist');
-        $this->setProperty($stats, 'firstTowerKill');
-        $this->setProperty($stats, 'firstTowerAssist');
-        $this->setProperty($stats, 'firstInhibitorKill');
-        $this->setProperty($stats, 'firstInhibitorAssist');
-        $this->setProperty($stats, 'combatPlayerScore');
-        $this->setProperty($stats, 'objectivePlayerScore');
-        $this->setProperty($stats, 'totalPlayerScore');
-        $this->setProperty($stats, 'totalScoreRank');
-        $this->setProperty($stats, 'playerScore0');
-        $this->setProperty($stats, 'playerScore1');
-        $this->setProperty($stats, 'playerScore2');
-        $this->setProperty($stats, 'playerScore3');
-        $this->setProperty($stats, 'playerScore4');
-        $this->setProperty($stats, 'playerScore5');
-        $this->setProperty($stats, 'playerScore6');
-        $this->setProperty($stats, 'playerScore7');
-        $this->setProperty($stats, 'playerScore8');
-        $this->setProperty($stats, 'playerScore9');
-        $this->setProperty($stats, 'perk0');
-        $this->setProperty($stats, 'perk0Var1');
-        $this->setProperty($stats, 'perk0Var2');
-        $this->setProperty($stats, 'perk0Var3');
-        $this->setProperty($stats, 'perk1');
-        $this->setProperty($stats, 'perk1Var1');
-        $this->setProperty($stats, 'perk1Var2');
-        $this->setProperty($stats, 'perk1Var3');
-        $this->setProperty($stats, 'perk2');
-        $this->setProperty($stats, 'perk2Var1');
-        $this->setProperty($stats, 'perk2Var2');
-        $this->setProperty($stats, 'perk2Var3');
-        $this->setProperty($stats, 'perk3');
-        $this->setProperty($stats, 'perk3Var1');
-        $this->setProperty($stats, 'perk3Var2');
-        $this->setProperty($stats, 'perk3Var3');
-        $this->setProperty($stats, 'perk4');
-        $this->setProperty($stats, 'perk4Var1');
-        $this->setProperty($stats, 'perk4Var2');
-        $this->setProperty($stats, 'perk4Var3');
-        $this->setProperty($stats, 'perk5');
-        $this->setProperty($stats, 'perk5Var1');
-        $this->setProperty($stats, 'perk5Var2');
-        $this->setProperty($stats, 'perk5Var3');
-        $this->setProperty($stats, 'perkPrimaryStyle');
-        $this->setProperty($stats, 'perkSubStyle');
-        $this->setProperty($stats, 'statPerk0');
-        $this->setProperty($stats, 'statPerk1');
-        $this->setProperty($stats, 'statPerk2');;
-        $timeline = $participantData->timeline;
-        $this->setProperty($timeline, 'creepsPerMinDeltas', '',true);
-        $this->setProperty($timeline, 'xpPerMinDeltas', '',true);
-        $this->setProperty($timeline, 'goldPerMinDeltas', '',true);
-        $this->setProperty($timeline, 'csDiffPerMinDeltas', '',true);
-        $this->setProperty($timeline, 'xpDiffPerMinDeltas', '',true);
-        $this->setProperty($timeline, 'damageTakenPerMinDeltas', '',true);
-        $this->setProperty($timeline, 'damageTakenDiffPerMinDeltas', '',true);
-        $this->setProperty($timeline, 'role');
-        $this->setProperty($timeline, 'lane');
-    }
+        $this->assists = $participantData->assists;
+        $this->baronKills = $participantData->baronKills;
+        $this->bountyLevel = $participantData->bountyLevel;
+        $this->champExperience = $participantData->champExperience;
+        $this->champLevel = $participantData->champLevel;
+        $this->champion = Champions::getChampion($participantData->championId);
+        $this->championTransform = $participantData->championTransform;
+        $this->consumablesPurchased = $participantData->consumablesPurchased;
+        $this->controlWardsPlaces = $participantData->detectorWardsPlaced;
+        $this->damageDealtToBuildings = $participantData->damageDealtToBuildings;
+        $this->damageDealtToObjectives = $participantData->damageDealtToObjectives;
+        $this->damageDealtToTurrets = $participantData->damageDealtToTurrets;
+        $this->damageSelfMitigated = $participantData->damageSelfMitigated;
+        $this->deaths = $participantData->deaths;
+        $this->doubleKills = $participantData->doubleKills;
+        $this->dragonKills = $participantData->dragonKills;
+        $this->firstBloodAssist = $participantData->firstBloodAssist;
+        $this->firstBloodKill = $participantData->firstBloodKill;
+        $this->firstTowerAssist = $participantData->firstTowerAssist;
+        $this->firstTowerKill = $participantData->firstTowerKill;
+        $this->gameEndedInEarlySurrender = $participantData->gameEndedInEarlySurrender;
+        $this->gameEndedInSurrender = $participantData->gameEndedInSurrender;
+        $this->goldEarned = $participantData->goldEarned;
+        $this->goldSpent = $participantData->goldSpent;
+        $this->individualPosition = $participantData->individualPosition;
+        $this->inhibitorKills = $participantData->inhibitorKills;
+        $this->inhibitorTakedowns = $participantData->inhibitorTakedowns;
+        $this->inhibitorsLost = $participantData->inhibitorsLost;
+        $this->itemsPurchased = $participantData->itemsPurchased;
+        $this->killingSprees = $participantData->killingSprees;
+        $this->kills = $participantData->kills;
+        $this->lane = $participantData->lane;
+        $this->largestCriticalStrike = $participantData->largestCriticalStrike;
+        $this->largestKillingSpree = $participantData->largestKillingSpree;
+        $this->largestMultiKill = $participantData->largestMultiKill;
+        $this->longestTimeSpentLiving = $participantData->longestTimeSpentLiving;
+        $this->magicDamageDealt = $participantData->magicDamageDealt;
+        $this->magicDamageDealtToChampions = $participantData->magicDamageDealtToChampions;
+        $this->magicDamageTaken = $participantData->magicDamageTaken;
+        $this->neutralMinionsKilled = $participantData->neutralMinionsKilled;
+        $this->nexusKills = $participantData->nexusKills;
+        $this->nexusLost = $participantData->nexusLost;
+        $this->nexusTakedowns = $participantData->nexusTakedowns;
+        $this->objectivesStolen = $participantData->objectivesStolen;
+        $this->objectivesStolenAssists = $participantData->objectivesStolenAssists;
+        $this->participantId = $participantData->participantId;
+        $this->pentaKills = $participantData->pentaKills;
+        $this->physicalDamageDealt = $participantData->physicalDamageDealt;
+        $this->physicalDamageDealtToChampions = $participantData->physicalDamageDealtToChampions;
+        $this->physicalDamageTaken = $participantData->physicalDamageTaken;
+        $this->quadraKills = $participantData->quadraKills;
+        $this->role = $participantData->role;
+        $this->sightWardsBoughtInGame = $participantData->sightWardsBoughtInGame;
+        $this->summoner = Summoner::getSummonerByPUUID($participantData->puuid);
+        $this->spell1Casts = $participantData->spell1Casts;
+        $this->spell2Casts = $participantData->spell2Casts;
+        $this->spell3Casts = $participantData->spell3Casts;
+        $this->spell4Casts = $participantData->spell4Casts;
+        $this->summonerSpell1 = SummonerSpells::getSummonerSpell($participantData->summoner1Id);
+        $this->summonerSpell1Casts = $participantData->summoner1Casts;
+        $this->summonerSpell2 = SummonerSpells::getSummonerSpell($participantData->summoner2Id);
+        $this->summonerSpell2Casts = $participantData->summoner2Casts;
+        $this->teamEarlySurrendered = $participantData->teamEarlySurrendered;
+        $this->teamId = $participantData->teamId;
+        $this->teamPosition = $participantData->teamPosition;
+        $this->timeCCingOthers = $participantData->timeCCingOthers;
+        $this->timePlayed = $participantData->timePlayed;
+        $this->totalDamageDealt = $participantData->totalDamageDealt;
+        $this->totalDamageDealtToChampions = $participantData->totalDamageDealtToChampions;
+        $this->totalDamageShieldedOnTeammates = $participantData->totalDamageShieldedOnTeammates;
+        $this->totalDamageTaken = $participantData->totalDamageTaken;
+        $this->totalHeal = $participantData->totalHeal;
+        $this->totalHealsOnTeammates = $participantData->totalHealsOnTeammates;
+        $this->totalMinionsKilled = $participantData->totalMinionsKilled;
+        $this->totalTimeCCDealt = $participantData->totalTimeCCDealt;
+        $this->totalTimeSpentDead = $participantData->totalTimeSpentDead;
+        $this->totalUnitsHealed = $participantData->totalUnitsHealed;
+        $this->tripleKills = $participantData->tripleKills;
+        $this->trueDamageDealt = $participantData->trueDamageDealt;
+        $this->trueDamageDealtToChampions = $participantData->trueDamageDealtToChampions;
+        $this->trueDamageTaken = $participantData->trueDamageTaken;
+        $this->turretKills = $participantData->turretKills;
+        $this->turretTakedowns = $participantData->turretTakedowns;
+        $this->turretsLost = $participantData->turretsLost;
+        $this->unrealKills = $participantData->unrealKills;
+        $this->visionScore = $participantData->visionScore;
+        $this->visionWardsBoughtInGame = $participantData->visionWardsBoughtInGame;
+        $this->wardsPlaced = $participantData->wardsPlaced;
+        $this->wardsKilled = $participantData->wardsKilled;
+        $this->won = $participantData->win;
 
-    /**
-     * @param stdClass $object The object that holds the property to be set
-     * @param string $property The properties name (has to be the same in $this and in the object)
-     * @param string $alternativeName The alternative Property name if it differs from the objects property name
-     * @param bool $convertPropertyToArray whether or not the property should be converted to an associative array
-     * (only works if the property is instance of stdClass)
-     */
-    private function setProperty(stdClass $object, string $property, $alternativeName = '', $convertPropertyToArray = false){
-        $thisFieldName = $property;
-        if(!empty($alternativeName)){
-            $thisFieldName = $alternativeName;
-        }
-        if(property_exists($object, $property)){
-            if($convertPropertyToArray && $object->$property instanceof stdClass){
-                $this->$thisFieldName = json_decode(json_encode($object->$property), true);
-            } else {
-                $this->$thisFieldName = $object->$property;
+        $this->keyStone = Runes::getRune($participantData->perks->styles[0]->selections[0]->perk);
+        $this->keyStoneExtra1 = $participantData->perks->styles[0]->selections[0]->var1;
+        $this->keyStoneExtra2 = $participantData->perks->styles[0]->selections[0]->var2;
+        $this->keyStoneExtra3 = $participantData->perks->styles[0]->selections[0]->var3;
+        $this->primarySub1 = Runes::getRune($participantData->perks->styles[0]->selections[1]->perk);
+        $this->primarySub1Extra1 = $participantData->perks->styles[0]->selections[1]->var1;
+        $this->primarySub1Extra2 = $participantData->perks->styles[0]->selections[1]->var2;
+        $this->primarySub1Extra3 = $participantData->perks->styles[0]->selections[1]->var3;
+        $this->primarySub2 = Runes::getRune($participantData->perks->styles[0]->selections[2]->perk);
+        $this->primarySub2Extra1 = $participantData->perks->styles[0]->selections[2]->var1;
+        $this->primarySub2Extra2 = $participantData->perks->styles[0]->selections[2]->var2;
+        $this->primarySub2Extra3 = $participantData->perks->styles[0]->selections[2]->var3;
+        $this->primarySub3 = Runes::getRune($participantData->perks->styles[0]->selections[3]->perk);
+        $this->primarySub3Extra1 = $participantData->perks->styles[0]->selections[3]->var1;
+        $this->primarySub3Extra2 = $participantData->perks->styles[0]->selections[3]->var2;
+        $this->primarySub3Extra3 = $participantData->perks->styles[0]->selections[3]->var3;
+        $this->primaryStyle = RuneStyles::getRuneStyle($participantData->perks->styles[0]->style);
+
+        $this->secondarySub1 = Runes::getRune($participantData->perks->styles[1]->selections[0]->perk);
+        $this->secondarySub1Extra1 = $participantData->perks->styles[1]->selections[0]->var1;
+        $this->secondarySub1Extra2 = $participantData->perks->styles[1]->selections[0]->var2;
+        $this->secondarySub1Extra3 = $participantData->perks->styles[1]->selections[0]->var3;
+        $this->secondarySub2 = Runes::getRune($participantData->perks->styles[1]->selections[1]->perk);
+        $this->secondarySub2Extra1 = $participantData->perks->styles[1]->selections[1]->var1;
+        $this->secondarySub2Extra2 = $participantData->perks->styles[1]->selections[1]->var2;
+        $this->secondarySub2Extra3 = $participantData->perks->styles[1]->selections[1]->var3;
+        $this->secondaryStyle = RuneStyles::getRuneStyle($participantData->perks->styles[1]->style);
+
+        $this->statDefense = RuneStats::getRuneStat($participantData->perks->statPerks->defense);
+        $this->statFlex= RuneStats::getRuneStat($participantData->perks->statPerks->flex);
+        $this->statOffense = RuneStats::getRuneStat($participantData->perks->statPerks->offense);
+
+        for ($i = 0; $i < 7; $i++){
+            if(property_exists($participantData, "item$i")){
+                $this->{"item$i"} = Items::getItem($participantData->{"item$i"});
             }
         }
     }
@@ -1064,9 +1112,9 @@ class MatchParticipant
     /**
      * @return int
      */
-    public function getMagicalDamageTaken(): int
+    public function getMagicDamageTaken(): int
     {
-        return $this->magicalDamageTaken;
+        return $this->magicDamageTaken;
     }
 
     /**
@@ -1136,25 +1184,9 @@ class MatchParticipant
     /**
      * @return int
      */
-    public function getNeutralMinionsKilledTeamJungle(): int
+    public function getTotalTimeCCDealt(): int
     {
-        return $this->neutralMinionsKilledTeamJungle;
-    }
-
-    /**
-     * @return int
-     */
-    public function getNeutralMinionsKilledEnemyJungle(): int
-    {
-        return $this->neutralMinionsKilledEnemyJungle;
-    }
-
-    /**
-     * @return int
-     */
-    public function getTotalTimeCrowdControlDealt(): int
-    {
-        return $this->totalTimeCrowdControlDealt;
+        return $this->totalTimeCCDealt;
     }
 
     /**
@@ -1230,419 +1262,235 @@ class MatchParticipant
     }
 
     /**
-     * @return int
+     * @return Rune
      */
-    public function getFirstInhibitorKill(): int
+    public function getKeyStone(): Rune
     {
-        return $this->firstInhibitorKill;
+        return $this->keyStone;
     }
 
     /**
      * @return int
      */
-    public function getFirstInhibitorAssist(): int
+    public function getKeyStoneExtra1(): int
     {
-        return $this->firstInhibitorAssist;
+        return $this->keyStoneExtra1;
     }
 
     /**
      * @return int
      */
-    public function getCombatPlayerScore(): int
+    public function getKeyStoneExtra2(): int
     {
-        return $this->combatPlayerScore;
+        return $this->keyStoneExtra2;
     }
 
     /**
      * @return int
      */
-    public function getObjectivePlayerScore(): int
+    public function getKeyStoneExtra3(): int
     {
-        return $this->objectivePlayerScore;
+        return $this->keyStoneExtra3;
+    }
+
+    /**
+     * @return Rune
+     */
+    public function getPrimarySub1(): Rune
+    {
+        return $this->primarySub1;
     }
 
     /**
      * @return int
      */
-    public function getTotalPlayerScore(): int
+    public function getPrimarySub1Extra1(): int
     {
-        return $this->totalPlayerScore;
+        return $this->primarySub1Extra1;
     }
 
     /**
      * @return int
      */
-    public function getTotalScoreRank(): int
+    public function getPrimarySub1Extra2(): int
     {
-        return $this->totalScoreRank;
+        return $this->primarySub1Extra2;
     }
 
     /**
      * @return int
      */
-    public function getPlayerScore0(): int
+    public function getPrimarySub1Extra3(): int
     {
-        return $this->playerScore0;
+        return $this->primarySub1Extra3;
+    }
+
+    /**
+     * @return Rune
+     */
+    public function getPrimarySub2(): Rune
+    {
+        return $this->primarySub2;
     }
 
     /**
      * @return int
      */
-    public function getPlayerScore1(): int
+    public function getPrimarySub2Extra1(): int
     {
-        return $this->playerScore1;
+        return $this->primarySub2Extra1;
     }
 
     /**
      * @return int
      */
-    public function getPlayerScore2(): int
+    public function getPrimarySub2Extra2(): int
     {
-        return $this->playerScore2;
+        return $this->primarySub2Extra2;
     }
 
     /**
      * @return int
      */
-    public function getPlayerScore3(): int
+    public function getPrimarySub2Extra3(): int
     {
-        return $this->playerScore3;
+        return $this->primarySub2Extra3;
+    }
+
+    /**
+     * @return Rune
+     */
+    public function getPrimarySub3(): Rune
+    {
+        return $this->primarySub3;
     }
 
     /**
      * @return int
      */
-    public function getPlayerScore4(): int
+    public function getPrimarySub3Extra1(): int
     {
-        return $this->playerScore4;
+        return $this->primarySub3Extra1;
     }
 
     /**
      * @return int
      */
-    public function getPlayerScore5(): int
+    public function getPrimarySub3Extra2(): int
     {
-        return $this->playerScore5;
+        return $this->primarySub3Extra2;
     }
 
     /**
      * @return int
      */
-    public function getPlayerScore6(): int
+    public function getPrimarySub3Extra3(): int
     {
-        return $this->playerScore6;
+        return $this->primarySub3Extra3;
+    }
+
+    /**
+     * @return Rune
+     */
+    public function getSecondarySub1(): Rune
+    {
+        return $this->secondarySub1;
     }
 
     /**
      * @return int
      */
-    public function getPlayerScore7(): int
+    public function getSecondarySub1Extra1(): int
     {
-        return $this->playerScore7;
+        return $this->secondarySub1Extra1;
     }
 
     /**
      * @return int
      */
-    public function getPlayerScore8(): int
+    public function getSecondarySub1Extra2(): int
     {
-        return $this->playerScore8;
+        return $this->secondarySub1Extra2;
     }
 
     /**
      * @return int
      */
-    public function getPlayerScore9(): int
+    public function getSecondarySub1Extra3(): int
     {
-        return $this->playerScore9;
+        return $this->secondarySub1Extra3;
+    }
+
+    /**
+     * @return Rune
+     */
+    public function getSecondarySub2(): Rune
+    {
+        return $this->secondarySub2;
     }
 
     /**
      * @return int
      */
-    public function getPerk0(): int
+    public function getSecondarySub2Extra1(): int
     {
-        return $this->perk0;
+        return $this->secondarySub2Extra1;
     }
 
     /**
      * @return int
      */
-    public function getPerk0Var1(): int
+    public function getSecondarySub2Extra2(): int
     {
-        return $this->perk0Var1;
+        return $this->secondarySub2Extra2;
     }
 
     /**
      * @return int
      */
-    public function getPerk0Var2(): int
+    public function getSecondarySub2Extra3(): int
     {
-        return $this->perk0Var2;
+        return $this->secondarySub2Extra3;
     }
 
     /**
-     * @return int
+     * @return RuneStyle
      */
-    public function getPerk0Var3(): int
+    public function getPrimaryStyle(): RuneStyle
     {
-        return $this->perk0Var3;
+        return $this->primaryStyle;
     }
 
     /**
-     * @return int
+     * @return RuneStyle
      */
-    public function getPerk1(): int
+    public function getSecondaryStyle(): RuneStyle
     {
-        return $this->perk1;
+        return $this->secondaryStyle;
     }
 
     /**
-     * @return int
+     * @return RuneStat
      */
-    public function getPerk1Var1(): int
+    public function getStatDefense(): RuneStat
     {
-        return $this->perk1Var1;
+        return $this->statDefense;
     }
 
     /**
-     * @return int
+     * @return RuneStat
      */
-    public function getPerk1Var2(): int
+    public function getStatFlex(): RuneStat
     {
-        return $this->perk1Var2;
+        return $this->statFlex;
     }
 
     /**
-     * @return int
+     * @return RuneStat
      */
-    public function getPerk1Var3(): int
+    public function getStatOffense(): RuneStat
     {
-        return $this->perk1Var3;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk2(): int
-    {
-        return $this->perk2;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk2Var1(): int
-    {
-        return $this->perk2Var1;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk2Var2(): int
-    {
-        return $this->perk2Var2;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk2Var3(): int
-    {
-        return $this->perk2Var3;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk3(): int
-    {
-        return $this->perk3;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk3Var1(): int
-    {
-        return $this->perk3Var1;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk3Var2(): int
-    {
-        return $this->perk3Var2;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk3Var3(): int
-    {
-        return $this->perk3Var3;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk4(): int
-    {
-        return $this->perk4;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk4Var1(): int
-    {
-        return $this->perk4Var1;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk4Var2(): int
-    {
-        return $this->perk4Var2;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk4Var3(): int
-    {
-        return $this->perk4Var3;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk5(): int
-    {
-        return $this->perk5;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk5Var1(): int
-    {
-        return $this->perk5Var1;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk5Var2(): int
-    {
-        return $this->perk5Var2;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerk5Var3(): int
-    {
-        return $this->perk5Var3;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerkPrimaryStyle(): int
-    {
-        return $this->perkPrimaryStyle;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPerkSubStyle(): int
-    {
-        return $this->perkSubStyle;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStatPerk0(): int
-    {
-        return $this->statPerk0;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStatPerk1(): int
-    {
-        return $this->statPerk1;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStatPerk2(): int
-    {
-        return $this->statPerk2;
-    }
-
-    /**
-     * @return array
-     */
-    public function getCreepsPerMinDeltas(): array
-    {
-        return $this->creepsPerMinDeltas;
-    }
-
-    /**
-     * @return array
-     */
-    public function getXpPerMinDeltas(): array
-    {
-        return $this->xpPerMinDeltas;
-    }
-
-    /**
-     * @return array
-     */
-    public function getGoldPerMinDeltas(): array
-    {
-        return $this->goldPerMinDeltas;
-    }
-
-    /**
-     * @return array
-     */
-    public function getCsDiffPerMinDeltas(): array
-    {
-        return $this->csDiffPerMinDeltas;
-    }
-
-    /**
-     * @return array
-     */
-    public function getXpDiffPerMinDeltas(): array
-    {
-        return $this->xpDiffPerMinDeltas;
-    }
-
-    /**
-     * @return array
-     */
-    public function getDamageTakenPerMinDeltas(): array
-    {
-        return $this->damageTakenPerMinDeltas;
-    }
-
-    /**
-     * @return array
-     */
-    public function getDamageTakenDiffPerMinDeltas(): array
-    {
-        return $this->damageTakenDiffPerMinDeltas;
+        return $this->statOffense;
     }
 
     /**
@@ -1659,5 +1507,293 @@ class MatchParticipant
     public function getLane(): string
     {
         return $this->lane;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBaronKills(): int
+    {
+        return $this->baronKills;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBountyLevel(): int
+    {
+        return $this->bountyLevel;
+    }
+
+    /**
+     * @return int
+     */
+    public function getChampExperience(): int
+    {
+        return $this->champExperience;
+    }
+
+    /**
+     * @return int
+     */
+    public function getChampionTransform(): int
+    {
+        return $this->championTransform;
+    }
+
+    /**
+     * @return int
+     */
+    public function getConsumablesPurchased(): int
+    {
+        return $this->consumablesPurchased;
+    }
+
+    /**
+     * @return int
+     */
+    public function getControlWardsPlaces(): int
+    {
+        return $this->controlWardsPlaces;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDamageDealtToBuildings(): int
+    {
+        return $this->damageDealtToBuildings;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDragonKills(): int
+    {
+        return $this->dragonKills;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasGameEndedInEarlySurrender(): bool
+    {
+        return $this->gameEndedInEarlySurrender;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasGameEndedInSurrender(): bool
+    {
+        return $this->gameEndedInSurrender;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIndividualPosition(): string
+    {
+        return $this->individualPosition;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInhibitorsLost(): int
+    {
+        return $this->inhibitorsLost;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInhibitorTakedowns(): int
+    {
+        return $this->inhibitorTakedowns;
+    }
+
+    /**
+     * @return int
+     */
+    public function getItemsPurchased(): int
+    {
+        return $this->itemsPurchased;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNexusKills(): int
+    {
+        return $this->nexusKills;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNexusLost(): int
+    {
+        return $this->nexusLost;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNexusTakedowns(): int
+    {
+        return $this->nexusTakedowns;
+    }
+
+    /**
+     * @return int
+     */
+    public function getObjectivesStolen(): int
+    {
+        return $this->objectivesStolen;
+    }
+
+    /**
+     * @return int
+     */
+    public function getObjectivesStolenAssists(): int
+    {
+        return $this->objectivesStolenAssists;
+    }
+
+    /**
+     * @return Summoner
+     */
+    public function getSummoner(): Summoner
+    {
+        return $this->summoner;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSpell1Casts(): int
+    {
+        return $this->spell1Casts;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSpell2Casts(): int
+    {
+        return $this->spell2Casts;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSpell3Casts(): int
+    {
+        return $this->spell3Casts;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSpell4Casts(): int
+    {
+        return $this->spell4Casts;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSummonerSpell1Casts(): int
+    {
+        return $this->summonerSpell1Casts;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSummonerSpell2Casts(): int
+    {
+        return $this->summonerSpell2Casts;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasTeamEarlySurrendered(): bool
+    {
+        return $this->teamEarlySurrendered;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTeamId(): int
+    {
+        return $this->teamId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTeamPosition(): string
+    {
+        return $this->teamPosition;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimePlayed(): int
+    {
+        return $this->timePlayed;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalDamageShieldedOnTeammates(): int
+    {
+        return $this->totalDamageShieldedOnTeammates;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalHealsOnTeammates(): int
+    {
+        return $this->totalHealsOnTeammates;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalTimeSpentDead(): int
+    {
+        return $this->totalTimeSpentDead;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTurretsLost(): int
+    {
+        return $this->turretsLost;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTurretTakedowns(): int
+    {
+        return $this->turretTakedowns;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasWon(): bool
+    {
+        return $this->won;
     }
 }

@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Petersil1998/Thresh-Core.git",
-                "reference": "14b587dc8d78f359b2400dcf469a792dfc18c42b"
+                "reference": "b969802b4e7ac4187b126222b1041193d99617ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Petersil1998/Thresh-Core/zipball/14b587dc8d78f359b2400dcf469a792dfc18c42b",
-                "reference": "14b587dc8d78f359b2400dcf469a792dfc18c42b",
+                "url": "https://api.github.com/repos/Petersil1998/Thresh-Core/zipball/b969802b4e7ac4187b126222b1041193d99617ca",
+                "reference": "b969802b4e7ac4187b126222b1041193d99617ca",
                 "shasum": ""
             },
             "require": {
@@ -26,6 +26,7 @@
                 "ext-json": "*",
                 "php": ">=7.1"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -39,7 +40,11 @@
                 }
             ],
             "description": "This is the core module for the Thresh Libraries",
-            "time": "2021-04-08T20:16:36+00:00"
+            "support": {
+                "issues": "https://github.com/Petersil1998/Thresh-Core/issues",
+                "source": "https://github.com/Petersil1998/Thresh-Core/tree/master"
+            },
+            "time": "2021-08-28T15:12:15+00:00"
         }
     ],
     "packages-dev": [],
@@ -56,5 +61,6 @@
         "ext-openssl": "*",
         "ext-gd": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
 }
