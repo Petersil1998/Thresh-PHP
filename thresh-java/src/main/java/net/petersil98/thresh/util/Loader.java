@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 public class Loader {
     
-    private static final String BASE_PATH = System.getProperty("user.dir") + File.separator;
+    private static final String BASE_PATH = System.getProperty("user.dir") + File.separator + "thresh-java" + File.separator;
 
     private static final String RUNE_STATS_FILE_PATH = BASE_PATH + "runeStats.json";
     private static final String RUNES_AND_RUNE_STYLES_FILE_PATH = BASE_PATH  + "runes.json";
