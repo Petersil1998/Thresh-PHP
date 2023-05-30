@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Petersil1998/Thresh-Core.git",
-                "reference": "b969802b4e7ac4187b126222b1041193d99617ca"
+                "reference": "3052d1ad33f2913caa738769e4154dd8853a2a80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Petersil1998/Thresh-Core/zipball/b969802b4e7ac4187b126222b1041193d99617ca",
-                "reference": "b969802b4e7ac4187b126222b1041193d99617ca",
+                "url": "https://api.github.com/repos/Petersil1998/Thresh-Core/zipball/3052d1ad33f2913caa738769e4154dd8853a2a80",
+                "reference": "3052d1ad33f2913caa738769e4154dd8853a2a80",
                 "shasum": ""
             },
             "require": {
@@ -44,7 +44,7 @@
                 "issues": "https://github.com/Petersil1998/Thresh-Core/issues",
                 "source": "https://github.com/Petersil1998/Thresh-Core/tree/master"
             },
-            "time": "2021-08-28T15:12:15+00:00"
+            "time": "2021-08-28T17:02:50+00:00"
         }
     ],
     "packages-dev": [],
