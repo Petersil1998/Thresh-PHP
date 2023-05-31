@@ -1,5 +1,3 @@
 .idea/
-thresh-php/vendor/
-thresh-php/public/
-thresh-java/build/
-thresh-java/.gradle/
+vendor/
+public/
